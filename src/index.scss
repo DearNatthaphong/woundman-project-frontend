@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } */
+
+// include customized bootstrap
+@import './scss/config';
+// include all of Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// .App {
+//   // max-width: 800px;
+//   // height: 1000px;
+// }
+
+// .login .container {
+//   max-width: 330px;
+// }
