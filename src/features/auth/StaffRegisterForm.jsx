@@ -109,7 +109,7 @@ function StaffRegisterForm({ onSuccess }) {
       </div>
       <div className="col-12">
         <input
-          type="text"
+          type="password"
           className="form-control"
           name="password"
           value={input.password}
@@ -119,7 +119,7 @@ function StaffRegisterForm({ onSuccess }) {
       </div>
       <div className="col-12">
         <input
-          type="text"
+          type="password"
           className="form-control"
           name="confirmPassword"
           value={input.confirmPassword}

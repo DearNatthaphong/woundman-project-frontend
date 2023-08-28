@@ -140,7 +140,7 @@ function PatientRegisterForm({ onSuccess }) {
       </div>
       <div className="col-12">
         <input
-          type="text"
+          type="password"
           className="form-control"
           name="password"
           placeholder="กำหนดรหัสผ่านใหม่"
@@ -150,7 +150,7 @@ function PatientRegisterForm({ onSuccess }) {
       </div>
       <div className="col-12">
         <input
-          type="text"
+          type="password"
           className="form-control"
           name="confirmPassword"
           placeholder="ยืนยันรหัสผ่าน"

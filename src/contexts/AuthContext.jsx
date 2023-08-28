@@ -23,10 +23,28 @@ function AuthContextProvider({ children }) {
     addAccessToken(res.data.token);
   };
 
+  const patientLogin = async (input) => {
+    const res = await authService.patientLogin(input);
+    setPatient(true);
+    addAccessToken(res.data.token);
+  };
+
+  const staffLogin = async (input) => {
+    const res = await authService.staffLogin(input);
+    setStaff(true);
+    addAccessToken(res.data.token);
+  };
+
   return (
     <AuthContext.Provider
-      value={{ patient, staff, patientRegister, staffRegister }}
-      // value={{ staff, staffRegister }}
+      value={{
+        patient,
+        staff,
+        patientRegister,
+        staffRegister,
+        patientLogin,
+        staffLogin
+      }}
     >
       {children}
     </AuthContext.Provider>
