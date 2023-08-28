@@ -22,10 +22,10 @@ function Modal({ children, open, onClose, title }) {
       return modal?.show();
     }
     modal?.hide(); // ไม่ให้ error จาก render รอบแรก เพราะ ค่ายังเป็น null อยู่
-  }, [open]);
+  }, [open, modal]);
 
   return (
-    <div className="modal fade" tabindex="-1" ref={modalEl} onClick={onClose}>
+    <div className="modal fade" tabIndex="-1" ref={modalEl} onClick={onClose}>
       {/* // vanila js */}
       {/* <div className="modal fade" tabindex="-1" id="modal"> */}
       <div
@@ -35,7 +35,7 @@ function Modal({ children, open, onClose, title }) {
         <div className="modal-content">
           <div className="modal-header">
             <button type="button" className="btn-close invisible"></button>
-            <h5 className="modal-title">{title}</h5>
+            <h4 className="modal-title">{title}</h4>
             <button
               type="button"
               className="btn-close"

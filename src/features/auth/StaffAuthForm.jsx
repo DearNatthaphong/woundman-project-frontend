@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import StaffLoginForm from './StaffLoginForm';
 import Modal from '../../components/ui/Modal';
+import StaffRegisterForm from './StaffRegisterForm';
 
 function StaffAuthForm() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +20,7 @@ function StaffAuthForm() {
           ลงทะเบียน
         </button>
         <Modal title="Test" open={isOpen} onClose={() => setIsOpen(false)}>
-          Modal Children Body
+          <StaffRegisterForm onSuccess={() => setIsOpen(false)} />
         </Modal>
       </div>
     </main>
