@@ -1,19 +1,21 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from '../components/Layout';
-import Login from '../components/Login';
 import Home from '../pages/Home';
-import About from '../pages/About';
-import Dashboard from '../pages/Dashboard';
 import NoMatch from '../pages/NoMatch';
 import StaffLoginPage from '../pages/StaffLoginPage';
 import PatientLoginPage from '../pages/PatientLoginPage';
+import { useAuth } from '../contexts/AuthContext';
 
 function Router() {
+  const { patient, staff } = useAuth();
   return (
     <Routes>
-      <Route path="/" element={<PatientLoginPage />} />
-      <Route path="/staff" element={<StaffLoginPage />} />
+      <Route path="/" element={patient ? <Home /> : <PatientLoginPage />} />
+      <Route path="/staff" element={staff ? <Home /> : <StaffLoginPage />} />
+      {/* Other routes based on user roles */}
+      <Route path="*" element={<NoMatch />} />
+
       {/* <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
