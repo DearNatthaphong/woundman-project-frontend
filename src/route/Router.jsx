@@ -1,28 +1,53 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Layout from '../components/Layout';
 import Home from '../pages/Home';
 import NoMatch from '../pages/NoMatch';
 import StaffLoginPage from '../pages/StaffLoginPage';
 import PatientLoginPage from '../pages/PatientLoginPage';
 import { useAuth } from '../contexts/AuthContext';
+import PatientListPage from '../pages/PatientListPage';
+import PatientProfilePage from '../pages/PatientProfilePage';
+import StaffProfilePage from '../pages/StaffProfilePage';
+import Head from '../layouts/header/Head';
+import TreatmentListPage from '../pages/TreatmentListPage';
+import ReceiptListPage from '../pages/ReceiptListPage';
+import CaseListPage from '../pages/CaseListPage';
+import PaymentPage from '../pages/PaymentPage';
 
 function Router() {
   const { patient, staff } = useAuth();
   return (
     <Routes>
-      <Route path="/" element={patient ? <Home /> : <PatientLoginPage />} />
-      <Route path="/staff" element={staff ? <Home /> : <StaffLoginPage />} />
-      {/* Other routes based on user roles */}
-      <Route path="*" element={<NoMatch />} />
+      {/* patient */}
+      {patient ? (
+        <>
+          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<Head />} />
+          <Route path="/profile" element={<PatientProfilePage />} />
+          <Route path="/treatments" element={<TreatmentListPage />} />
+          <Route path="/receipts" element={<ReceiptListPage />} />
+        </>
+      ) : (
+        <Route path="/" element={<PatientLoginPage />} />
+      )}
 
-      {/* <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="login" element={<Login />} />
-        <Route path="*" element={<NoMatch />} />
-      </Route> */}
+      {/* staff */}
+      {staff ? (
+        <>
+          <Route path="/staff" element={<Head />} />
+          <Route path="/staff/profile" element={<StaffProfilePage />} />
+          <Route path="/patients" element={<PatientListPage />} />
+          <Route path="/cases" element={<CaseListPage />} />
+          <Route path="/treatments" element={<TreatmentListPage />} />
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/receipts" element={<ReceiptListPage />} />
+        </>
+      ) : (
+        <Route path="/staff" element={<StaffLoginPage />} />
+      )}
+
+      {/* no match */}
+      <Route path="*" element={<NoMatch />} />
     </Routes>
   );
 }

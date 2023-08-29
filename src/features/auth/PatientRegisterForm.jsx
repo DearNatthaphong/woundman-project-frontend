@@ -16,7 +16,7 @@ function PatientRegisterForm({ onSuccess }) {
     idCard: '',
     dateOfBirth: '',
     mobile: '',
-    idLine: null,
+    idLine: '',
     password: '',
     confirmPassword: '',
     consent: false
