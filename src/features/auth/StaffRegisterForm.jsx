@@ -61,8 +61,6 @@ function StaffRegisterForm({ onSuccess }) {
           <option value="นาย">นาย</option>
           <option value="น.ส.">น.ส.</option>
           <option value="นาง">นาง</option>
-          <option value="ด.ช.">ด.ช.</option>
-          <option value="ด.ญ.">ด.ญ.</option>
         </select>
       </div>
       <div className="col-6">

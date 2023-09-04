@@ -1,9 +1,9 @@
 import React from 'react';
 import Avatar from '../../components/ui/Avatar';
 
-function DropdownToggle() {
+function DropdownToggle({ onClick }) {
   return (
-    <div>
+    <div onClick={onClick} className="dropdown-toggle">
       <Avatar src="https://github.com/mdo.png" size="40" />
     </div>
   );
