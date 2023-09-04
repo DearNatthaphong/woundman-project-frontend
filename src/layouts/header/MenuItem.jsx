@@ -1,5 +1,4 @@
 import React from 'react';
-import Home from '../../pages/Home';
 import { Link } from 'react-router-dom';
 
 function MenuItem({ to, active, children }) {

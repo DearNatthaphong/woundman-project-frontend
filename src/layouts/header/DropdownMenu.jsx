@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import Avatar from '../../components/ui/Avatar';
 import { useAuth } from '../../contexts/AuthContext';
 
-function DropdownMenu({ open }) {
-  const { patient, patientLogout, staffLogout } = useAuth();
+function DropdownMenu({ open, onClose }) {
+  const { patient, patientLogout, staffLogout, staff } = useAuth();
   return (
     <ul
       className={`dropdown-menu end-0 px-2 mt-1 border shadow-sm rounded-xl w-sm-90${
@@ -13,13 +13,37 @@ function DropdownMenu({ open }) {
       // aria-labelledby="dropdownUser1"
     >
       <li>
-        <Link className="dropdown-item d-flex align-items-center gap-3" to="#">
-          <Avatar src="https://github.com/mdo.png" size="60" />
-          <div>
-            <p className="text-black fw-bold mt-1 mb-0">นายหมอ ตั้งใจทำ</p>
-            <small className="text-muted">ดูโปรไฟล์ของคุณ</small>
-          </div>
-        </Link>
+        {patient && (
+          <Link
+            onClick={onClose}
+            className="dropdown-item d-flex align-items-center gap-3"
+            to="/profile"
+          >
+            <Avatar src={patient.profileImage} size="60" />
+            <div>
+              <p className="text-black fw-bold mt-1 mb-0">
+                {patient.firstName} {patient.lastName}
+              </p>
+              <small className="text-muted">ดูโปรไฟล์ของคุณ</small>
+            </div>
+          </Link>
+        )}
+
+        {staff && (
+          <Link
+            onClick={onClose}
+            className="dropdown-item d-flex align-items-center gap-3"
+            to="/staff/profile"
+          >
+            <Avatar src={staff.profileImage} size="60" />
+            <div>
+              <p className="text-black fw-bold mt-1 mb-0">
+                {staff.firstName} {staff.lastName}
+              </p>
+              <small className="text-muted">ดูโปรไฟล์ของคุณ</small>
+            </div>
+          </Link>
+        )}
       </li>
       <li>
         <hr className="dropdown-divider" />
