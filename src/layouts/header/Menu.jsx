@@ -13,9 +13,9 @@ function Menu() {
   return (
     <div className="navbar-collapse collapse" id="navbarsExample04">
       <ul className="navbar-nav me-auto mb-2 mb-md-0">
-        {patient ? (
+        {patient && (
           <>
-            <MenuItem to="/" active={pathname === '/'}>
+            <MenuItem to="/patient/home" active={pathname === '/patient/home'}>
               <i
                 className={`far fa-calendar-alt fa-xl pe-2 text-${
                   pathname === '/' ? 'primary' : 'light'
@@ -23,7 +23,10 @@ function Menu() {
               />{' '}
               <span>การนัดหมาย</span>
             </MenuItem>
-            <MenuItem to="/treatments" active={pathname === '/treatments'}>
+            <MenuItem
+              to="/patient/treatments"
+              active={pathname === '/patient/treatments'}
+            >
               <i
                 className={`fas fa-hand-holding-medical fa-xl pe-2 text-${
                   pathname === '/treatments' ? 'primary' : 'light'
@@ -31,7 +34,10 @@ function Menu() {
               />{' '}
               <span>การรักษา</span>
             </MenuItem>
-            <MenuItem to="/receipts" active={pathname === '/receipts'}>
+            <MenuItem
+              to="patient/receipts"
+              active={pathname === 'patient/receipts'}
+            >
               <i
                 className={`fas fa-receipt fa-xl pe-2 text-${
                   pathname === '/receipts' ? 'primary' : 'light'
@@ -40,9 +46,10 @@ function Menu() {
               <span>ใบเสร็จ</span>
             </MenuItem>
           </>
-        ) : (
+        )}
+        {staff && (
           <>
-            <MenuItem to="/staff" active={pathname === '/staff'}>
+            <MenuItem to="/staff/home" active={pathname === '/staff/home'}>
               <i
                 className={`far fa-calendar-alt fa-xl pe-2 text-${
                   pathname === '/staff' ? 'primary' : 'light'
@@ -50,7 +57,10 @@ function Menu() {
               />{' '}
               <span>การนัดหมาย</span>
             </MenuItem>
-            <MenuItem to="/patients" active={pathname === '/patients'}>
+            <MenuItem
+              to="staff/patients"
+              active={pathname === 'staff/patients'}
+            >
               <i
                 className={`fas fa-user-plus fa-xl pe-2 text-${
                   pathname === '/patients' ? 'primary' : 'light'
@@ -58,7 +68,7 @@ function Menu() {
               />{' '}
               <span>รายชื่อคนไข้</span>
             </MenuItem>
-            <MenuItem to="/cases" active={pathname === '/cases'}>
+            <MenuItem to="staff/cases" active={pathname === 'staff/cases'}>
               <i
                 className={`fas fa-folder-plus fa-xl pe-2 text-${
                   pathname === '/cases' ? 'primary' : 'light'
@@ -66,7 +76,10 @@ function Menu() {
               />{' '}
               <span>การตรวจรักษา</span>
             </MenuItem>
-            <MenuItem to="/treatments" active={pathname === '/treatments'}>
+            <MenuItem
+              to="staff/treatments"
+              active={pathname === 'staff/treatments'}
+            >
               <i
                 className={`fas fa-hand-holding-medical fa-xl pe-2 text-${
                   pathname === '/treatments' ? 'primary' : 'light'
@@ -75,7 +88,10 @@ function Menu() {
               <span>การรักษา</span>
             </MenuItem>
 
-            <MenuItem to="/receipts" active={pathname === '/receipts'}>
+            <MenuItem
+              to="staff/receipts"
+              active={pathname === 'staff/receipts'}
+            >
               <i
                 className={`fas fa-receipt fa-xl pe-2 text-${
                   pathname === '/receipts' ? 'primary' : 'light'

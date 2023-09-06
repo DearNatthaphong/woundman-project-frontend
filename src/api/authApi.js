@@ -1,10 +1,11 @@
 import axios from '../config/axios';
 // import { getAccessToken } from '../utils/localStorage';
 
-export const patientRegister = (input) => axios.post('/auth/register', input);
+export const patientRegister = (input) =>
+  axios.post('/auth/patient/register', input);
 export const patientLogin = ({ idCard, password }) =>
-  axios.post('/auth/login', { idCard, password });
-export const getMe = () => axios.get('/auth/me');
+  axios.post('/auth/patient/login', { idCard, password });
+export const getMe = () => axios.get('/auth/patient/me');
 // axios.get('/auth/me');
 // axios.get('/auth/me', {
 //   headers: { Authorization: `Bearer ` + getAccessToken() }

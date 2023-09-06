@@ -16,7 +16,7 @@ function Modal({ children, open, onClose, title }) {
     setModal(modalObj);
   }, []);
 
-  // open modal
+  // open modal by bootstrap
   useEffect(() => {
     if (open) {
       return modal?.show();
@@ -25,6 +25,8 @@ function Modal({ children, open, onClose, title }) {
   }, [open, modal]);
 
   return (
+    // <div className='modal-backdrop fade show'></div>
+    // <div className='modal fade show d-block'></div>
     <div className="modal fade" tabIndex="-1" ref={modalEl} onClick={onClose}>
       {/* // vanila js */}
       {/* <div className="modal fade" tabindex="-1" id="modal"> */}

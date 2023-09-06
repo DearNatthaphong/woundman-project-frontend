@@ -21,10 +21,10 @@ function AuthContextProvider({ children }) {
     const fetchMe = async () => {
       try {
         if (getAccessToken()) {
-          if (currentPath === '/') {
+          if (currentPath.startsWith('/patient')) {
             await getMe();
           }
-          if (currentPath === '/staff') {
+          if (currentPath.startsWith('/staff')) {
             await getStaffMe();
           }
         }

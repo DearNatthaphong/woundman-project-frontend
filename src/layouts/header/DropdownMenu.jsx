@@ -17,7 +17,7 @@ function DropdownMenu({ open, onClose }) {
           <Link
             onClick={onClose}
             className="dropdown-item d-flex align-items-center gap-3"
-            to="/profile"
+            to="/patient/profile"
           >
             <Avatar src={patient.profileImage} size="60" />
             <div>

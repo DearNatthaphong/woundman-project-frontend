@@ -30,8 +30,8 @@ axios.interceptors.response.use(
     console.log(err);
     if (err.response.status === 401) {
       removeAccessToken();
-      if (err.url === '/') {
-        window.location.replace('/');
+      if (err.url === '/patient') {
+        window.location.replace('/patient');
       }
       if (err.url === '/staff') {
         window.location.replace('/staff');
