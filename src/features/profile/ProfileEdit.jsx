@@ -3,7 +3,7 @@ import Modal from '../../components/ui/Modal';
 import ProfileImageForm from './ProfileImageForm';
 import ProfileInfoForm from './ProfileInfoForm';
 
-function ProfileEdit() {
+function ProfileEdit({ isMe }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="row justify-content-center my-3">
@@ -20,7 +20,7 @@ function ProfileEdit() {
           open={isOpen}
           onClose={() => setIsOpen(false)}
         >
-          <ProfileImageForm />
+          <ProfileImageForm isMe={isMe} />
           <ProfileInfoForm />
         </Modal>
       </>

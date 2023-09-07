@@ -40,7 +40,7 @@ function Router() {
           <Route path="/staff/profile" element={<ProfilePage />} />
           <Route path="/staff/profile/:id" element={<ProfilePage />} />
           <Route path="/staff/patients" element={<PatientListPage />} />
-          <Route path="/staff/patient/:id" element={<ProfilePage />} />
+          <Route path="/staff/patients/:id" element={<ProfilePage />} />
           <Route path="/staff/cases" element={<CaseListPage />} />
           {/* <Route path="/staff/case/:id" element={<CasePage />} /> */}
           <Route path="/staff/treatments" element={<TreatmentListPage />} />

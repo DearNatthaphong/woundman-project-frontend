@@ -8,14 +8,13 @@ function ProfileFooter({ isMe }) {
 
   return (
     <div className="card-footer">
-      {staff && isMe && <ProfileEdit />}
-      {/* {patient && staff && ( */}
-
-      <>
-        <ProfileEdit />
-        <CaseEdit />
-      </>
-      {/* )} */}
+      {staff && <ProfileEdit isMe={isMe} />}
+      {patient && (
+        <>
+          <ProfileEdit />
+          <CaseEdit />
+        </>
+      )}
     </div>
   );
 }
