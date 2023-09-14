@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import * as authService from '../api/authApi';
+import * as staffService from '../api/staffApi';
 import {
   addAccessToken,
   getAccessToken,
@@ -16,6 +17,11 @@ function AuthContextProvider({ children }) {
   const [initialLoading, setInitialLoading] = useState(true);
   const location = useLocation();
   const currentPath = location.pathname;
+
+  const updateStaff = async (input) => {
+    const res = await staffService.updateStaff(input);
+    setStaff(res.data.staff);
+  };
 
   useEffect(() => {
     const fetchMe = async () => {
@@ -84,6 +90,7 @@ function AuthContextProvider({ children }) {
     setStaff(null);
     removeAccessToken();
   };
+
   const staffLogout = () => {
     setStaff(null);
     setPatient(null);
@@ -103,7 +110,8 @@ function AuthContextProvider({ children }) {
         patientLogin,
         staffLogin,
         patientLogout,
-        staffLogout
+        staffLogout,
+        updateStaff
       }}
     >
       {children}

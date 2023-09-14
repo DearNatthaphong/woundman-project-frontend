@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Modal from '../../components/ui/Modal';
-import CaseForm from './CaseForm';
+import StaffInfoForm from './StaffInfoForm';
 
-function CaseEdit() {
+function ProfileInfoEdit() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="row justify-content-center my-3">
@@ -10,20 +10,20 @@ function CaseEdit() {
         <button
           onClick={() => setIsOpen(true)}
           type="button"
-          className="col-12 col-lg-6 btn btn-success"
+          className="col-12 col-lg-6 btn btn-primary"
         >
-          สร้างการตรวจรักษา
+          แก้ไขข้อมูล
         </button>
         <Modal
-          title="สร้างประวัติและตรวจร่างกาย"
+          title="แก้ไขข้อมูลส่วนตัว"
           open={isOpen}
           onClose={() => setIsOpen(false)}
         >
-          <CaseForm />
+          <StaffInfoForm onSuccess={() => setIsOpen(false)} />
         </Modal>
       </>
     </div>
   );
 }
 
-export default CaseEdit;
+export default ProfileInfoEdit;

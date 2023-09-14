@@ -24,7 +24,10 @@ function ImageForm({ title, file, onFileChange }) {
         <div>
           {file && (
             <>
-              <button className="btn btn-link text-decoration-none hover-bg-gray-100">
+              <button
+                className="btn btn-link text-decoration-none hover-bg-gray-100"
+                // onClick={handleClickSave}
+              >
                 บันทึก
               </button>
               <button
