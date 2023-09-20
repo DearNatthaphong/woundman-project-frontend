@@ -15,15 +15,12 @@ function AuthContextProvider({ children }) {
   const [patient, setPatient] = useState(null);
   const [staff, setStaff] = useState(null);
   const [initialLoading, setInitialLoading] = useState(true);
+
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const updateStaff = async (input) => {
-    const res = await staffService.updateStaff(input);
-    setStaff(res.data.staff);
-  };
-
   useEffect(() => {
+    // console.log('useEffect in AuthContext fetchMe');
     const fetchMe = async () => {
       try {
         if (getAccessToken()) {
@@ -31,6 +28,10 @@ function AuthContextProvider({ children }) {
             await getMe();
           }
           if (currentPath.startsWith('/staff')) {
+            // console.log(
+            //   'getAccessToken in useEffect FetchMe : ',
+            //   getAccessToken()
+            // );
             await getStaffMe();
           }
         }
@@ -42,6 +43,11 @@ function AuthContextProvider({ children }) {
     };
     fetchMe();
   }, [currentPath]);
+
+  const updateStaff = async (input) => {
+    const res = await staffService.updateStaff(input);
+    setStaff(res.data.staff);
+  };
 
   const getMe = async () => {
     const res = await authService.getMe();
@@ -94,6 +100,7 @@ function AuthContextProvider({ children }) {
   const staffLogout = () => {
     setStaff(null);
     setPatient(null);
+    // setPatients([]);
     removeAccessToken();
   };
 
@@ -104,7 +111,6 @@ function AuthContextProvider({ children }) {
       value={{
         patient,
         staff,
-        // initialLoading,
         patientRegister,
         staffRegister,
         patientLogin,

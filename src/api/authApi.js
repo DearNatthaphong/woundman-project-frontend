@@ -13,8 +13,10 @@ export const getMe = () => axios.get('/auth/patient/me');
 
 export const staffRegister = (input) =>
   axios.post('/auth/staff/register', input);
+
 export const staffLogin = ({ emailOrMobile, password }) =>
   axios.post('/auth/staff/login', { emailOrMobile, password });
+
 export const getStaffMe = () => axios.get('/auth/staff/me');
 // export const getStaffMe = () =>
 //   axios.get('/auth/staff/me', {
