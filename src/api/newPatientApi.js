@@ -9,3 +9,6 @@ export const getPatientById = async (id) => axios.get(`/patients/${id}`);
 
 export const getPatientsBySearchTerm = async (searchTerm) =>
   axios.get(`/patients/search?searchTerm=${searchTerm}`);
+
+export const createCaseByPatientId = async (id, input) =>
+  axios.post(`/patients/${id}/case`, input);

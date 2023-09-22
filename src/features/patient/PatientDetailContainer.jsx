@@ -31,7 +31,7 @@ function PatientDetailContainer() {
   return (
     <div className="row justify-content-center m-1">
       <div className="col col-md-6">
-        <div className="card border-info border border-3 mb-3">
+        <div className="card border border-3 mb-3">
           <PatientDetailHeader />
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
@@ -49,10 +49,7 @@ function PatientDetailContainer() {
               />
             </li>
           </ul>
-        </div>
-        <div className="card border-success border border-3 mb-3">
-          {/* <PatientDetailFooter /> */}
-          <PatientDetailCaseEdit />
+          <PatientDetailCaseEdit id={id} />
         </div>
       </div>
     </div>

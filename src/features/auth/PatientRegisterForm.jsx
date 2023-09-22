@@ -13,7 +13,7 @@ function PatientRegisterForm({ onSuccess }) {
     titleName: 'นาย',
     firstName: '',
     lastName: '',
-    idCard: '',
+    idCard: null,
     dateOfBirth: '',
     mobile: '',
     idLine: '',
@@ -23,11 +23,7 @@ function PatientRegisterForm({ onSuccess }) {
   });
 
   const handleChangeInput = (e) => {
-    if (e.target.name === 'idLine' && e.target.value.trim() === '') {
-      setInput({ ...input, [e.target.name]: null });
-    } else {
-      setInput({ ...input, [e.target.name]: e.target.value });
-    }
+    setInput({ ...input, [e.target.name]: e.target.value });
   };
 
   const handleClickInput = (e) => {
@@ -71,10 +67,10 @@ function PatientRegisterForm({ onSuccess }) {
           // setInput({ ...input, titleName: e.target.value })
         >
           <option value="นาย">นาย</option>
-          <option value="นางสาว">น.ส.</option>
+          <option value="น.ส.">น.ส.</option>
           <option value="นาง">นาง</option>
-          <option value="เด็กชาย">ด.ช.</option>
-          <option value="เด็กหญิง">ด.ญ.</option>
+          <option value="ด.ช.">ด.ช.</option>
+          <option value="ด.ญ.">ด.ญ.</option>
         </select>
       </div>
       <div className="col-6">
