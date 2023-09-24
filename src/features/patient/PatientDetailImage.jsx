@@ -3,8 +3,9 @@ import Modal from '../../components/ui/Modal';
 import PatientDetailImageForm from './PatientDetailImageForm';
 import { useState } from 'react';
 
-function PatientDetailImage({ id, patient, setPatient }) {
+function PatientDetailImage({ patientId, patient, setPatient }) {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="card-body">
       <div className="row text-center">
@@ -24,7 +25,7 @@ function PatientDetailImage({ id, patient, setPatient }) {
         >
           <PatientDetailImageForm
             patient={patient}
-            id={id}
+            patientId={patientId}
             setPatient={setPatient}
             onSuccess={() => setIsOpen(false)}
           />

@@ -6,7 +6,7 @@ import * as patientService from '../../api/newPatientApi';
 
 function PatientDetailInfoForm({
   onSuccess,
-  id,
+  patientId,
   patient,
   // patient: {
   //   titleName,
@@ -43,8 +43,8 @@ function PatientDetailInfoForm({
     });
   }, [patient]);
 
-  const updatePatient = async (id, formdata) => {
-    const res = await patientService.updatePatient(id, formdata);
+  const updatePatient = async (patientId, formdata) => {
+    const res = await patientService.updatePatient(patientId, formdata);
     setPatient(res.data.patient);
   };
 
@@ -101,7 +101,7 @@ function PatientDetailInfoForm({
 
     try {
       startLoading();
-      await updatePatient(id, input);
+      await updatePatient(patientId, input);
       toast.success('แก้ไขข้อมูลสำเร็จ');
       onSuccess();
     } catch (err) {

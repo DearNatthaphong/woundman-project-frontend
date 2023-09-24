@@ -1,9 +1,8 @@
 import React from 'react';
 import { calculateAge, convertToBC } from '../../utils/dateFormat';
 import PatientDetailInfoEdit from './PatientDetailInfoEdit';
-// import PatientInfoAll from './PatientInfoAll';
 
-function PatientDetailInfo({ id, patient, setPatient }) {
+function PatientDetailInfo({ patientId, patient, setPatient }) {
   return (
     <div className="accordion accordion-flush" id="accordionFlushExample">
       <div className="accordion-item">
@@ -69,7 +68,7 @@ function PatientDetailInfo({ id, patient, setPatient }) {
                 </div>
               </li>
               <PatientDetailInfoEdit
-                id={id}
+                patientId={patientId}
                 patient={patient}
                 setPatient={setPatient}
               />

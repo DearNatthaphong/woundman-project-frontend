@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PatientDetailInfoForm from './PatientDetailInfoForm';
 import Modal from '../../components/ui/Modal';
 
-function PatientDetailInfoEdit({ id, patient, setPatient }) {
+function PatientDetailInfoEdit({ patientId, patient, setPatient }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <li className="list-group-item m-1">
@@ -23,7 +23,7 @@ function PatientDetailInfoEdit({ id, patient, setPatient }) {
             <PatientDetailInfoForm
               onSuccess={() => setIsOpen(false)}
               patient={patient}
-              id={id}
+              patientId={patientId}
               setPatient={setPatient}
             />
           </Modal>

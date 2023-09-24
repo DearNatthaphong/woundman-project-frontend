@@ -4,7 +4,7 @@ import * as patientService from '../../api/newPatientApi';
 import { toast } from 'react-toastify';
 import * as validate from '../../validations/caseValidate';
 
-function CaseCreateForm({ onSuccess, id }) {
+function CaseCreateForm({ onSuccess, patientId }) {
   const { startLoading, stopLoading } = useLoading();
   const [input, setInput] = useState({
     chiefComplain: '',
@@ -34,7 +34,7 @@ function CaseCreateForm({ onSuccess, id }) {
 
     try {
       startLoading();
-      await patientService.createCaseByPatientId(id, input);
+      await patientService.createCaseByPatientId(patientId, input);
       toast.success('สร้างการตรวจรักษาสำเร็จ');
       onSuccess();
     } catch (err) {

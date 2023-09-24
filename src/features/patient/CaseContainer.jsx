@@ -3,14 +3,14 @@ import CaseHeader from './CaseHeader';
 import CaseCreate from './CaseCreate';
 import CaseList from './CaseList';
 
-function CaseContainer({ id, cases, onSuccess, setIsOpen, isOpen }) {
+function CaseContainer({ patientId, cases, onSuccess, setIsOpen, isOpen }) {
   return (
-    <div className="card border border-3 mb-3">
+    <div className="card text-bg-secondary border border-3 mb-3">
       <CaseHeader />
       <ul className="list-group list-group-flush">
         <li className="list-group-item">
           <CaseCreate
-            id={id}
+            patientId={patientId}
             onSuccess={onSuccess}
             setIsOpen={setIsOpen}
             isOpen={isOpen}

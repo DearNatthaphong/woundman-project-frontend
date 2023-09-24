@@ -3,11 +3,13 @@ import TimeAgo from 'javascript-time-ago';
 // English.
 import en from 'javascript-time-ago/locale/en';
 
-TimeAgo.addDefaultLocale(en);
+export const timeSince = (date) => {
+  TimeAgo.addDefaultLocale(en);
 
-const timeAgo = new TimeAgo('en-US');
-
-export const timeSince = (date) => timeAgo.format(new Date(date), 'round');
+  const timeAgo = new TimeAgo('en-US');
+  const newTiemSince = timeAgo.format(new Date(date), 'round');
+  return newTiemSince;
+};
 
 export const calculateAge = (dateOfBirth) => {
   const today = new Date();
@@ -51,4 +53,38 @@ export const convertToBC = (dateOfBirth) => {
   ];
   const formattedMonth = monthNames[month - 1];
   return `เกิดวันที่ ${day} ${formattedMonth} ${bcYear}`;
+};
+
+export const formattedDate = (date) => {
+  // if (!date) {
+  //   return '';
+
+  // console.log('Date:', date);
+
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZoneName: 'short',
+    hour12: false,
+    // timeZone: 'UTC'
+    timeZone: 'Asia/Bangkok'
+  };
+
+  // const newDate = new Intl.DateTimeFormat('en-US', options).format(date);
+
+  // return `วันที่ ${newDate}`;
+
+  // try {
+  // const formatted = new Intl.DateTimeFormat('en-US', options).format(
+  const formatted = new Intl.DateTimeFormat('th-TH', options).format(
+    new Date(date)
+  );
+  return `วันที่ ${formatted}`;
+  // } catch (error) {
+  //   console.error('Date formatting error:', error);
+  //   return 'Date formatting error';
+  // }
 };

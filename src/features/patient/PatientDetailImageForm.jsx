@@ -4,14 +4,14 @@ import { toast } from 'react-toastify';
 import Avatar from '../../components/ui/Avatar';
 import * as patientService from '../../api/newPatientApi';
 
-function PatientDetailImageForm({ id, onSuccess, patient, setPatient }) {
+function PatientDetailImageForm({ patientId, onSuccess, patient, setPatient }) {
   const { startLoading, stopLoading } = useLoading();
 
   const [file, setFile] = useState(null);
   const inputEl = useRef();
 
-  const updatePatient = async (id, formdata) => {
-    const res = await patientService.updatePatient(id, formdata);
+  const updatePatient = async (patientId, formdata) => {
+    const res = await patientService.updatePatient(patientId, formdata);
     setPatient(res.data.patient);
   };
 
@@ -22,7 +22,7 @@ function PatientDetailImageForm({ id, onSuccess, patient, setPatient }) {
       const formdata = new FormData();
       formdata.append('profileImage', file); // ชื่อต้องตรงกับ middle ware multer
 
-      await updatePatient(id, formdata);
+      await updatePatient(patientId, formdata);
       toast.success('success upload');
       setFile(null);
       onSuccess();

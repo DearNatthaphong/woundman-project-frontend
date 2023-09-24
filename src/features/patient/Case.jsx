@@ -1,7 +1,9 @@
 import React from 'react';
+import * as dateFormat from '../../utils/dateFormat';
 
 function Case({
   case: {
+    // id : caseId,
     createdAt,
     chiefComplain,
     presentIllness,
@@ -16,10 +18,12 @@ function Case({
 }) {
   return (
     // <div className="card" style={{ width: '18rem' }}>
-    <div className="card mb-3">
+    <div className="card text-bg-secondary mb-3">
       <div className="card-header">
         <div className="row align-items-center">
-          <div className="col-auto me-auto">{`วันที่ ${createdAt}`}</div>
+          <div className="col-auto me-auto">
+            {dateFormat.formattedDate(createdAt)}
+          </div>
           <div className="col-auto">
             <button type="button" className="btn btn-primary btn-sm">
               แก้ไข
