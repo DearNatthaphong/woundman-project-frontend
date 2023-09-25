@@ -1,5 +1,5 @@
 import React from 'react';
-import CaseHeader from './CaseHeader';
+import CaseContainerHeader from './CaseContainerHeader';
 import CaseCreate from './CaseCreate';
 import CaseList from './CaseList';
 
@@ -12,8 +12,8 @@ function CaseContainer({
   fetchCases
 }) {
   return (
-    <div className="card text-bg-primary border border-3 mb-3">
-      <CaseHeader />
+    <div className="card text-bg-info mb-3">
+      <CaseContainerHeader />
       <ul className="list-group list-group-flush">
         <li className="list-group-item">
           <CaseCreate

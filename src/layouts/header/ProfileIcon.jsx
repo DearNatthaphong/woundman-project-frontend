@@ -1,21 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import DropdownToggle from './DropdownToggle';
 import DropdownMenu from './DropdownMenu';
+import { useClickOutside } from '../../hooks/useClickOutside';
 
 function ProfileIcon() {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownEl = useRef();
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (!dropdownEl.current.contains(e.target)) {
-        setIsOpen(false);
-      }
-      // console.log(e.target);
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  const closeDropdown = useCallback(() => setIsOpen(false), []);
+
+  const dropdownEl = useClickOutside(closeDropdown);
 
   return (
     <div className="d-flex justify-content-end flex-1">

@@ -5,11 +5,11 @@ import CaseEditForm from './CaseEditForm';
 function CaseEdit({ caseData, caseId, patientId, fetchCases }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="col-auto">
+    <div>
       <button
-        onClick={() => setIsOpen(true)}
+        className="dropdown-item "
         type="button"
-        className="btn btn-primary btn-sm"
+        onClick={() => setIsOpen(true)}
       >
         แก้ไข
       </button>
