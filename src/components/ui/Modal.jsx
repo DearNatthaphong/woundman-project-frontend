@@ -37,7 +37,7 @@ function Modal({ children, open, onClose, title }) {
         <div className="modal-content">
           <div className="modal-header">
             <button type="button" className="btn-close invisible"></button>
-            <h4 className="modal-title">{title}</h4>
+            <h4 className="modal-title text-dark">{title}</h4>
             <button
               type="button"
               className="btn-close"

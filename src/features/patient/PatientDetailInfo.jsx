@@ -15,7 +15,7 @@ function PatientDetailInfo({ patientId, patient, setPatient }) {
             aria-expanded="false"
             aria-controls="flush-collapseOne"
           >
-            <div className="col-12 col-lg-6">
+            <div className="col-12">
               <i className="fas fa-user" />
               <h5 className="ps-3 d-inline-block">
                 {`${patient.titleName} ${patient.firstName} ${patient.lastName} `}

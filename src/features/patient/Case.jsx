@@ -1,20 +1,24 @@
 import React from 'react';
 import * as dateFormat from '../../utils/dateFormat';
+import CaseEdit from './CaseEdit';
 
 function Case({
-  case: {
-    // id : caseId,
-    createdAt,
-    chiefComplain,
-    presentIllness,
-    pastHistory,
-    height,
-    weight,
-    temperature,
-    systolicBloodPressure,
-    diastolicBloodPressure,
-    bloodOxygen
-  }
+  caseId,
+  patientId,
+  caseData,
+  fetchCases
+  // {
+  //   createdAt,
+  //   chiefComplain,
+  //   presentIllness,
+  //   pastHistory,
+  //   height,
+  //   weight,
+  //   temperature,
+  //   systolicBloodPressure,
+  //   diastolicBloodPressure,
+  //   bloodOxygen
+  // }
 }) {
   return (
     // <div className="card" style={{ width: '18rem' }}>
@@ -22,29 +26,30 @@ function Case({
       <div className="card-header">
         <div className="row align-items-center">
           <div className="col-auto me-auto">
-            {dateFormat.formattedDate(createdAt)}
+            {dateFormat.formattedDate(caseData.createdAt)}
           </div>
-          <div className="col-auto">
-            <button type="button" className="btn btn-primary btn-sm">
-              แก้ไข
-            </button>
-          </div>
+          <CaseEdit
+            caseData={caseData}
+            caseId={caseId}
+            patientId={patientId}
+            fetchCases={fetchCases}
+          />
         </div>
       </div>
       <ul className="list-group list-group-flush">
         <li className="list-group-item p-3">
-          {`อาการเจ็บป่วย : ${chiefComplain}`}
+          {`อาการเจ็บป่วย : ${caseData.chiefComplain}`}
         </li>
-        <li className="list-group-item">{`ประวัติปัจจุบัน : ${presentIllness}`}</li>
-        <li className="list-group-item">{`ประวัติย้อนหลัง : ${pastHistory}`}</li>
+        <li className="list-group-item">{`ประวัติปัจจุบัน : ${caseData.presentIllness}`}</li>
+        <li className="list-group-item">{`ประวัติย้อนหลัง : ${caseData.pastHistory}`}</li>
         <li className="list-group-item">
           <div className="row ">
-            <div className="col-6">{`ความสูง : ${height} cm.`}</div>
-            <div className="col-6">{`น้ำหนัก : ${weight} kg.`}</div>
-            <div className="col-6">{`อุณหภูมิ : ${temperature} C`}</div>
-            <div className="col-12">{`ระดับออกซิเจนในเลือด : ${bloodOxygen} %`}</div>
-            <div className="col-12">{`ระดับความดันช่วงบน : ${systolicBloodPressure} mm Hg.`}</div>
-            <div className="col-12">{`ระดับความดันช่วงล่าง : ${diastolicBloodPressure} mm Hg.`}</div>
+            <div className="col-6">{`ความสูง : ${caseData.height} cm.`}</div>
+            <div className="col-6">{`น้ำหนัก : ${caseData.weight} kg.`}</div>
+            <div className="col-6">{`อุณหภูมิ : ${caseData.temperature} C`}</div>
+            <div className="col-12">{`ระดับออกซิเจนในเลือด : ${caseData.bloodOxygen} %`}</div>
+            <div className="col-12">{`ระดับความดันช่วงบน : ${caseData.systolicBloodPressure} mm Hg.`}</div>
+            <div className="col-12">{`ระดับความดันช่วงล่าง : ${caseData.diastolicBloodPressure} mm Hg.`}</div>
           </div>
         </li>
       </ul>

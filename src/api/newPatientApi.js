@@ -1,17 +1,21 @@
 import axios from 'axios';
 
-export const updatePatient = (id, input) =>
-  axios.patch(`/patients/${id}`, input);
-
 export const getPatients = async () => axios.get('/patients');
-
-export const getPatientById = async (id) => axios.get(`/patients/${id}`);
 
 export const getPatientsBySearchTerm = async (searchTerm) =>
   axios.get(`/patients/search?searchTerm=${searchTerm}`);
 
-export const createCaseByPatientId = async (id, input) =>
-  axios.post(`/patients/${id}/case`, input);
+export const getPatientById = async (patientId) =>
+  axios.get(`/patients/${patientId}`);
 
-export const getCasesByPatientId = async (id) =>
-  axios.get(`/patients/${id}/cases`);
+export const updatePatient = (patientId, input) =>
+  axios.patch(`/patients/${patientId}`, input);
+
+export const createCaseByPatientId = async (patientId, input) =>
+  axios.post(`/patients/${patientId}/case`, input);
+
+export const getCasesByPatientId = async (patientId) =>
+  axios.get(`/patients/${patientId}/cases`);
+
+export const updateCaseByPatientId = async (patientId, caseId, updatedData) =>
+  axios.patch(`/patients/${patientId}/cases/${caseId}`, updatedData);

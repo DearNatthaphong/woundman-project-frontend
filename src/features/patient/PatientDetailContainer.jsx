@@ -8,9 +8,10 @@ import * as patientService from '../../api/newPatientApi';
 import CaseContainer from './CaseContainer';
 
 function PatientDetailContainer() {
-  const { id: patientId } = useParams();
+  const { id: patientId, caseId } = useParams();
   const [patient, setPatient] = useState({});
-  const [cases, setCases] = useState({});
+  const [cases, setCases] = useState([]);
+  // const [updatedData, setUpdatedData] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   // const { startLoading, stopLoading } = useLoading();
 
@@ -25,10 +26,24 @@ function PatientDetailContainer() {
     }
   };
 
+  // const updateCaseByPatientId = async (patientId, caseId, updatedData) => {
+  //   try {
+  //     await patientService.updateCaseByPatientId(
+  //       patientId,
+  //       caseId,
+  //       updatedData
+  //     );
+  //     fetchCasesByPatientId(patientId);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   useEffect(() => {
     const fetchPatientById = async (patientId) => {
       try {
         // startLoading();
+        // console.log('patienId', patientId);
         const res = await patientService.getPatientById(patientId);
         setPatient(res.data.patient);
       } catch (err) {
@@ -47,10 +62,15 @@ function PatientDetailContainer() {
     setIsOpen(false);
   };
 
+  // const handleCaseUpdated = () => {
+  //   updateCaseByPatientId(patientId, caseId, updatedData);
+  //   setIsOpen(false);
+  // };
+
   return (
     <div className="row justify-content-center m-1">
       <div className="col col-md-6">
-        <div className="card text-bg-info border border-3 mb-3">
+        <div className="card text-bg-secondary border border-3 mb-3">
           <PatientDetailHeader />
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
@@ -71,11 +91,16 @@ function PatientDetailContainer() {
           {/* <PatientDetailCaseEdit id={id} /> */}
         </div>
         <CaseContainer
+          caseId={caseId}
+          // updatedData={updatedData}
+          // setUpdatedData={setUpdatedData}
+          // handleCaseUpdated={handleCaseUpdated}
           patientId={patientId}
           cases={cases}
           onSuccess={handleCaseCreated}
           setIsOpen={setIsOpen}
           isOpen={isOpen}
+          fetchCases={fetchCasesByPatientId}
         />
       </div>
     </div>

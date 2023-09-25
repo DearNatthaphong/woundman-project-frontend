@@ -3,9 +3,16 @@ import CaseHeader from './CaseHeader';
 import CaseCreate from './CaseCreate';
 import CaseList from './CaseList';
 
-function CaseContainer({ patientId, cases, onSuccess, setIsOpen, isOpen }) {
+function CaseContainer({
+  patientId,
+  cases,
+  onSuccess,
+  setIsOpen,
+  isOpen,
+  fetchCases
+}) {
   return (
-    <div className="card text-bg-secondary border border-3 mb-3">
+    <div className="card text-bg-primary border border-3 mb-3">
       <CaseHeader />
       <ul className="list-group list-group-flush">
         <li className="list-group-item">
@@ -17,7 +24,11 @@ function CaseContainer({ patientId, cases, onSuccess, setIsOpen, isOpen }) {
           />
         </li>
         <li className="list-group-item">
-          <CaseList cases={cases} />
+          <CaseList
+            cases={cases}
+            patientId={patientId}
+            fetchCases={fetchCases}
+          />
         </li>
       </ul>
     </div>
