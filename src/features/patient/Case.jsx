@@ -5,7 +5,7 @@ import CaseContent from './CaseContent';
 function Case({ caseId, patientId, caseData, fetchCases }) {
   return (
     // <div className="card" style={{ width: '18rem' }}>
-    <div className="card text-bg-info mb-3">
+    <div className="card mb-3">
       <CaseHeader
         caseId={caseId}
         caseData={caseData}

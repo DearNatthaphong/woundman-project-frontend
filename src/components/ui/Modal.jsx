@@ -19,9 +19,10 @@ function Modal({ children, open, onClose, title }) {
   // open modal by bootstrap
   useEffect(() => {
     if (open) {
-      return modal?.show();
+      modal?.show();
+    } else {
+      modal?.hide(); // ไม่ให้ error จาก render รอบแรก เพราะ ค่ายังเป็น null อยู่
     }
-    modal?.hide(); // ไม่ให้ error จาก render รอบแรก เพราะ ค่ายังเป็น null อยู่
   }, [open, modal]);
 
   return (

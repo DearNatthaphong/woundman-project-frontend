@@ -4,21 +4,7 @@ import { useLoading } from '../../contexts/LoadingContext';
 import validator from 'validator';
 import * as patientService from '../../api/newPatientApi';
 
-function PatientDetailInfoForm({
-  onSuccess,
-  patientId,
-  patient,
-  // patient: {
-  //   titleName,
-  //   firstName,
-  //   lastName,
-  //   idCard,
-  //   dateOfBirth,
-  //   mobile,
-  //   idLine
-  // },
-  setPatient
-}) {
+function PatientDetailInfoForm({ onSuccess, patientId, patient, setPatient }) {
   const { startLoading, stopLoading } = useLoading();
 
   const [input, setInput] = useState({

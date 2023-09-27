@@ -12,7 +12,7 @@ function CaseContainer({
   fetchCases
 }) {
   return (
-    <div className="card text-bg-info mb-3">
+    <div className="card text-bg-secondary mb-3">
       <CaseContainerHeader />
       <ul className="list-group list-group-flush">
         <li className="list-group-item">

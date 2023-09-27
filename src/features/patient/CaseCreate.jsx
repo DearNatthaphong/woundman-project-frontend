@@ -15,7 +15,7 @@ function CaseCreate({ patientId, onSuccess, setIsOpen, isOpen }) {
           <button
             onClick={() => setIsOpen(true)}
             type="button"
-            className=" btn btn-success"
+            className=" btn btn-primary"
           >
             สร้างการตรวจรักษา
           </button>

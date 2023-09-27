@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import PatientDetailHeader from './PatientDetailHeader';
 import PatientDetailImage from './PatientDetailImage';
-import PatientDetailInfo from './PatientDetailInfo';
 import { useParams } from 'react-router-dom';
 // import { useLoading } from '../../contexts/LoadingContext';
 import * as patientService from '../../api/newPatientApi';
 import CaseContainer from './CaseContainer';
+import PatientDetailInfo from './PatientDetailInfo';
 
 function PatientDetailContainer() {
   const { id: patientId, caseId } = useParams();
   const [patient, setPatient] = useState({});
   const [cases, setCases] = useState([]);
-  // const [updatedData, setUpdatedData] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   // const { startLoading, stopLoading } = useLoading();
 
@@ -25,19 +24,6 @@ function PatientDetailContainer() {
       // stopLoading();
     }
   };
-
-  // const updateCaseByPatientId = async (patientId, caseId, updatedData) => {
-  //   try {
-  //     await patientService.updateCaseByPatientId(
-  //       patientId,
-  //       caseId,
-  //       updatedData
-  //     );
-  //     fetchCasesByPatientId(patientId);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   useEffect(() => {
     const fetchPatientById = async (patientId) => {

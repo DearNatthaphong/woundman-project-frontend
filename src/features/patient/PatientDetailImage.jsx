@@ -17,7 +17,6 @@ function PatientDetailImage({ patientId, patient, setPatient }) {
         <p className="card-text mb-0">
           <small className="text-body-secondary">แตะที่รูปภาพเพื่อแก้ไข</small>
         </p>
-
         <Modal
           title="แก้ไขข้อมูลส่วนตัว"
           open={isOpen}

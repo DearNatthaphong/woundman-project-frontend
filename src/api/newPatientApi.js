@@ -19,3 +19,6 @@ export const getCasesByPatientId = async (patientId) =>
 
 export const updateCaseByPatientId = async (patientId, caseId, updatedData) =>
   axios.patch(`/patients/${patientId}/cases/${caseId}`, updatedData);
+
+export const deleteCaseByPatientId = async (patientId, caseId) =>
+  axios.delete(`/patients/${patientId}/cases/${caseId}`);

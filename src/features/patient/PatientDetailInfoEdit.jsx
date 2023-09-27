@@ -6,12 +6,12 @@ function PatientDetailInfoEdit({ patientId, patient, setPatient }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <li className="list-group-item m-1">
-      <div className="row justify-content-center">
-        <div className="col-12 col-lg-6">
+      <div className="row ">
+        <div className="col-12 text-center">
           <button
             onClick={() => setIsOpen(true)}
             type="button"
-            className="col-12 col-lg-6 btn btn-primary"
+            className="col-12 col-lg-6 btn btn-info"
           >
             แก้ไขข้อมูล
           </button>

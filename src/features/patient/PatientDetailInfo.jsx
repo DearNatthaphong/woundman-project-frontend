@@ -35,7 +35,7 @@ function PatientDetailInfo({ patientId, patient, setPatient }) {
             <ul className="list-group list-group-flush">
               <li className="list-group-item">
                 <div className="row justify-content-center">
-                  <div className="col-12 col-lg-6">
+                  <div className="col-12">
                     <i className="far fa-id-card" />
                     <h5 className="ps-3 d-inline-block">{patient.idCard}</h5>
                   </div>
@@ -43,7 +43,7 @@ function PatientDetailInfo({ patientId, patient, setPatient }) {
               </li>
               <li className="list-group-item">
                 <div className="row justify-content-center">
-                  <div className="col-12 col-lg-6">
+                  <div className="col-12">
                     <i className="far fa-calendar-alt" />
                     <h5 className="ps-3 d-inline-block">
                       {convertToBC(patient.dateOfBirth)}
@@ -53,7 +53,7 @@ function PatientDetailInfo({ patientId, patient, setPatient }) {
               </li>
               <li className="list-group-item">
                 <div className="row justify-content-center">
-                  <div className="col-12 col-lg-6">
+                  <div className="col-12">
                     <i className="fas fa-phone" />
                     <h5 className="ps-3 d-inline-block">{patient.mobile}</h5>
                   </div>
@@ -61,7 +61,7 @@ function PatientDetailInfo({ patientId, patient, setPatient }) {
               </li>
               <li className="list-group-item">
                 <div className="row justify-content-center">
-                  <div className="col-12 col-lg-6">
+                  <div className="col-12">
                     <i className="far fa-comment" />
                     <h5 className="ps-3 d-inline-block">{patient.idLine}</h5>
                   </div>
