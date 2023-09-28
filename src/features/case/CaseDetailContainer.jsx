@@ -14,6 +14,7 @@ function CaseDetailContainer() {
   const getCaseByID = async (caseId) => {
     const res = await caseService.getCaseById(caseId);
     // console.log('res.data : ', res.data);
+    console.log('caseId : ', caseId);
     setCaseData(res.data.caseData);
   };
 
@@ -44,7 +45,11 @@ function CaseDetailContainer() {
                 <PatientDetail caseData={caseData} />
               </li>
               <li className="list-group-item">
-                <CaseDetail caseData={caseData} setCaseData={setCaseData} />
+                <CaseDetail
+                  caseData={caseData}
+                  setCaseData={setCaseData}
+                  caseId={caseId}
+                />
               </li>
             </ul>
           </div>

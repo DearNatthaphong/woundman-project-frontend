@@ -1,7 +1,7 @@
 import React from 'react';
 import CaseDetailEdit from './CaseDetailEdit';
 
-function CaseDetail({ caseData, setCaseData }) {
+function CaseDetail({ caseData, setCaseData, caseId }) {
   return (
     <div className="accordion accordion-flush p-0" id="accordionFlushExample">
       <div className="accordion-item">
@@ -14,9 +14,14 @@ function CaseDetail({ caseData, setCaseData }) {
             aria-expanded="false"
             aria-controls="flush-collapseOne"
           >
-            <p className="d-inline-block">
-              {`อาการเจ็บป่วยที่มาพบแพทย์ : ${caseData.chiefComplain}`}
-            </p>
+            <div className="row row-cols-1">
+              <div className="col ps-0">
+                <p>อาการเจ็บป่วยที่มาพบแพทย์ :</p>
+              </div>
+              <div className="col p-0">
+                <h5>{caseData.chiefComplain}</h5>
+              </div>
+            </div>
           </button>
         </h2>
         <div
@@ -27,18 +32,28 @@ function CaseDetail({ caseData, setCaseData }) {
           <div className="accordion-body ">
             <ul className="list-group list-group-flush ">
               <li className="list-group-item">
-                <p className="d-inline-block ">
-                  {`ประวัติการเจ็บป่วยในปัจจุบัน : ${caseData.presentIllness}`}
-                </p>
+                <div className="row row-cols-1">
+                  <div className="col ps-0">
+                    <p>ประวัติการเจ็บป่วยในปัจจุบัน : </p>
+                  </div>
+                  <div className="col p-0">
+                    <h5>{caseData.presentIllness}</h5>
+                  </div>
+                </div>
               </li>
               <li className="list-group-item">
-                <p className="d-inline-block ">
-                  {`ประวัติย้อนหลัง : ${caseData.pastHistory}`}
-                </p>
+                <div className="row row-cols-1">
+                  <div className="col ps-0">
+                    <p>ประวัติย้อนหลัง : </p>
+                  </div>
+                  <div className="col p-0">
+                    <h5>{caseData.pastHistory}</h5>
+                  </div>
+                </div>
               </li>
               <li className="list-group-item">
                 <div className="row justify-content-center">
-                  <div className="col-6">
+                  <div className="col-6 ">
                     <p className=" d-inline-block">{`ความสูง : ${caseData.height} cm.`}</p>
                   </div>
                   <div className="col-6">
@@ -56,13 +71,17 @@ function CaseDetail({ caseData, setCaseData }) {
                   </div>
                 </div>
               </li>
-              <li className="list-group-item">
-                <p className=" d-inline-block">{`ความดันโลหิตบน : ${caseData.systolicBloodPressure} mm.Hg.`}</p>
+              <li className="list-group-item text-center">
+                <p className="d-inline-block">{`ความดันโลหิตบน : ${caseData.systolicBloodPressure} mm.Hg.`}</p>
               </li>
-              <li className="list-group-item">
+              <li className="list-group-item text-center">
                 <p className=" d-inline-block">{`ความดันโลหิตล่าง : ${caseData.diastolicBloodPressure} mm.Hg.`}</p>
               </li>
-              <CaseDetailEdit caseData={caseData} setCaseData={setCaseData} />
+              <CaseDetailEdit
+                caseData={caseData}
+                setCaseData={setCaseData}
+                caseId={caseId}
+              />
             </ul>
           </div>
         </div>

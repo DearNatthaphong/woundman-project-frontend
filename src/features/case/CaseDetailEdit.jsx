@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from '../../components/ui/Modal';
 import CaseDetailEditForm from './CaseDetailEditForm';
 
-function CaseDetailEdit({ caseData, setCaseData }) {
+function CaseDetailEdit({ caseData, setCaseData, caseId }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <li className="list-group-item m-1">
@@ -24,6 +24,7 @@ function CaseDetailEdit({ caseData, setCaseData }) {
               onSuccess={() => setIsOpen(false)}
               caseData={caseData}
               setCaseData={setCaseData}
+              caseId={caseId}
             />
           </Modal>
         </div>
