@@ -1,4 +1,4 @@
-import PatientDetailContainer from './PatientDetailContainer';
+import PatientDetailContainer from '../features/patient/PatientDetailContainer';
 
 function PatientDetailPage() {
   return (

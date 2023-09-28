@@ -3,9 +3,9 @@ import TimeAgo from 'javascript-time-ago';
 // English.
 import en from 'javascript-time-ago/locale/en';
 
+TimeAgo.addDefaultLocale(en);
+// TimeAgo.addLocale();
 export const timeSince = (date) => {
-  TimeAgo.addDefaultLocale(en);
-
   const timeAgo = new TimeAgo('en-US');
   const newTiemSince = timeAgo.format(new Date(date), 'round');
   return newTiemSince;

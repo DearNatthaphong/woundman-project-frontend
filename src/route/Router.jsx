@@ -5,13 +5,14 @@ import PatientLoginPage from '../pages/PatientLoginPage';
 import { useAuth } from '../contexts/AuthContext';
 import TreatmentListPage from '../pages/TreatmentListPage';
 import ReceiptListPage from '../pages/ReceiptListPage';
-import CaseListPage from '../pages/CaseListPage';
 import PaymentPage from '../pages/PaymentPage';
 import AuthLayout from '../layouts/auth/AuthLayout';
 import AppointmentPage from '../pages/AppointmentPage';
 import ProfilePage from '../pages/ProfilePage';
 import PatientPage from '../pages/PatientPage';
-import PatientDetailPage from '../features/patient/PatientDetailPage';
+import PatientDetailPage from '../pages/PatientDetailPage';
+import CasePage from '../pages/CasePage';
+import CaseDetailPage from '../pages/CaseDetailPage';
 
 function Router() {
   const { patient, staff } = useAuth();
@@ -40,7 +41,8 @@ function Router() {
           <Route path="/staff/profile" element={<ProfilePage />} />
           <Route path="/staff/patients" element={<PatientPage />} />
           <Route path="/staff/patients/:id" element={<PatientDetailPage />} />
-          <Route path="/staff/cases" element={<CaseListPage />} />
+          <Route path="/staff/cases" element={<CasePage />} />
+          <Route path="/staff/cases/:id" element={<CaseDetailPage />} />
           <Route path="/staff/treatments" element={<TreatmentListPage />} />
           <Route path="/staff/payment" element={<PaymentPage />} />
           <Route path="/staff/receipts" element={<ReceiptListPage />} />

@@ -1,10 +1,10 @@
 import React from 'react';
 
-function PatientSearch({ searchTerm, setSearchTerm, handleSearch }) {
+function CaseSearch({ searchTerm, setSearchTerm, handleSearch }) {
   return (
-    <div className="row mx-3 justify-content-center">
+    <div className="row m-3 justify-content-center">
       <div className="col-12 col-md-6">
-        <div className="form-floating mb-3 text-secondary">
+        <div className="form mb-3 text-secondary">
           <div className="input-group mb-3">
             <input
               type="text"
@@ -15,6 +15,7 @@ function PatientSearch({ searchTerm, setSearchTerm, handleSearch }) {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+
             <button
               className="btn btn-outline-secondary"
               onClick={handleSearch}
@@ -23,10 +24,21 @@ function PatientSearch({ searchTerm, setSearchTerm, handleSearch }) {
               ค้นหา
             </button>
           </div>
+          {/* </div> */}
+        </div>
+        <div className="form-check form-switch">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            id="flexSwitchCheckDefault"
+          />
+          <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
+            การตรวจรักษาที่ยังไม่ได้รับการรักษา
+          </label>
         </div>
       </div>
     </div>
   );
 }
 
-export default PatientSearch;
+export default CaseSearch;
