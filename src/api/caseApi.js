@@ -1,4 +1,5 @@
-import axios from 'axios';
+// import axios from 'axios';
+import axios from '../config/axios';
 
 export const getCases = async () => axios.get('/cases');
 
@@ -9,3 +10,6 @@ export const getCasesBySearchTerm = async (searchTerm) =>
 
 export const updateCaseByCaseId = async (caseId, updatedData) =>
   axios.patch(`/cases/${caseId}`, updatedData);
+
+export const creatTreatmentByCaseId = async (caseId, input) =>
+  axios.post(`/cases/${caseId}/treatments`, input);

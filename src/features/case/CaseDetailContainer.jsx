@@ -14,7 +14,7 @@ function CaseDetailContainer() {
   const getCaseByID = async (caseId) => {
     const res = await caseService.getCaseById(caseId);
     // console.log('res.data : ', res.data);
-    console.log('caseId : ', caseId);
+    // console.log('caseId : ', caseId);
     setCaseData(res.data.caseData);
   };
 
@@ -55,7 +55,7 @@ function CaseDetailContainer() {
           </div>
 
           <div className="card  border border-3 p-0">
-            <TreatmentContainer />
+            <TreatmentContainer caseId={caseId} />
           </div>
 
           <div className="card  border border-3 p-0">
