@@ -4,7 +4,7 @@
 import TreatmentDelete from './TreatmentDelete';
 import TreatmentEdit from './TreatmentEdit';
 
-function TreatmentFooter() {
+function TreatmentFooter({ treatment, caseId, updateTreatment }) {
   // const [isOpenDropdown, setIsOpenDropdown] = useState(false);
   // const closeDropdown = useCallback(() => setIsOpenDropdown(false), []);
   // const dropdownEl = useClickOutside(closeDropdown);
@@ -19,7 +19,11 @@ function TreatmentFooter() {
     <div className="card-footer">
       <div className="row align-items-center text-center">
         <div className="col-6">
-          <TreatmentEdit />
+          <TreatmentEdit
+            treatment={treatment}
+            caseId={caseId}
+            updateTreatment={updateTreatment}
+          />
         </div>
         <div className="col-6">
           <TreatmentDelete />

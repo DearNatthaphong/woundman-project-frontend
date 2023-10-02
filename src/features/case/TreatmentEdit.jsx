@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import Modal from '../../components/ui/Modal';
+import TreatmentEditForm from './TreatmentEditForm';
 
-function TreatmentEdit() {
+function TreatmentEdit({ caseId, updateTreatment, treatment }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  // const saveTreatment = async (caseId, input) => {
-  //   await caseService.creatTreatmentByCaseId(caseId, input);
-  //   setIsOpen(false);
-  // };
+  const handleUpdate = async (caseId, treatmentId, input) => {
+    await updateTreatment(caseId, treatmentId, input);
+    setIsOpen(false);
+  };
+
   return (
     <div className="">
       <button
@@ -18,11 +20,15 @@ function TreatmentEdit() {
         แก้ไข
       </button>
       <Modal
-        title="สร้างการรักษา"
+        title="แก้ไขการรักษา"
         open={isOpen}
         onClose={() => setIsOpen(false)}
       >
-        {/* <TreatmentCreateForm onSubmit={saveTreatment} caseId={caseId} /> */}
+        <TreatmentEditForm
+          onSubmit={handleUpdate}
+          caseId={caseId}
+          treatment={treatment}
+        />
       </Modal>
     </div>
   );

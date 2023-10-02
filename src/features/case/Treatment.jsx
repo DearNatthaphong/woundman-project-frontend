@@ -2,11 +2,15 @@ import React from 'react';
 import TreatmentContent from './TreatmentContent';
 import TreatmentFooter from './TreatmentFooter';
 
-function Treatment({ treatment }) {
+function Treatment({ treatment, caseId, updateTreatment }) {
   return (
     <div className="card mb-3">
       <TreatmentContent treatment={treatment} />
-      <TreatmentFooter />
+      <TreatmentFooter
+        treatment={treatment}
+        caseId={caseId}
+        updateTreatment={updateTreatment}
+      />
     </div>
   );
 }

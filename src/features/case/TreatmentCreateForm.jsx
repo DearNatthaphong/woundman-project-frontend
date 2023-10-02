@@ -110,7 +110,7 @@ function TreatmentCreateForm({ onSubmit, caseId }) {
         />
       </div>
       <div className="col text-start">
-        <label for="exampleFormControlTextarea1" class="form-label">
+        <label htmlFor="exampleFormControlTextarea1" className="form-label">
           ตำแหน่งของบาดแผล
         </label>
         <textarea
@@ -123,7 +123,7 @@ function TreatmentCreateForm({ onSubmit, caseId }) {
         ></textarea>
       </div>
       <div className="col text-start">
-        <label for="exampleFormControlTextarea2" class="form-label">
+        <label htmlFor="exampleFormControlTextarea2" className="form-label">
           คำวินิจฉัยแพทย์
         </label>
         <textarea
@@ -136,7 +136,7 @@ function TreatmentCreateForm({ onSubmit, caseId }) {
         ></textarea>
       </div>
       <div className="col text-start">
-        <label for="exampleFormControlTextarea3" class="form-label">
+        <label htmlFor="exampleFormControlTextarea3" className="form-label">
           การรักษา
         </label>
         <textarea

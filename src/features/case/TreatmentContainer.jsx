@@ -25,6 +25,24 @@ function TreatmentContainer({ caseId }) {
     fetchTreatment();
   }, [caseId]);
 
+  const updateTreatment = async (caseId, treatmentId, input) => {
+    try {
+      const res = await caseService.updateTreatmentByCaseId(
+        caseId,
+        treatmentId,
+        input
+      );
+      // setTreatments([...treatments, res.data.updatedTreatment]);
+      setTreatments((prevTreatments) =>
+        prevTreatments.map((item) =>
+          item.id === treatmentId ? res.data.updatedTreatment : item
+        )
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <TreatmentContainerHeader />
@@ -37,7 +55,11 @@ function TreatmentContainer({ caseId }) {
           />
         </li>
         <li className="list-group-item">
-          <TreatmentList treatments={treatments} />
+          <TreatmentList
+            treatments={treatments}
+            caseId={caseId}
+            updateTreatment={updateTreatment}
+          />
         </li>
       </ul>
     </div>
