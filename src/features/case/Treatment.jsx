@@ -1,13 +1,11 @@
 import React from 'react';
-// import TreatmentHeader from './TreatmentHeader';
 import TreatmentContent from './TreatmentContent';
 import TreatmentFooter from './TreatmentFooter';
 
-function Treatment() {
+function Treatment({ treatment }) {
   return (
     <div className="card mb-3">
-      {/* <TreatmentHeader /> */}
-      <TreatmentContent />
+      <TreatmentContent treatment={treatment} />
       <TreatmentFooter />
     </div>
   );

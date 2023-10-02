@@ -3,12 +3,13 @@ import Modal from '../../components/ui/Modal';
 import TreatmentCreateForm from './TreatmentCreateForm';
 import * as caseService from '../../api/caseApi';
 
-function TreatmentCreate({ caseId }) {
+function TreatmentCreate({ caseId, setTreatments, treatments }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const saveTreatment = async (caseId, input) => {
-    await caseService.creatTreatmentByCaseId(caseId, input);
+    const res = await caseService.creatTreatmentByCaseId(caseId, input);
     setIsOpen(false);
+    setTreatments([res.data.newTreatment, ...treatments]);
   };
 
   return (

@@ -1,23 +1,34 @@
 import React from 'react';
-import TreatmentImage from './TreatmentImage';
-import TreatmentInfo from './TreatmentInfo';
+import * as dateService from '../../utils/dateFormat';
 
-function TreatmentContent() {
+function TreatmentContent({
+  treatment: { image, position, diagnosis, treatment, createdAt }
+}) {
   return (
-    <div className="card">
-      <TreatmentImage />
-      <TreatmentInfo />
+    <div className="">
+      {/* <img src="https://picsum.photos/200" className="card-img-top" alt="" /> */}
+      <img src={image} className="card-img-top" alt="treatment" />
+      <ul className="list-group list-group-flush">
+        <li className="list-group-item">
+          <h5 className="card-title">ตำแหน่งของบาดแผล :</h5>
+          <p className="card-text">{position}</p>
+        </li>
+        <li className="list-group-item">
+          <h5 className="card-title">คำวินิจฉัยแพทย์ :</h5>
+          <p className="card-text">{diagnosis}</p>
+        </li>
+        <li className="list-group-item">
+          <h5 className="card-title">การรักษา :</h5>
+          <p className="card-text">{treatment}</p>
+        </li>
+        <li className="list-group-item">
+          <small className="text-body-secondary">
+            {dateService.timeSince(createdAt)}
+          </small>
+        </li>
+      </ul>
     </div>
   );
-
-  // /* <div classNameName="row align-items-center mb-0">
-  //   <div classNameName="col-4 p-0">
-  //     <TreatmentImage />
-  //   </div>
-  //   <div classNameName="col-8 p-0">
-  //     <TreatmentInfo />
-  //   </div>
-  // </div> */
 }
 
 export default TreatmentContent;

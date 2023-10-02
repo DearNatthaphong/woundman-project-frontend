@@ -1,15 +1,18 @@
 // import axios from 'axios';
 import axios from '../config/axios';
 
-export const getCases = async () => axios.get('/cases');
+export const getCases = () => axios.get('/cases');
 
-export const getCaseById = async (caseId) => axios.get(`/cases/${caseId}`);
-
-export const getCasesBySearchTerm = async (searchTerm) =>
+export const getCasesBySearchTerm = (searchTerm) =>
   axios.get(`/cases/search?searchTerm=${searchTerm}`);
 
-export const updateCaseByCaseId = async (caseId, updatedData) =>
+export const getCaseById = (caseId) => axios.get(`/cases/${caseId}`);
+
+export const updateCaseByCaseId = (caseId, updatedData) =>
   axios.patch(`/cases/${caseId}`, updatedData);
 
-export const creatTreatmentByCaseId = async (caseId, input) =>
+export const creatTreatmentByCaseId = (caseId, input) =>
   axios.post(`/cases/${caseId}/treatments`, input);
+
+export const getTreatmentsByCaseId = (caseId) =>
+  axios.get(`/cases/${caseId}/treatments`);

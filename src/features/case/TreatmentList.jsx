@@ -1,11 +1,12 @@
 import React from 'react';
 import Treatment from './Treatment';
 
-function TreatmentList() {
+function TreatmentList({ treatments }) {
   return (
     <div>
-      <Treatment />
-      <Treatment />
+      {treatments.map((item) => (
+        <Treatment key={item.id} treatment={item} />
+      ))}
     </div>
   );
 }
