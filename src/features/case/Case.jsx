@@ -8,7 +8,7 @@ function Case({
     id,
     chiefComplain,
     createdAt,
-    Patient: { titleName, firstName, lastName, dateOfBirth }
+    Patient: { titleName, firstName, lastName, dateOfBirth, profileImage }
   }
 }) {
   // const patientInfo = Patient || {};
@@ -23,18 +23,19 @@ function Case({
             <div className="col-4">
               <div className="row justify-content-center">
                 <div className="col-9 text-center">
-                  <Avatar src="" size="70" />
+                  <Avatar src={profileImage} size="70" />
                 </div>
               </div>
             </div>
             <div className="col-8">
               <div className="card-body">
-                <h5 className="card-title">{`${titleName} ${firstName} ${lastName}`}</h5>
+                <h5 className="card-title">{`${titleName} ${firstName}`}</h5>
+                <h5 className="card-title">{`${lastName}`}</h5>
                 <h5 className="card-title">{`อายุ : ${dateService.calculateAge(
                   dateOfBirth
                 )}`}</h5>
-                <h5 className="card-title">{`อาการเจ็บป่วย : ${chiefComplain}`}</h5>
-                <h5 className="card-title">เจ็บป่วยที่มาพบแพทย์</h5>
+                <p className="card-title">{`อาการเจ็บป่วย : `}</p>
+                <p className="card-title">{chiefComplain}</p>
                 <p className="card-text">
                   <small className="text-muted">{`created at : ${dateService.timeSince(
                     createdAt

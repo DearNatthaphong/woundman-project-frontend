@@ -7,11 +7,12 @@ function PatientDetail({ caseData }) {
     return null;
   }
 
-  const { titleName, firstName, lastName, dateOfBirth } = caseData.Patient;
+  const { titleName, firstName, lastName, dateOfBirth, profileImage } =
+    caseData.Patient;
 
   return (
     <div className="card-body text-center p-0 ">
-      <Avatar size="100" />
+      <Avatar src={profileImage} size="100" />
       <p className="card-title">{`${titleName} ${firstName} ${lastName}`}</p>
       <p className="card-title">{`อายุ : ${dateService.calculateAge(
         dateOfBirth

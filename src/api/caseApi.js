@@ -3,6 +3,9 @@ import axios from '../config/axios';
 
 export const getCases = () => axios.get('/cases');
 
+export const getCasesWithoutTreatment = () =>
+  axios.get('/cases/without-treatment');
+
 export const getCasesBySearchTerm = (searchTerm) =>
   axios.get(`/cases/search?searchTerm=${searchTerm}`);
 
