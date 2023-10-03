@@ -19,3 +19,6 @@ export const getTreatmentsByCaseId = (caseId) =>
 
 export const updateTreatmentByCaseId = (caseId, treatmentId, input) =>
   axios.patch(`/cases/${caseId}/treatments/${treatmentId}`, input);
+
+export const deleteTreatmentByCaseId = (caseId, treatmentId) =>
+  axios.delete(`/cases/${caseId}/treatments/${treatmentId}`);

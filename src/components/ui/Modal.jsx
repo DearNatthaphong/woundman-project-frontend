@@ -8,12 +8,17 @@ function Modal({ children, open, onClose, title }) {
   // modalEl = document.getElementById('modal') // vanila js
   const modalEl = useRef(); // { current: <div className="modal fade" tabindex="-1"></div>}
   const [modal, setModal] = useState(null);
+  // const modalInstance = useRef(null);
 
   // initial modal
   useEffect(() => {
     const modalObj = new BsModal(modalEl.current); // ถ้าไม่เก็บค่า จะกลายเป็น modalObj 2 ตัวที่หน้าตาเหมือนกัน
     // modalObj.show();
     setModal(modalObj);
+    // modalInstance.current = new BsModal(modalEl.current);
+    // return () => {
+    //   modalInstance.current.dispose();
+    // };
   }, []);
 
   // open modal by bootstrap
@@ -24,6 +29,21 @@ function Modal({ children, open, onClose, title }) {
       modal?.hide(); // ไม่ให้ error จาก render รอบแรก เพราะ ค่ายังเป็น null อยู่
     }
   }, [open, modal]);
+  // useEffect(() => {
+  //   if (open) {
+  //     modalInstance.current.show();
+  //   } else {
+  //     modalInstance.current.hide();
+  //   }
+  // }, [open]);
+
+  // const handleModalHide = () => {
+  //   const modalBackdrop = document.querySelector('.modal-backdrop');
+  //   if (modalBackdrop) {
+  //     modalBackdrop.parentNode.removeChild(modalBackdrop);
+  //   }
+  //   onClose();
+  // };
 
   return (
     // <div className='modal-backdrop fade show'></div>

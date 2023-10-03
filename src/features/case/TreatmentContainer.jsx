@@ -43,6 +43,16 @@ function TreatmentContainer({ caseId }) {
     }
   };
 
+  const deleteTreatment = async (caseId, treatmentId) => {
+    await caseService.deleteTreatmentByCaseId(caseId, treatmentId);
+    const fetchTreatment = async () => {
+      const res = await caseService.getTreatmentsByCaseId(caseId);
+      setTreatments(res.data.treatments);
+    };
+
+    fetchTreatment();
+  };
+
   return (
     <div>
       <TreatmentContainerHeader />
@@ -59,6 +69,7 @@ function TreatmentContainer({ caseId }) {
             treatments={treatments}
             caseId={caseId}
             updateTreatment={updateTreatment}
+            deleteTreatment={deleteTreatment}
           />
         </li>
       </ul>

@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import AddPhotoButton from './AddPhotoButton';
 import { toast } from 'react-toastify';
 import { useLoading } from '../../contexts/LoadingContext';
+import validator from 'validator';
 
 function TreatmentEditForm({
   onSubmit,
   caseId,
   treatment: { position, diagnosis, treatment, image, id }
-  // treatment
 }) {
   const [input, setInput] = useState({
     position: '',
@@ -15,8 +15,6 @@ function TreatmentEditForm({
     treatment: '',
     image: null
   });
-
-  // console.log(input.image);
 
   useEffect(() => {
     setInput({
@@ -27,7 +25,6 @@ function TreatmentEditForm({
     });
   }, [position, diagnosis, treatment, image]);
 
-  //   const [image, setImage] = useState(null);
   const fileEl = useRef();
 
   const { startLoading, stopLoading } = useLoading();
@@ -76,7 +73,6 @@ function TreatmentEditForm({
         formData.append('image', input.image);
       }
       startLoading();
-      // {position:'',...,image:'null'}
       await onSubmit(caseId, id, formData);
       toast.success('แก้ไขการรักษาสำเร็จ');
     } catch (err) {
@@ -99,7 +95,6 @@ function TreatmentEditForm({
           role="button"
           onClick={() => fileEl.current.click()}
         >
-          {/* {input.image && input.image instanceof Blob ? ( */}
           {input.image ? (
             <>
               <button
@@ -118,7 +113,7 @@ function TreatmentEditForm({
               />
               <img
                 src={
-                  typeof input.image === 'string'
+                  validator.isURL(input.image + '')
                     ? input.image
                     : URL.createObjectURL(input.image)
                 }

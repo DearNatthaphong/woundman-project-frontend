@@ -16,9 +16,8 @@ function CaseDeleteForm({ caseId, patientId, onSuccess, onClose, fetchCases }) {
   };
 
   const handleSubmitForm = async (e) => {
-    e.preventDefault();
-
     try {
+      e.preventDefault();
       startLoading();
       await deleteCaseByPatientId(patientId, caseId);
       toast.success('ลบข้อมูลการตรวจรักษาสำเร็จ');

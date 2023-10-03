@@ -2,7 +2,7 @@ import React from 'react';
 import TreatmentContent from './TreatmentContent';
 import TreatmentFooter from './TreatmentFooter';
 
-function Treatment({ treatment, caseId, updateTreatment }) {
+function Treatment({ treatment, caseId, updateTreatment, deleteTreatment }) {
   return (
     <div className="card mb-3">
       <TreatmentContent treatment={treatment} />
@@ -10,6 +10,7 @@ function Treatment({ treatment, caseId, updateTreatment }) {
         treatment={treatment}
         caseId={caseId}
         updateTreatment={updateTreatment}
+        deleteTreatment={deleteTreatment}
       />
     </div>
   );

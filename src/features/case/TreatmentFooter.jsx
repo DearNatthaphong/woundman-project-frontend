@@ -4,7 +4,12 @@
 import TreatmentDelete from './TreatmentDelete';
 import TreatmentEdit from './TreatmentEdit';
 
-function TreatmentFooter({ treatment, caseId, updateTreatment }) {
+function TreatmentFooter({
+  treatment,
+  caseId,
+  updateTreatment,
+  deleteTreatment
+}) {
   // const [isOpenDropdown, setIsOpenDropdown] = useState(false);
   // const closeDropdown = useCallback(() => setIsOpenDropdown(false), []);
   // const dropdownEl = useClickOutside(closeDropdown);
@@ -15,6 +20,7 @@ function TreatmentFooter({ treatment, caseId, updateTreatment }) {
   //   setIsOpenDropdown(false); // Close the dropdown
   //   setIsOpenModal(true); // Open the modal
   // };
+
   return (
     <div className="card-footer">
       <div className="row align-items-center text-center">
@@ -26,7 +32,11 @@ function TreatmentFooter({ treatment, caseId, updateTreatment }) {
           />
         </div>
         <div className="col-6">
-          <TreatmentDelete />
+          <TreatmentDelete
+            treatment={treatment}
+            caseId={caseId}
+            deleteTreatment={deleteTreatment}
+          />
         </div>
       </div>
       {/* <div className="col-auto ms-auto">

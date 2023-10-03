@@ -1,7 +1,12 @@
 import React from 'react';
 import Treatment from './Treatment';
 
-function TreatmentList({ treatments, caseId, updateTreatment }) {
+function TreatmentList({
+  treatments,
+  caseId,
+  updateTreatment,
+  deleteTreatment
+}) {
   return (
     <div>
       {treatments.map((item) => (
@@ -10,6 +15,7 @@ function TreatmentList({ treatments, caseId, updateTreatment }) {
           treatment={item}
           caseId={caseId}
           updateTreatment={updateTreatment}
+          deleteTreatment={deleteTreatment}
         />
       ))}
     </div>

@@ -11,7 +11,7 @@ function TreatmentEdit({ caseId, updateTreatment, treatment }) {
   };
 
   return (
-    <div className="">
+    <div>
       <button
         onClick={() => setIsOpen(true)}
         type="button"
