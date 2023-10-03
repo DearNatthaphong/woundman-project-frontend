@@ -13,7 +13,7 @@ function PatientRegisterForm({ onSuccess }) {
     titleName: 'นาย',
     firstName: '',
     lastName: '',
-    idCard: null,
+    idCard: '',
     dateOfBirth: '',
     mobile: '',
     idLine: '',
