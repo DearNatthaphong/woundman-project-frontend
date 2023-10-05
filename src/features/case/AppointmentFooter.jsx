@@ -1,24 +1,18 @@
 import React from 'react';
+import AppointmentEdit from './AppointmentEdit';
 
-function AppointmentFooter() {
+function AppointmentFooter({ appointment, caseId, updateAppointment }) {
   return (
     <div className="card-footer">
       <div className="row align-items-center">
-        <div className="col-auto">
-          <small className="text-body-secondary">Last updated 3 mins ago</small>
-        </div>
-        <div className="col-auto ms-auto">
+        <AppointmentEdit
+          appointment={appointment}
+          caseId={caseId}
+          updateAppointment={updateAppointment}
+        />
+        <div className="col-6">
           <button
-            className="btn btn-sm btn-info me-3"
-            type="button"
-            // onClick={() => {
-            //   setIsOpenModalEdit(true);
-            // }}
-          >
-            แก้ไข
-          </button>
-          <button
-            className="btn btn-sm  btn-danger"
+            className="btn btn-sm  btn-danger w-100"
             type="button"
             // onClick={() => {
             //   setIsOpenModalDelete(true);

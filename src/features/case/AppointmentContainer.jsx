@@ -24,9 +24,18 @@ function AppointmentContainer({ caseId }) {
     fetchAppointment();
   }, [caseId]);
 
-  const createTreatment = async (caseId, input) => {
+  const createAppointment = async (caseId, input) => {
     const res = await caseService.createAppointmentByCaseId(caseId, input);
     setAppointment(res.data.appointment);
+  };
+
+  const updateAppointment = async (caseId, appointmentId, input) => {
+    const res = await caseService.updateAppointmentByCaseId(
+      caseId,
+      appointmentId,
+      input
+    );
+    setAppointment(res.data.updatedAppointment);
   };
 
   return (
@@ -34,11 +43,15 @@ function AppointmentContainer({ caseId }) {
       <AppointmentContainerHeader />
       <ul className="list-group">
         {appointment !== null ? (
-          <Appointment appointment={appointment} />
+          <Appointment
+            appointment={appointment}
+            caseId={caseId}
+            updateAppointment={updateAppointment}
+          />
         ) : (
           <AppointmentCreate
             caseId={caseId}
-            createTreatment={createTreatment}
+            createAppointment={createAppointment}
           />
         )}
       </ul>

@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import Modal from '../../components/ui/Modal';
 import AppointmentCreateForm from './AppointmentCreateForm';
 
-function AppointmentCreate({ createTreatment, caseId }) {
+function AppointmentCreate({ createAppointment, caseId }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const saveAppointment = async (caseId, input) => {
-    await createTreatment(caseId, input);
+    await createAppointment(caseId, input);
     setIsOpen(false);
   };
 

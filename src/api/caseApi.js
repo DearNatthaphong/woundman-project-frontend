@@ -31,3 +31,6 @@ export const createAppointmentByCaseId = (caseId, input) =>
 
 export const getAppointmentByCaseId = (caseId) =>
   axios.get(`/cases/${caseId}/appointment`);
+
+export const updateAppointmentByCaseId = (caseId, appointmentId, input) =>
+  axios.patch(`/cases/${caseId}/appointment/${appointmentId}`, input);

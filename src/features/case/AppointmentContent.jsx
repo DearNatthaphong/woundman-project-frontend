@@ -2,7 +2,7 @@ import React from 'react';
 import * as dateService from '../../utils/dateFormat';
 
 function AppointmentContent({
-  appointment: { reason, appointmentDate, status }
+  appointment: { reason, appointmentDate, status, createdAt }
 }) {
   return (
     <ul className="list-group list-group-flush">
@@ -20,6 +20,11 @@ function AppointmentContent({
         <h5>
           สถานะ : <span>{status}</span>
         </h5>
+      </li>
+      <li className="list-group-item">
+        <small className="text-body-secondary">
+          {dateService.timeSince(createdAt)}
+        </small>
       </li>
     </ul>
   );
