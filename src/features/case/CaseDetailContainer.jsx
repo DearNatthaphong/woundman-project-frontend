@@ -59,7 +59,7 @@ function CaseDetailContainer() {
           </div>
 
           <div className="card  border border-3 p-0">
-            <AppointmentContainer />
+            <AppointmentContainer caseId={caseId} />
           </div>
         </div>
       </div>

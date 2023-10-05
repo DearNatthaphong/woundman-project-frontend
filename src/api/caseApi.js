@@ -25,3 +25,9 @@ export const updateTreatmentByCaseId = (caseId, treatmentId, input) =>
 
 export const deleteTreatmentByCaseId = (caseId, treatmentId) =>
   axios.delete(`/cases/${caseId}/treatments/${treatmentId}`);
+
+export const createAppointmentByCaseId = (caseId, input) =>
+  axios.post(`/cases/${caseId}/appointment`, input);
+
+export const getAppointmentByCaseId = (caseId) =>
+  axios.get(`/cases/${caseId}/appointment`);

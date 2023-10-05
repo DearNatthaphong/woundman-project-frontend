@@ -2,12 +2,14 @@ import React from 'react';
 import AppointmentContent from './AppointmentContent';
 import AppointmentFooter from './AppointmentFooter';
 
-function Appointment() {
+function Appointment({ appointment }) {
   return (
-    <div className="card mb-3">
-      <AppointmentContent />
-      <AppointmentFooter />
-    </div>
+    <li className="list-group-item">
+      <div className="card">
+        <AppointmentContent appointment={appointment} />
+        <AppointmentFooter />
+      </div>
+    </li>
   );
 }
 

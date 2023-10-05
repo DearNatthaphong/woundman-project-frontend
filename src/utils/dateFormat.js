@@ -65,11 +65,12 @@ export const formattedDate = (date) => {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    timeZoneName: 'short',
-    hour12: false,
-    timeZone: 'Asia/Bangkok'
+    weekday: 'long'
+    // hour: 'numeric',
+    // minute: 'numeric',
+    // timeZoneName: 'short',
+    // hour12: false,
+    // timeZone: 'Asia/Bangkok'
   };
 
   // const formatted = new Intl.DateTimeFormat('th-TH', options).format(
@@ -80,7 +81,7 @@ export const formattedDate = (date) => {
     const formatted = new Intl.DateTimeFormat('th-TH', options).format(
       new Date(date)
     );
-    return `วันที่ ${formatted}`;
+    return formatted;
   } catch (error) {
     console.error('Error formatting date:', error);
     return 'Invalid Date'; // Handle any errors that occur during date formatting
