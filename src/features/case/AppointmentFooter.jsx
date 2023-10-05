@@ -1,7 +1,13 @@
 import React from 'react';
 import AppointmentEdit from './AppointmentEdit';
+import AppointmentDelete from './AppointmentDelete';
 
-function AppointmentFooter({ appointment, caseId, updateAppointment }) {
+function AppointmentFooter({
+  appointment,
+  caseId,
+  updateAppointment,
+  deleteAppointment
+}) {
   return (
     <div className="card-footer">
       <div className="row align-items-center">
@@ -10,17 +16,11 @@ function AppointmentFooter({ appointment, caseId, updateAppointment }) {
           caseId={caseId}
           updateAppointment={updateAppointment}
         />
-        <div className="col-6">
-          <button
-            className="btn btn-sm  btn-danger w-100"
-            type="button"
-            // onClick={() => {
-            //   setIsOpenModalDelete(true);
-            // }}
-          >
-            ลบ
-          </button>
-        </div>
+        <AppointmentDelete
+          appointment={appointment}
+          caseId={caseId}
+          deleteAppointment={deleteAppointment}
+        />
       </div>
     </div>
   );

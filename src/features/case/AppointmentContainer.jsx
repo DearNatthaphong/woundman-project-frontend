@@ -25,17 +25,30 @@ function AppointmentContainer({ caseId }) {
   }, [caseId]);
 
   const createAppointment = async (caseId, input) => {
-    const res = await caseService.createAppointmentByCaseId(caseId, input);
-    setAppointment(res.data.appointment);
+    await caseService.createAppointmentByCaseId(caseId, input);
+    const fetchAppointment = async () => {
+      const res = await caseService.getAppointmentByCaseId(caseId);
+      setAppointment(res.data.appointment);
+    };
+    fetchAppointment();
   };
 
   const updateAppointment = async (caseId, appointmentId, input) => {
-    const res = await caseService.updateAppointmentByCaseId(
-      caseId,
-      appointmentId,
-      input
-    );
-    setAppointment(res.data.updatedAppointment);
+    await caseService.updateAppointmentByCaseId(caseId, appointmentId, input);
+    const fetchAppointment = async () => {
+      const res = await caseService.getAppointmentByCaseId(caseId);
+      setAppointment(res.data.appointment);
+    };
+    fetchAppointment();
+  };
+
+  const deleteAppointment = async (caseId, appointmentId) => {
+    await caseService.deleteAppointmentByCaseId(caseId, appointmentId);
+    const fetchAppointment = async () => {
+      const res = await caseService.getAppointmentByCaseId(caseId);
+      setAppointment(res.data.appointment);
+    };
+    fetchAppointment();
   };
 
   return (
@@ -47,6 +60,7 @@ function AppointmentContainer({ caseId }) {
             appointment={appointment}
             caseId={caseId}
             updateAppointment={updateAppointment}
+            deleteAppointment={deleteAppointment}
           />
         ) : (
           <AppointmentCreate

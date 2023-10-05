@@ -34,3 +34,6 @@ export const getAppointmentByCaseId = (caseId) =>
 
 export const updateAppointmentByCaseId = (caseId, appointmentId, input) =>
   axios.patch(`/cases/${caseId}/appointment/${appointmentId}`, input);
+
+export const deleteAppointmentByCaseId = (caseId, appointmentId) =>
+  axios.delete(`/cases/${caseId}/appointment/${appointmentId}`);
