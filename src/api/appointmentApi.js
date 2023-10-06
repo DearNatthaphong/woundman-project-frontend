@@ -8,4 +8,5 @@ export const getAppointmentsBySearchTerm = (searchTerm) =>
 export const getAppointmentsByFilter = (status) =>
   axios.get(`/appointments/patients/filter?status=${status}`);
 
-export const updateAppointmentById = (id) => axios.patch('/appointments/:id');
+export const updateAppointmentById = (id, updatedData) =>
+  axios.patch(`/appointments/${id}`, updatedData);

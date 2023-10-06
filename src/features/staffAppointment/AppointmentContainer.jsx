@@ -7,7 +7,7 @@ import * as appointmentService from '../../api/appointmentApi';
 function AppointmentContainer() {
   const [appointments, setAppointments] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState(null);
   const [status, setStatus] = useState('');
   // const { startLoading, stopLoading } = useLoading();
 
@@ -16,7 +16,7 @@ function AppointmentContainer() {
       try {
         // startLoading();
         const res = await appointmentService.getAppointments();
-        console.log('res.data : ', res.data);
+        // console.log('res.data : ', res.data);
         setAppointments(res.data.appointments);
       } catch (err) {
         console.log(err);
@@ -40,14 +40,43 @@ function AppointmentContainer() {
   };
 
   const handleFilter = async () => {
+    // try {
+    //   if (status === '') {
+    //     const res = await appointmentService.getAppointments();
+    //     setSearchResult(res.data.appointments);
+    //   } else {
+    //     const res = await appointmentService.getAppointmentsByFilter(status);
+    //     setSearchResult(res.data.appointments);
+    //   }
     try {
+      let res;
+
       if (status === '') {
-        const res = await appointmentService.getAppointments();
-        setSearchResult(res.data.appointments);
+        res = await appointmentService.getAppointments();
       } else {
-        const res = await appointmentService.getAppointmentsByFilter(status);
-        setSearchResult(res.data.appointments);
+        res = await appointmentService.getAppointmentsByFilter(status);
       }
+
+      const appointmentsData = res.data.appointments;
+
+      setSearchResult(appointmentsData);
+
+      if (appointmentsData.length === 0) {
+        setSearchResult([]);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const updateAppointment = async (id, updatedData) => {
+    try {
+      await appointmentService.updateAppointmentById(id, updatedData);
+      const fetchAppointments = async () => {
+        const res = await appointmentService.getAppointments();
+        setAppointments(res.data.appointments);
+      };
+      fetchAppointments();
     } catch (err) {
       console.log(err);
     }
@@ -65,9 +94,20 @@ function AppointmentContainer() {
         status={status}
         setStatus={setStatus}
       />
-      <AppointmentList
-        appointments={searchResult.length > 0 ? searchResult : appointments}
-      />
+
+      {searchResult === null ? (
+        <AppointmentList
+          appointments={appointments}
+          updateAppointment={updateAppointment}
+        />
+      ) : searchResult.length === 0 ? (
+        <div>No appointments found.</div>
+      ) : (
+        <AppointmentList
+          appointments={searchResult}
+          updateAppointment={updateAppointment}
+        />
+      )}
     </div>
   );
 }

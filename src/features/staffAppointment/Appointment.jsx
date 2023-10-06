@@ -8,10 +8,12 @@ function Appointment({
     appointmentDate,
     status,
     createdAt,
+    id,
     Case: {
       Patient: { titleName, firstName, lastName }
     }
-  }
+  },
+  updateAppointment
 }) {
   return (
     <div className="col-12 col-md-6">
@@ -43,7 +45,13 @@ function Appointment({
                   </small>
                 </p>
               </div>
-              <AppointmentEdit />
+              <AppointmentEdit
+                id={id}
+                reason={reason}
+                appointmentDate={appointmentDate}
+                status={status}
+                updateAppointment={updateAppointment}
+              />
             </div>
           </li>
         </ul>
