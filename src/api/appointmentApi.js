@@ -10,3 +10,6 @@ export const getAppointmentsByFilter = (status) =>
 
 export const updateAppointmentById = (id, updatedData) =>
   axios.patch(`/appointments/${id}`, updatedData);
+
+export const getAppointmentsByPatientId = () =>
+  axios.get('/appointments/patient');
