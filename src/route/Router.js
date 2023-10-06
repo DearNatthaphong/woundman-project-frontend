@@ -6,7 +6,6 @@ import { useAuth } from '../contexts/AuthContext';
 import ReceiptListPage from '../pages/ReceiptListPage';
 import PaymentPage from '../pages/PaymentPage';
 import AuthLayout from '../layouts/auth/AuthLayout';
-import AppointmentPage from '../pages/AppointmentPage';
 import ProfilePage from '../pages/ProfilePage';
 import PatientPage from '../pages/PatientPage';
 import PatientDetailPage from '../pages/PatientDetailPage';
@@ -14,6 +13,8 @@ import CasePage from '../pages/CasePage';
 import CaseDetailPage from '../pages/CaseDetailPage';
 import TreatmentPage from '../pages/TreatmentPage';
 import TreatmentDetailPage from '../pages/TreatmentDetailPage';
+import AppointmentPatientPage from '../pages/AppointmentPatientPage';
+import AppointmentStaffPage from '../pages/AppointmentStaffPage';
 
 function Router() {
   const { patient, staff } = useAuth();
@@ -22,7 +23,7 @@ function Router() {
       {/* patient */}
       {patient ? (
         <Route path="/patient" element={<AuthLayout />}>
-          <Route path="/patient" element={<AppointmentPage />} />
+          <Route path="/patient" element={<AppointmentPatientPage />} />
           <Route path="/patient/profile" element={<ProfilePage />} />
           <Route path="/patient/treatments" element={<TreatmentPage />} />
           <Route
@@ -42,7 +43,7 @@ function Router() {
       {/* staff */}
       {staff ? (
         <Route path="/staff" element={<AuthLayout />}>
-          <Route path="/staff" element={<AppointmentPage />} />
+          <Route path="/staff" element={<AppointmentStaffPage />} />
           <Route path="/staff/profile" element={<ProfilePage />} />
           <Route path="/staff/patients" element={<PatientPage />} />
           <Route path="/staff/patients/:id" element={<PatientDetailPage />} />
