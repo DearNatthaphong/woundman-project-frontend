@@ -91,17 +91,17 @@ function Menu() {
               </i>
             </MenuItem>
             <MenuItem
-              to="/staff/treatments"
-              active={pathname === '/staff/treatments'}
+              to="/staff/payments"
+              active={pathname === '/staff/payments'}
             >
               <i
-                className={`fas fa-hand-holding-medical fa-${
-                  pathname === '/staff/treatments' ? 'lg' : 'sm'
+                className={`fas fa-file-invoice-dollar fa-${
+                  pathname === '/staff/payments' ? 'lg' : 'sm'
                 } pe-2 text-${
-                  pathname === '/staff/treatments' ? 'warning' : 'light'
+                  pathname === '/staff/payments' ? 'warning' : 'light'
                 }`}
               >
-                <span> การรักษา</span>
+                <span> การเงิน</span>
               </i>
             </MenuItem>
 

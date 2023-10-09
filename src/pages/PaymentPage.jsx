@@ -1,7 +1,8 @@
 import React from 'react';
+import PaymentContainer from '../features/payment/PaymentContainer';
 
 function PaymentPage() {
-  return <div>PaymentPage</div>;
+  return <PaymentContainer />;
 }
 
 export default PaymentPage;
