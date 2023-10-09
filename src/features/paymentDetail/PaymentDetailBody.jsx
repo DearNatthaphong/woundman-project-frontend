@@ -2,11 +2,11 @@ import React from 'react';
 import PaymentService from './PaymentService';
 import PatientDetail from './PatientDetail';
 
-function PaymentDetailBody({ caseData }) {
+function PaymentDetailBody({ caseData, itemsService }) {
   return (
     <ul className="list-group list-group-flush">
       <PatientDetail caseData={caseData} />
-      <PaymentService caseData={caseData} />
+      <PaymentService itemsService={itemsService} />
       {/* <li className="list-group-item py-3">
           <h5 className="text-center">2.ค่าเวชภัณฑ์</h5>
           <div className="input-group mb-3">

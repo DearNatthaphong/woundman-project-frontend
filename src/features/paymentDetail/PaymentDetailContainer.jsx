@@ -6,16 +6,15 @@ import { useParams } from 'react-router-dom';
 import * as paymentService from '../../api/paymentApi';
 
 function PaymentDetailContainer() {
-  const { id } = useParams();
-  const [caseData, setCaseData] = useState([]);
+  const { id: caseId } = useParams();
+  const [caseData, setCaseData] = useState({});
+  const [itemsService, setItemsService] = useState([]);
 
   useEffect(() => {
-    const fetchCaseById = async (id) => {
+    const fetchCaseBycaseId = async (caseId) => {
       try {
         // startLoading();
-        const res = await paymentService.getCaseById(id);
-        console.log('res.data : ', res.data);
-        // console.log('caseId : ', caseId);
+        const res = await paymentService.getCaseNoReceiptById(caseId);
         setCaseData(res.data.caseData);
       } catch (err) {
         console.log(err);
@@ -23,9 +22,23 @@ function PaymentDetailContainer() {
         // stopLoading();
       }
     };
+    const fetchItemsService = async () => {
+      try {
+        // startLoading();
+        const res = await paymentService.getPaymentItemsByTypeService();
+        // console.log('res.data : ', res.data);
+        setItemsService(res.data.paymentItemsService);
+        // console.log('ItemsService : ', ItemsService);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        // stopLoading();
+      }
+    };
 
-    fetchCaseById(id);
-  }, [id]);
+    fetchCaseBycaseId(caseId);
+    fetchItemsService();
+  }, [caseId]);
 
   return (
     <div>
@@ -33,7 +46,10 @@ function PaymentDetailContainer() {
         <div className="col col-md-6">
           <div className="card border-dark mb-3">
             <PaymentDetailHeader />
-            <PaymentDetailBody caseData={caseData} />
+            <PaymentDetailBody
+              caseData={caseData}
+              itemsService={itemsService}
+            />
             <PaymentDetailFooter />
           </div>
         </div>
