@@ -28,3 +28,6 @@ export const getPaymentsByTypeServiceByCaseId = (caseId) =>
   axios.get(
     `/payments/cases-no-receipt/${caseId}/payment?paymentTypeTitle=ค่าบริการ`
   );
+
+export const deletePaymentByCaseIdPaymentId = (caseId, paymentId) =>
+  axios.delete(`/payments/cases-no-receipt/${caseId}/payment/${paymentId}`);

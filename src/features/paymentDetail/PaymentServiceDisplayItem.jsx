@@ -1,8 +1,12 @@
 import React from 'react';
+import PaymentDelete from './PaymentDelete';
 
 function PaymentServiceDisplayItem({
+  caseId,
+  deletePayment,
   index,
   paymentByTypeService: {
+    id,
     amount,
     price,
     PaymentItem: { title }
@@ -16,10 +20,11 @@ function PaymentServiceDisplayItem({
         <td>{amount}</td>
         <td>{price}</td>
         <td>
-          <button className="btn btn-danger btn-sm" type="button">
-            ลบ
+          <button className="btn btn-primary btn-sm" type="button">
+            แก้ไข
           </button>
         </td>
+        <PaymentDelete caseId={caseId} deletePayment={deletePayment} id={id} />
       </tr>
     </tbody>
   );

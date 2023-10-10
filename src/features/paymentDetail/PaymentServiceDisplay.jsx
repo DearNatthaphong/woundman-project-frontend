@@ -1,7 +1,11 @@
 import React from 'react';
 import PaymentServiceDisplayItem from './PaymentServiceDisplayItem';
 
-function PaymentServiceDisplay({ paymentsByTypeService }) {
+function PaymentServiceDisplay({
+  paymentsByTypeService,
+  deletePayment,
+  caseId
+}) {
   return (
     <table className="table table-striped">
       <thead>
@@ -18,6 +22,8 @@ function PaymentServiceDisplay({ paymentsByTypeService }) {
           key={item.id}
           paymentByTypeService={item}
           index={index}
+          deletePayment={deletePayment}
+          caseId={caseId}
         />
       ))}
     </table>

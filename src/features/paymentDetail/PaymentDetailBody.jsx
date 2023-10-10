@@ -5,18 +5,20 @@ import PatientDetail from './PatientDetail';
 function PaymentDetailBody({
   caseData,
   itemsService,
-  createPaymentService,
   caseId,
-  paymentsByTypeService
+  createPaymentService,
+  paymentsByTypeService,
+  deletePayment
 }) {
   return (
     <ul className="list-group list-group-flush">
       <PatientDetail caseData={caseData} />
       <PaymentService
         itemsService={itemsService}
-        createPaymentService={createPaymentService}
         caseId={caseId}
+        createPaymentService={createPaymentService}
         paymentsByTypeService={paymentsByTypeService}
+        deletePayment={deletePayment}
       />
       {/* <li className="list-group-item py-3">
           <h5 className="text-center">2.ค่าเวชภัณฑ์</h5>
