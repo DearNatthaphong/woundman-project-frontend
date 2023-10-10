@@ -7,7 +7,8 @@ function PaymentService({
   createPaymentService,
   caseId,
   paymentsByTypeService,
-  deletePayment
+  deletePayment,
+  updatePayment
 }) {
   return (
     <li className="list-group-item py-3">
@@ -22,6 +23,8 @@ function PaymentService({
         paymentsByTypeService={paymentsByTypeService}
         deletePayment={deletePayment}
         caseId={caseId}
+        itemsService={itemsService}
+        updatePayment={updatePayment}
       />
     </li>
   );

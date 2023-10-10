@@ -71,6 +71,20 @@ function PaymentDetailContainer() {
     fetchPaymentsByTypeService(caseId);
   };
 
+  const updatePayment = async (caseId, paymentId, title, amount) => {
+    await paymentService.updatePaymentByCaseIdPaymentId(
+      caseId,
+      paymentId,
+      title,
+      amount
+    );
+    const fetchPaymentsByTypeService = async (caseId) => {
+      const res = await paymentService.getPaymentsByTypeServiceByCaseId(caseId);
+      setPaymentsByTypeService(res.data.paymentsByTypeService);
+    };
+    fetchPaymentsByTypeService(caseId);
+  };
+
   return (
     <div>
       <div className="row justify-content-center">
@@ -84,6 +98,7 @@ function PaymentDetailContainer() {
               createPaymentService={createPaymentService}
               paymentsByTypeService={paymentsByTypeService}
               deletePayment={deletePayment}
+              updatePayment={updatePayment}
             />
             <PaymentDetailFooter />
           </div>

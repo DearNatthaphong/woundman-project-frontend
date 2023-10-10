@@ -8,7 +8,8 @@ function PaymentDetailBody({
   caseId,
   createPaymentService,
   paymentsByTypeService,
-  deletePayment
+  deletePayment,
+  updatePayment
 }) {
   return (
     <ul className="list-group list-group-flush">
@@ -19,6 +20,7 @@ function PaymentDetailBody({
         createPaymentService={createPaymentService}
         paymentsByTypeService={paymentsByTypeService}
         deletePayment={deletePayment}
+        updatePayment={updatePayment}
       />
       {/* <li className="list-group-item py-3">
           <h5 className="text-center">2.ค่าเวชภัณฑ์</h5>

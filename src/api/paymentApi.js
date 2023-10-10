@@ -31,3 +31,19 @@ export const getPaymentsByTypeServiceByCaseId = (caseId) =>
 
 export const deletePaymentByCaseIdPaymentId = (caseId, paymentId) =>
   axios.delete(`/payments/cases-no-receipt/${caseId}/payment/${paymentId}`);
+
+export const updatePaymentByCaseIdPaymentId = (
+  caseId,
+  paymentId,
+  title,
+  amount
+) =>
+  axios.patch(
+    `/payments/cases-no-receipt/${caseId}/payment/${paymentId}`,
+    { amount },
+    {
+      params: {
+        paymentItemTitle: title
+      }
+    }
+  );

@@ -4,7 +4,9 @@ import PaymentServiceDisplayItem from './PaymentServiceDisplayItem';
 function PaymentServiceDisplay({
   paymentsByTypeService,
   deletePayment,
-  caseId
+  caseId,
+  itemsService,
+  updatePayment
 }) {
   return (
     <table className="table table-striped">
@@ -13,7 +15,7 @@ function PaymentServiceDisplay({
           <th scope="col">#</th>
           <th scope="col">รายการ</th>
           <th scope="col">จำนวน</th>
-          <th scope="col">ราคา</th>
+          <th scope="col">{`ราคา(บาท)`}</th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -24,6 +26,8 @@ function PaymentServiceDisplay({
           index={index}
           deletePayment={deletePayment}
           caseId={caseId}
+          itemsService={itemsService}
+          updatePayment={updatePayment}
         />
       ))}
     </table>
