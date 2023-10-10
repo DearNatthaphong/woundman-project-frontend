@@ -1,6 +1,7 @@
 import React from 'react';
+import PaymentServiceDisplayItem from './PaymentServiceDisplayItem';
 
-function PaymentServiceDisplay() {
+function PaymentServiceDisplay({ paymentsByTypeService }) {
   return (
     <table className="table table-striped">
       <thead>
@@ -12,19 +13,13 @@ function PaymentServiceDisplay() {
           <th scope="col"></th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>ค่าตรวจทำแผลขนาดแห้ง/แผลเย็บ</td>
-          <td>1</td>
-          <td>300.00</td>
-          <td>
-            <button className="btn btn-danger btn-sm" type="button">
-              ลบ
-            </button>
-          </td>
-        </tr>
-      </tbody>
+      {paymentsByTypeService.map((item, index) => (
+        <PaymentServiceDisplayItem
+          key={item.id}
+          paymentByTypeService={item}
+          index={index}
+        />
+      ))}
     </table>
   );
 }

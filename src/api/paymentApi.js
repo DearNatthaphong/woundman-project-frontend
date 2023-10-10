@@ -23,3 +23,8 @@ export const createPaymentTypeService = (caseId, title, amount) =>
       }
     }
   );
+
+export const getPaymentsByTypeServiceByCaseId = (caseId) =>
+  axios.get(
+    `/payments/cases-no-receipt/${caseId}/payment?paymentTypeTitle=ค่าบริการ`
+  );

@@ -2,7 +2,12 @@ import React from 'react';
 import PaymentServiceCreate from './PaymentServiceCreate';
 import PaymentServiceDisplay from './PaymentServiceDisplay';
 
-function PaymentService({ itemsService, createPaymentService, caseId }) {
+function PaymentService({
+  itemsService,
+  createPaymentService,
+  caseId,
+  paymentsByTypeService
+}) {
   return (
     <li className="list-group-item py-3">
       {/*1.ค่าบริการและตารางรายการ */}
@@ -12,7 +17,7 @@ function PaymentService({ itemsService, createPaymentService, caseId }) {
         createPaymentService={createPaymentService}
         caseId={caseId}
       />
-      <PaymentServiceDisplay />
+      <PaymentServiceDisplay paymentsByTypeService={paymentsByTypeService} />
     </li>
   );
 }

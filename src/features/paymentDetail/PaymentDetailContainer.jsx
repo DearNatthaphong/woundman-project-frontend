@@ -9,6 +9,7 @@ function PaymentDetailContainer() {
   const { id: caseId } = useParams();
   const [caseData, setCaseData] = useState({});
   const [itemsService, setItemsService] = useState([]);
+  const [paymentsByTypeService, setPaymentsByTypeService] = useState([]);
 
   useEffect(() => {
     const fetchCaseBycaseId = async (caseId) => {
@@ -26,9 +27,20 @@ function PaymentDetailContainer() {
       try {
         // startLoading();
         const res = await paymentService.getPaymentItemsByTypeService();
-        // console.log('res.data : ', res.data);
         setItemsService(res.data.paymentItemsService);
-        // console.log('ItemsService : ', ItemsService);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        // stopLoading();
+      }
+    };
+    const fetchPaymentsByTypeService = async (caseId) => {
+      try {
+        // startLoading();
+        const res = await paymentService.getPaymentsByTypeServiceByCaseId(
+          caseId
+        );
+        setPaymentsByTypeService(res.data.paymentsByTypeService);
       } catch (err) {
         console.log(err);
       } finally {
@@ -38,15 +50,16 @@ function PaymentDetailContainer() {
 
     fetchCaseBycaseId(caseId);
     fetchItemsService();
+    fetchPaymentsByTypeService(caseId);
   }, [caseId]);
 
   const createPaymentService = async (caseId, title, amount) => {
     await paymentService.createPaymentTypeService(caseId, title, amount);
-    // const fetchAppointment = async () => {
-    //   const res = await caseService.getAppointmentByCaseId(caseId);
-    //   setAppointment(res.data.appointment);
-    // };
-    // fetchAppointment();
+    const fetchPaymentsByTypeService = async (caseId) => {
+      const res = await paymentService.getPaymentsByTypeServiceByCaseId(caseId);
+      setPaymentsByTypeService(res.data.paymentsByTypeService);
+    };
+    fetchPaymentsByTypeService(caseId);
   };
 
   return (
@@ -60,6 +73,7 @@ function PaymentDetailContainer() {
               itemsService={itemsService}
               createPaymentService={createPaymentService}
               caseId={caseId}
+              paymentsByTypeService={paymentsByTypeService}
             />
             <PaymentDetailFooter />
           </div>
