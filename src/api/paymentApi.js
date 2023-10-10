@@ -7,3 +7,19 @@ export const getCaseNoReceiptById = (caseId) =>
 
 export const getPaymentItemsByTypeService = () =>
   axios.get(`/payments/payment-items?paymentTypeTitle=ค่าบริการ`);
+
+// export const createPaymentTypeService = (caseId, title, amount) =>
+//   axios.post(
+//     `/payments/cases-no-receipt/${caseId}/payment?paymentItemTitle=${title}`,
+//     amount
+//   );
+export const createPaymentTypeService = (caseId, title, amount) =>
+  axios.post(
+    `/payments/cases-no-receipt/${caseId}/payment`,
+    { amount },
+    {
+      params: {
+        paymentItemTitle: title
+      }
+    }
+  );
