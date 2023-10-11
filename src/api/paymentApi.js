@@ -8,6 +8,11 @@ export const getCaseNoReceiptById = (caseId) =>
 export const getPaymentItemsByTypeService = () =>
   axios.get(`/payments/payment-items?paymentTypeTitle=ค่าบริการ`);
 
+export const getPaymentItemsByTypeSupply = () =>
+  axios.get(`/payments/payment-items?paymentTypeTitle=ค่าเวชภัณฑ์`);
+export const getPaymentItemsByTypeMedicine = () =>
+  axios.get(`/payments/payment-items?paymentTypeTitle=ค่ายา`);
+
 // export const createPaymentTypeService = (caseId, title, amount) =>
 //   axios.post(
 //     `/payments/cases-no-receipt/${caseId}/payment?paymentItemTitle=${title}`,

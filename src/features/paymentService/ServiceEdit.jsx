@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Modal from '../../components/ui/Modal';
-import PaymentEditForm from './PaymentEditForm';
+import ServiceEditForm from './ServiceEditForm';
 
-function PaymentEdit({
+function ServiceEdit({
   itemsService,
   updatePayment,
   caseId,
@@ -16,7 +16,6 @@ function PaymentEdit({
     await updatePayment(caseId, paymentId, title, amount);
     setIsOpen(false);
   };
-
   return (
     <td>
       <button
@@ -29,11 +28,11 @@ function PaymentEdit({
         แก้ไข
       </button>
       <Modal
-        title="แก้ไขการจ่ายเงิน"
+        title="แก้ไขการจ่ายเงินค่าบริการ"
         open={isOpen}
         onClose={() => setIsOpen(false)}
       >
-        <PaymentEditForm
+        <ServiceEditForm
           itemsService={itemsService}
           caseId={caseId}
           onSubmit={onSubmit}
@@ -46,4 +45,4 @@ function PaymentEdit({
   );
 }
 
-export default PaymentEdit;
+export default ServiceEdit;

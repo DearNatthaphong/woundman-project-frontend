@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import validator from 'validator';
-import ServiceOption from './ServiceOption';
 import { useLoading } from '../../contexts/LoadingContext';
 import { toast } from 'react-toastify';
+import ServiceOptionList from './ServiceOptionList';
 
-function PaymentServiceCreate({ itemsService, createPaymentService, caseId }) {
+function ServiceCreate({ itemsService, createPaymentService, caseId }) {
   const [amount, setAmount] = useState('');
   const [title, setTitle] = useState('');
 
@@ -32,7 +32,6 @@ function PaymentServiceCreate({ itemsService, createPaymentService, caseId }) {
       stopLoading();
     }
   };
-
   return (
     <div className="input-group mb-3">
       <select
@@ -41,7 +40,7 @@ function PaymentServiceCreate({ itemsService, createPaymentService, caseId }) {
         onChange={(e) => setTitle(e.target.value)}
       >
         <option defaultValue="รายการ">เลือกรายการ</option>
-        <ServiceOption itemsService={itemsService} />
+        <ServiceOptionList itemsService={itemsService} />
       </select>
 
       <input
@@ -58,4 +57,4 @@ function PaymentServiceCreate({ itemsService, createPaymentService, caseId }) {
   );
 }
 
-export default PaymentServiceCreate;
+export default ServiceCreate;

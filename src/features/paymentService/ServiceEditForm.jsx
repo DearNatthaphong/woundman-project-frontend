@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import ServiceOption from './ServiceOption';
 import { useLoading } from '../../contexts/LoadingContext';
 import { toast } from 'react-toastify';
 import validator from 'validator';
+import ServiceOptionList from './ServiceOptionList';
 
-function PaymentEditForm({
+function ServiceEditForm({
   itemsService,
   caseId,
   onSubmit,
@@ -51,7 +51,7 @@ function PaymentEditForm({
         onChange={(e) => setTitle(e.target.value)}
       >
         <option defaultValue="รายการ">เลือกรายการ</option>
-        <ServiceOption itemsService={itemsService} />
+        <ServiceOptionList itemsService={itemsService} />
       </select>
 
       <input
@@ -68,4 +68,4 @@ function PaymentEditForm({
   );
 }
 
-export default PaymentEditForm;
+export default ServiceEditForm;

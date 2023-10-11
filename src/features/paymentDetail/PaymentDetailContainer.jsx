@@ -9,6 +9,8 @@ function PaymentDetailContainer() {
   const { id: caseId } = useParams();
   const [caseData, setCaseData] = useState({});
   const [itemsService, setItemsService] = useState([]);
+  const [itemsSupply, setItemsSupply] = useState([]);
+  const [itemsMedicine, setItemsMedicine] = useState([]);
   const [paymentsByTypeService, setPaymentsByTypeService] = useState([]);
 
   useEffect(() => {
@@ -23,17 +25,44 @@ function PaymentDetailContainer() {
         // stopLoading();
       }
     };
+
     const fetchItemsService = async () => {
       try {
         // startLoading();
         const res = await paymentService.getPaymentItemsByTypeService();
-        setItemsService(res.data.paymentItemsService);
+        setItemsService(res.data.paymentItems);
       } catch (err) {
         console.log(err);
       } finally {
         // stopLoading();
       }
     };
+
+    const fetchItemsSupply = async () => {
+      try {
+        // startLoading();
+        const res = await paymentService.getPaymentItemsByTypeSupply();
+        setItemsSupply(res.data.paymentItems);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        // stopLoading();
+      }
+    };
+
+    const fetchItemsMedicine = async () => {
+      try {
+        // startLoading();
+        const res = await paymentService.getPaymentItemsByTypeMedicine();
+        console.log('API Response for itemsMedicine:', res);
+        setItemsMedicine(res.data.paymentItems);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        // stopLoading();
+      }
+    };
+
     const fetchPaymentsByTypeService = async (caseId) => {
       try {
         // startLoading();
@@ -50,8 +79,13 @@ function PaymentDetailContainer() {
 
     fetchCaseBycaseId(caseId);
     fetchItemsService();
+    fetchItemsSupply();
+    fetchItemsMedicine();
     fetchPaymentsByTypeService(caseId);
   }, [caseId]);
+
+  // console.log('itemsSupply :', itemsSupply);
+  // console.log('itemsMedicine :', itemsMedicine);
 
   const createPaymentService = async (caseId, title, amount) => {
     await paymentService.createPaymentTypeService(caseId, title, amount);
@@ -94,6 +128,8 @@ function PaymentDetailContainer() {
             <PaymentDetailBody
               caseData={caseData}
               itemsService={itemsService}
+              itemsSupply={itemsSupply}
+              itemsMedicine={itemsMedicine}
               caseId={caseId}
               createPaymentService={createPaymentService}
               paymentsByTypeService={paymentsByTypeService}

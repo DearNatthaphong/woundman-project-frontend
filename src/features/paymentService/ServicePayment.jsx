@@ -1,8 +1,8 @@
 import React from 'react';
-import PaymentDelete from './PaymentDelete';
-import PaymentEdit from './PaymentEdit';
+import ServiceEdit from './ServiceEdit';
+import ServiceDelete from './ServiceDelete';
 
-function PaymentServiceDisplayItem({
+function ServicePayment({
   updatePayment,
   itemsService,
   caseId,
@@ -22,7 +22,7 @@ function PaymentServiceDisplayItem({
         <td>{title}</td>
         <td>{amount}</td>
         <td>{price}</td>
-        <PaymentEdit
+        <ServiceEdit
           itemsService={itemsService}
           updatePayment={updatePayment}
           caseId={caseId}
@@ -30,10 +30,11 @@ function PaymentServiceDisplayItem({
           title={title}
           amount={amount}
         />
-        <PaymentDelete caseId={caseId} deletePayment={deletePayment} id={id} />
+
+        <ServiceDelete caseId={caseId} deletePayment={deletePayment} id={id} />
       </tr>
     </tbody>
   );
 }
 
-export default PaymentServiceDisplayItem;
+export default ServicePayment;

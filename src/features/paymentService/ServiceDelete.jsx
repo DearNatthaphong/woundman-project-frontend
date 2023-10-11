@@ -2,7 +2,7 @@ import React from 'react';
 import { useLoading } from '../../contexts/LoadingContext';
 import { toast } from 'react-toastify';
 
-function PaymentDelete({ caseId, deletePayment, id }) {
+function ServiceDelete({ caseId, deletePayment, id }) {
   const { startLoading, stopLoading } = useLoading();
 
   const paymentId = id;
@@ -34,4 +34,4 @@ function PaymentDelete({ caseId, deletePayment, id }) {
   );
 }
 
-export default PaymentDelete;
+export default ServiceDelete;

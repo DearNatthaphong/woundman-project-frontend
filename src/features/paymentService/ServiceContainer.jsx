@@ -1,8 +1,8 @@
 import React from 'react';
-import PaymentServiceCreate from './PaymentServiceCreate';
-import PaymentServiceDisplay from './PaymentServiceDisplay';
+import ServiceCreate from './ServiceCreate';
+import ServicePaymentList from './ServicePaymentList';
 
-function PaymentService({
+function ServiceContainer({
   itemsService,
   createPaymentService,
   caseId,
@@ -12,14 +12,13 @@ function PaymentService({
 }) {
   return (
     <li className="list-group-item py-3">
-      {/*1.ค่าบริการและตารางรายการ */}
       <h5 className="">1.ค่าบริการ</h5>
-      <PaymentServiceCreate
+      <ServiceCreate
         itemsService={itemsService}
         createPaymentService={createPaymentService}
         caseId={caseId}
       />
-      <PaymentServiceDisplay
+      <ServicePaymentList
         paymentsByTypeService={paymentsByTypeService}
         deletePayment={deletePayment}
         caseId={caseId}
@@ -30,4 +29,4 @@ function PaymentService({
   );
 }
 
-export default PaymentService;
+export default ServiceContainer;

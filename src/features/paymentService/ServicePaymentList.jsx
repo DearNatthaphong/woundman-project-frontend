@@ -1,7 +1,7 @@
 import React from 'react';
-import PaymentServiceDisplayItem from './PaymentServiceDisplayItem';
+import ServicePayment from './ServicePayment';
 
-function PaymentServiceDisplay({
+function ServicePaymentList({
   paymentsByTypeService,
   deletePayment,
   caseId,
@@ -20,7 +20,7 @@ function PaymentServiceDisplay({
         </tr>
       </thead>
       {paymentsByTypeService.map((item, index) => (
-        <PaymentServiceDisplayItem
+        <ServicePayment
           key={item.id}
           paymentByTypeService={item}
           index={index}
@@ -34,4 +34,4 @@ function PaymentServiceDisplay({
   );
 }
 
-export default PaymentServiceDisplay;
+export default ServicePaymentList;
