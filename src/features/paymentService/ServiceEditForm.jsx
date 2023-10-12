@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLoading } from '../../contexts/LoadingContext';
 import { toast } from 'react-toastify';
 import validator from 'validator';
-import ServiceOptionList from './ServiceOptionList';
+import ServiceOption from './ServiceOption';
 
 function ServiceEditForm({
   itemsService,
@@ -51,7 +51,9 @@ function ServiceEditForm({
         onChange={(e) => setTitle(e.target.value)}
       >
         <option defaultValue="รายการ">เลือกรายการ</option>
-        <ServiceOptionList itemsService={itemsService} />
+        {itemsService.map((item) => (
+          <ServiceOption key={item.id} itemService={item} />
+        ))}
       </select>
 
       <input

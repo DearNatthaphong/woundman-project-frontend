@@ -11,7 +11,9 @@ function PaymentDetailContainer() {
   const [itemsService, setItemsService] = useState([]);
   const [itemsSupply, setItemsSupply] = useState([]);
   const [itemsMedicine, setItemsMedicine] = useState([]);
-  const [paymentsByTypeService, setPaymentsByTypeService] = useState([]);
+  const [paymentsService, setPaymentsService] = useState([]);
+  const [paymentsSupply, setPaymentsSupply] = useState([]);
+  const [paymentsMedicine, setPaymentsMedicine] = useState([]);
 
   useEffect(() => {
     const fetchCaseBycaseId = async (caseId) => {
@@ -63,13 +65,11 @@ function PaymentDetailContainer() {
       }
     };
 
-    const fetchPaymentsByTypeService = async (caseId) => {
+    const fetchPaymentsService = async (caseId) => {
       try {
         // startLoading();
-        const res = await paymentService.getPaymentsByTypeServiceByCaseId(
-          caseId
-        );
-        setPaymentsByTypeService(res.data.paymentsByTypeService);
+        const res = await paymentService.getPaymentsServiceCaseId(caseId);
+        setPaymentsService(res.data.paymentsByType);
       } catch (err) {
         console.log(err);
       } finally {
@@ -81,26 +81,42 @@ function PaymentDetailContainer() {
     fetchItemsService();
     fetchItemsSupply();
     fetchItemsMedicine();
-    fetchPaymentsByTypeService(caseId);
+    fetchPaymentsService(caseId);
   }, [caseId]);
 
   // console.log('itemsSupply :', itemsSupply);
   // console.log('itemsMedicine :', itemsMedicine);
 
   const createPaymentService = async (caseId, title, amount) => {
-    await paymentService.createPaymentTypeService(caseId, title, amount);
-    const fetchPaymentsByTypeService = async (caseId) => {
-      const res = await paymentService.getPaymentsByTypeServiceByCaseId(caseId);
-      setPaymentsByTypeService(res.data.paymentsByTypeService);
+    await paymentService.createPayment(caseId, title, amount);
+    const fetchPaymentsService = async (caseId) => {
+      const res = await paymentService.getPaymentsServiceCaseId(caseId);
+      setPaymentsService(res.data.paymentsByType);
     };
-    fetchPaymentsByTypeService(caseId);
+    fetchPaymentsService(caseId);
+  };
+  const createPaymentSupply = async (caseId, title, amount) => {
+    await paymentService.createPayment(caseId, title, amount);
+    const fetchPaymentsSupply = async (caseId) => {
+      const res = await paymentService.getPaymentsSupplyCaseId(caseId);
+      setPaymentsSupply(res.data.paymentsByType);
+    };
+    fetchPaymentsSupply(caseId);
+  };
+  const createPaymentMedicine = async (caseId, title, amount) => {
+    await paymentService.createPayment(caseId, title, amount);
+    const fetchPaymentsMedicine = async (caseId) => {
+      const res = await paymentService.getPaymentsMedicineCaseId(caseId);
+      setPaymentsMedicine(res.data.paymentsByType);
+    };
+    fetchPaymentsMedicine(caseId);
   };
 
   const deletePayment = async (caseId, paymentId) => {
     await paymentService.deletePaymentByCaseIdPaymentId(caseId, paymentId);
     const fetchPaymentsByTypeService = async (caseId) => {
-      const res = await paymentService.getPaymentsByTypeServiceByCaseId(caseId);
-      setPaymentsByTypeService(res.data.paymentsByTypeService);
+      const res = await paymentService.getPaymentsServiceCaseId(caseId);
+      setPaymentsService(res.data.paymentsByTypeService);
     };
     fetchPaymentsByTypeService(caseId);
   };
@@ -113,8 +129,8 @@ function PaymentDetailContainer() {
       amount
     );
     const fetchPaymentsByTypeService = async (caseId) => {
-      const res = await paymentService.getPaymentsByTypeServiceByCaseId(caseId);
-      setPaymentsByTypeService(res.data.paymentsByTypeService);
+      const res = await paymentService.getPaymentsServiceCaseId(caseId);
+      setPaymentsService(res.data.paymentsByTypeService);
     };
     fetchPaymentsByTypeService(caseId);
   };
@@ -132,7 +148,11 @@ function PaymentDetailContainer() {
               itemsMedicine={itemsMedicine}
               caseId={caseId}
               createPaymentService={createPaymentService}
-              paymentsByTypeService={paymentsByTypeService}
+              paymentsService={paymentsService}
+              createPaymentSupply={createPaymentSupply}
+              paymentsSupply={paymentsSupply}
+              createPaymentMedicine={createPaymentMedicine}
+              paymentsMedicine={paymentsMedicine}
               deletePayment={deletePayment}
               updatePayment={updatePayment}
             />

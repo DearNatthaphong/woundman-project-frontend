@@ -8,7 +8,7 @@ function ServicePayment({
   caseId,
   deletePayment,
   index,
-  paymentByTypeService: {
+  paymentService: {
     id,
     amount,
     price,

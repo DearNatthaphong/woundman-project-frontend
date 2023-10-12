@@ -2,7 +2,7 @@ import React from 'react';
 import ServicePayment from './ServicePayment';
 
 function ServicePaymentList({
-  paymentsByTypeService,
+  paymentsService,
   deletePayment,
   caseId,
   itemsService,
@@ -19,10 +19,10 @@ function ServicePaymentList({
           <th scope="col"></th>
         </tr>
       </thead>
-      {paymentsByTypeService.map((item, index) => (
+      {paymentsService.map((item, index) => (
         <ServicePayment
           key={item.id}
-          paymentByTypeService={item}
+          paymentService={item}
           index={index}
           deletePayment={deletePayment}
           caseId={caseId}

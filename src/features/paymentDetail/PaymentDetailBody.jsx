@@ -12,7 +12,11 @@ function PaymentDetailBody({
   itemsMedicine,
   caseId,
   createPaymentService,
-  paymentsByTypeService,
+  paymentsService,
+  createPaymentSupply,
+  paymentsSupply,
+  createPaymentMedicine,
+  paymentsMedicine,
   deletePayment,
   updatePayment
 }) {
@@ -24,12 +28,22 @@ function PaymentDetailBody({
         itemsService={itemsService}
         caseId={caseId}
         createPaymentService={createPaymentService}
-        paymentsByTypeService={paymentsByTypeService}
+        paymentsService={paymentsService}
         deletePayment={deletePayment}
         updatePayment={updatePayment}
       />
-      <SupplyContainer itemsSupply={itemsSupply} />
-      <MedicineContainer itemsMedicine={itemsMedicine} />
+      <SupplyContainer
+        itemsSupply={itemsSupply}
+        caseId={caseId}
+        createPaymentSupply={createPaymentSupply}
+        paymentsSupply={paymentsSupply}
+      />
+      <MedicineContainer
+        itemsMedicine={itemsMedicine}
+        caseId={caseId}
+        createPaymentMedicine={createPaymentMedicine}
+        paymentsMedicine={paymentsMedicine}
+      />
       <ReceiptContainer />
     </ul>
   );

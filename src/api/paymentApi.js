@@ -18,7 +18,7 @@ export const getPaymentItemsByTypeMedicine = () =>
 //     `/payments/cases-no-receipt/${caseId}/payment?paymentItemTitle=${title}`,
 //     amount
 //   );
-export const createPaymentTypeService = (caseId, title, amount) =>
+export const createPayment = (caseId, title, amount) =>
   axios.post(
     `/payments/cases-no-receipt/${caseId}/payment`,
     { amount },
@@ -29,9 +29,17 @@ export const createPaymentTypeService = (caseId, title, amount) =>
     }
   );
 
-export const getPaymentsByTypeServiceByCaseId = (caseId) =>
+export const getPaymentsServiceCaseId = (caseId) =>
   axios.get(
     `/payments/cases-no-receipt/${caseId}/payment?paymentTypeTitle=ค่าบริการ`
+  );
+export const getPaymentsSupplyCaseId = (caseId) =>
+  axios.get(
+    `/payments/cases-no-receipt/${caseId}/payment?paymentTypeTitle=ค่าเวชภัณฑ์`
+  );
+export const getPaymentsMedicineCaseId = (caseId) =>
+  axios.get(
+    `/payments/cases-no-receipt/${caseId}/payment?paymentTypeTitle=ค่ายา`
   );
 
 export const deletePaymentByCaseIdPaymentId = (caseId, paymentId) =>
