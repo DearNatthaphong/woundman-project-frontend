@@ -7,7 +7,7 @@ function ServiceContainer({
   createPaymentService,
   caseId,
   paymentsService,
-  deletePayment,
+  deletePaymentService,
   updatePayment
 }) {
   return (
@@ -20,7 +20,7 @@ function ServiceContainer({
       />
       <ServicePaymentList
         paymentsService={paymentsService}
-        deletePayment={deletePayment}
+        deletePaymentService={deletePaymentService}
         caseId={caseId}
         itemsService={itemsService}
         updatePayment={updatePayment}

@@ -1,7 +1,11 @@
 import React from 'react';
 import MedicinePayment from './MedicinePayment';
 
-function MedicinePaymentList() {
+function MedicinePaymentList({
+  paymentsMedicine,
+  deletePaymentMedicine,
+  caseId
+}) {
   return (
     <div>
       <table className="table table-striped">
@@ -14,7 +18,17 @@ function MedicinePaymentList() {
             <th scope="col"></th>
           </tr>
         </thead>
-        <MedicinePayment />
+        <tbody>
+          {paymentsMedicine.map((item, index) => (
+            <MedicinePayment
+              key={item.id}
+              index={index}
+              paymentMedicine={item}
+              deletePaymentMedicine={deletePaymentMedicine}
+              caseId={caseId}
+            />
+          ))}
+        </tbody>
       </table>
     </div>
   );

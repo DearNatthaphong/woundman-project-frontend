@@ -17,7 +17,9 @@ function PaymentDetailBody({
   paymentsSupply,
   createPaymentMedicine,
   paymentsMedicine,
-  deletePayment,
+  deletePaymentService,
+  deletePaymentSupply,
+  deletePaymentMedicine,
   updatePayment
 }) {
   return (
@@ -29,7 +31,7 @@ function PaymentDetailBody({
         caseId={caseId}
         createPaymentService={createPaymentService}
         paymentsService={paymentsService}
-        deletePayment={deletePayment}
+        deletePaymentService={deletePaymentService}
         updatePayment={updatePayment}
       />
       <SupplyContainer
@@ -37,12 +39,14 @@ function PaymentDetailBody({
         caseId={caseId}
         createPaymentSupply={createPaymentSupply}
         paymentsSupply={paymentsSupply}
+        deletePaymentSupply={deletePaymentSupply}
       />
       <MedicineContainer
         itemsMedicine={itemsMedicine}
         caseId={caseId}
         createPaymentMedicine={createPaymentMedicine}
         paymentsMedicine={paymentsMedicine}
+        deletePaymentMedicine={deletePaymentMedicine}
       />
       <ReceiptContainer />
     </ul>

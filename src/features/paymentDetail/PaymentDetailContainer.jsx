@@ -39,7 +39,6 @@ function PaymentDetailContainer() {
         // stopLoading();
       }
     };
-
     const fetchItemsSupply = async () => {
       try {
         // startLoading();
@@ -51,12 +50,11 @@ function PaymentDetailContainer() {
         // stopLoading();
       }
     };
-
     const fetchItemsMedicine = async () => {
       try {
         // startLoading();
         const res = await paymentService.getPaymentItemsByTypeMedicine();
-        console.log('API Response for itemsMedicine:', res);
+
         setItemsMedicine(res.data.paymentItems);
       } catch (err) {
         console.log(err);
@@ -69,7 +67,32 @@ function PaymentDetailContainer() {
       try {
         // startLoading();
         const res = await paymentService.getPaymentsServiceCaseId(caseId);
+        // console.log('API Response for fetchPaymentsService:', res);
         setPaymentsService(res.data.paymentsByType);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        // stopLoading();
+      }
+    };
+    const fetchPaymentsSupply = async (caseId) => {
+      try {
+        // startLoading();
+        const res = await paymentService.getPaymentsSupplyCaseId(caseId);
+        // console.log('API Response for fetchPaymentsSupply:', res);
+        setPaymentsSupply(res.data.paymentsByType);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        // stopLoading();
+      }
+    };
+    const fetchPaymentsMedicine = async (caseId) => {
+      try {
+        // startLoading();
+        const res = await paymentService.getPaymentsMedicineCaseId(caseId);
+        // console.log('API Response for fetchPaymentsService:', res);
+        setPaymentsMedicine(res.data.paymentsByType);
       } catch (err) {
         console.log(err);
       } finally {
@@ -82,6 +105,8 @@ function PaymentDetailContainer() {
     fetchItemsSupply();
     fetchItemsMedicine();
     fetchPaymentsService(caseId);
+    fetchPaymentsSupply(caseId);
+    fetchPaymentsMedicine(caseId);
   }, [caseId]);
 
   // console.log('itemsSupply :', itemsSupply);
@@ -112,13 +137,30 @@ function PaymentDetailContainer() {
     fetchPaymentsMedicine(caseId);
   };
 
-  const deletePayment = async (caseId, paymentId) => {
+  const deletePaymentService = async (caseId, paymentId) => {
     await paymentService.deletePaymentByCaseIdPaymentId(caseId, paymentId);
-    const fetchPaymentsByTypeService = async (caseId) => {
+    const fetchPaymentsService = async (caseId) => {
       const res = await paymentService.getPaymentsServiceCaseId(caseId);
-      setPaymentsService(res.data.paymentsByTypeService);
+      setPaymentsService(res.data.paymentsByType);
     };
-    fetchPaymentsByTypeService(caseId);
+    fetchPaymentsService(caseId);
+  };
+
+  const deletePaymentSupply = async (caseId, paymentId) => {
+    await paymentService.deletePaymentByCaseIdPaymentId(caseId, paymentId);
+    const fetchPaymentsSupply = async (caseId) => {
+      const res = await paymentService.getPaymentsSupplyCaseId(caseId);
+      setPaymentsSupply(res.data.paymentsByType);
+    };
+    fetchPaymentsSupply(caseId);
+  };
+  const deletePaymentMedicine = async (caseId, paymentId) => {
+    await paymentService.deletePaymentByCaseIdPaymentId(caseId, paymentId);
+    const fetchPaymentsMedicine = async (caseId) => {
+      const res = await paymentService.getPaymentsMedicineCaseId(caseId);
+      setPaymentsMedicine(res.data.paymentsByType);
+    };
+    fetchPaymentsMedicine(caseId);
   };
 
   const updatePayment = async (caseId, paymentId, title, amount) => {
@@ -153,7 +195,9 @@ function PaymentDetailContainer() {
               paymentsSupply={paymentsSupply}
               createPaymentMedicine={createPaymentMedicine}
               paymentsMedicine={paymentsMedicine}
-              deletePayment={deletePayment}
+              deletePaymentService={deletePaymentService}
+              deletePaymentSupply={deletePaymentSupply}
+              deletePaymentMedicine={deletePaymentMedicine}
               updatePayment={updatePayment}
             />
             <PaymentDetailFooter />

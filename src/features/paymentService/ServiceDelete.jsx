@@ -2,7 +2,7 @@ import React from 'react';
 import { useLoading } from '../../contexts/LoadingContext';
 import { toast } from 'react-toastify';
 
-function ServiceDelete({ caseId, deletePayment, id }) {
+function ServiceDelete({ caseId, deletePaymentService, id }) {
   const { startLoading, stopLoading } = useLoading();
 
   const paymentId = id;
@@ -10,7 +10,7 @@ function ServiceDelete({ caseId, deletePayment, id }) {
   const handleDelete = async () => {
     try {
       startLoading();
-      await deletePayment(caseId, paymentId);
+      await deletePaymentService(caseId, paymentId);
       toast.success('ลบข้อมูลการจ่ายสำเร็จ');
     } catch (err) {
       console.log(err);

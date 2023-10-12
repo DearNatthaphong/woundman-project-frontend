@@ -3,7 +3,7 @@ import ServicePayment from './ServicePayment';
 
 function ServicePaymentList({
   paymentsService,
-  deletePayment,
+  deletePaymentService,
   caseId,
   itemsService,
   updatePayment
@@ -19,17 +19,19 @@ function ServicePaymentList({
           <th scope="col"></th>
         </tr>
       </thead>
-      {paymentsService.map((item, index) => (
-        <ServicePayment
-          key={item.id}
-          paymentService={item}
-          index={index}
-          deletePayment={deletePayment}
-          caseId={caseId}
-          itemsService={itemsService}
-          updatePayment={updatePayment}
-        />
-      ))}
+      <tbody>
+        {paymentsService.map((item, index) => (
+          <ServicePayment
+            key={item.id}
+            paymentService={item}
+            index={index}
+            deletePaymentService={deletePaymentService}
+            caseId={caseId}
+            itemsService={itemsService}
+            updatePayment={updatePayment}
+          />
+        ))}
+      </tbody>
     </table>
   );
 }

@@ -6,34 +6,35 @@ function ServicePayment({
   updatePayment,
   itemsService,
   caseId,
-  deletePayment,
+  deletePaymentService,
   index,
-  paymentService: {
-    id,
-    amount,
-    price,
-    PaymentItem: { title }
-  }
+  paymentService
 }) {
-  return (
-    <tbody>
-      <tr>
-        <th scope="row">{index + 1}</th>
-        <td>{title}</td>
-        <td>{amount}</td>
-        <td>{price}</td>
-        <ServiceEdit
-          itemsService={itemsService}
-          updatePayment={updatePayment}
-          caseId={caseId}
-          id={id}
-          title={title}
-          amount={amount}
-        />
+  const title = paymentService?.PaymentItem?.title;
 
-        <ServiceDelete caseId={caseId} deletePayment={deletePayment} id={id} />
-      </tr>
-    </tbody>
+  const { id, amount, price } = paymentService;
+
+  return (
+    <tr>
+      <th scope="row">{index + 1}</th>
+      <td>{title}</td>
+      <td>{amount}</td>
+      <td>{price}</td>
+      <ServiceEdit
+        itemsService={itemsService}
+        updatePayment={updatePayment}
+        caseId={caseId}
+        id={id}
+        title={title}
+        amount={amount}
+      />
+
+      <ServiceDelete
+        caseId={caseId}
+        deletePaymentService={deletePaymentService}
+        id={id}
+      />
+    </tr>
   );
 }
 

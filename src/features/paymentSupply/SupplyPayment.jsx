@@ -2,18 +2,23 @@ import React from 'react';
 import SupplyEdit from './SupplyEdit';
 import SupplyDelete from './SupplyDelete';
 
-function SupplyPayment() {
+function SupplyPayment({ index, paymentSupply, deletePaymentSupply, caseId }) {
+  const title = paymentSupply?.PaymentItem?.title;
+
+  const { amount, price, id } = paymentSupply;
   return (
-    <tbody>
-      <tr>
-        <th scope="row">index</th>
-        <td>title</td>
-        <td>amount</td>
-        <td>price</td>
-        <SupplyEdit />
-        <SupplyDelete />
-      </tr>
-    </tbody>
+    <tr>
+      <th scope="row">{String(index + 1)}</th>
+      <td>{title}</td>
+      <td>{amount}</td>
+      <td>{price}</td>
+      <SupplyEdit />
+      <SupplyDelete
+        deletePaymentSupply={deletePaymentSupply}
+        caseId={caseId}
+        id={id}
+      />
+    </tr>
   );
 }
 

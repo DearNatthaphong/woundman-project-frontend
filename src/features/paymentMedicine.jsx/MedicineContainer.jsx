@@ -6,7 +6,8 @@ function MedicineContainer({
   itemsMedicine,
   caseId,
   createPaymentMedicine,
-  paymentsMedicine
+  paymentsMedicine,
+  deletePaymentMedicine
 }) {
   return (
     <li className="list-group-item py-3">
@@ -17,7 +18,11 @@ function MedicineContainer({
           caseId={caseId}
           createPaymentMedicine={createPaymentMedicine}
         />
-        <MedicinePaymentList paymentsMedicine={paymentsMedicine} />
+        <MedicinePaymentList
+          paymentsMedicine={paymentsMedicine}
+          deletePaymentMedicine={deletePaymentMedicine}
+          caseId={caseId}
+        />
       </div>
     </li>
   );

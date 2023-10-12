@@ -1,7 +1,7 @@
 import React from 'react';
 import SupplyPayment from './SupplyPayment';
 
-function SupplyPaymentList() {
+function SupplyPaymentList({ paymentsSupply, deletePaymentSupply, caseId }) {
   return (
     <div>
       <table className="table table-striped">
@@ -14,9 +14,17 @@ function SupplyPaymentList() {
             <th scope="col"></th>
           </tr>
         </thead>
-        <SupplyPayment />
-        <SupplyPayment />
-        <SupplyPayment />
+        <tbody>
+          {paymentsSupply.map((item, index) => (
+            <SupplyPayment
+              key={item.id}
+              index={index}
+              paymentSupply={item}
+              deletePaymentSupply={deletePaymentSupply}
+              caseId={caseId}
+            />
+          ))}
+        </tbody>
       </table>
     </div>
   );
