@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ReceiptContainer() {
+function ReceiptCreateContainer() {
   return (
     <>
       <li className="list-group-item py-3">
@@ -65,7 +65,7 @@ function ReceiptContainer() {
       </li>
       <div className="card-footer">
         <div className="row justify-content-center">
-          <button type="button" className="col-4 btn btn-primary">
+          <button type="button" className="col-4 btn btn-primary w-100">
             ถัดไป
           </button>
         </div>
@@ -74,4 +74,4 @@ function ReceiptContainer() {
   );
 }
 
-export default ReceiptContainer;
+export default ReceiptCreateContainer;

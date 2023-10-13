@@ -3,7 +3,8 @@ import PatientDetail from './PatientDetail';
 import SupplyContainer from '../paymentSupply/SupplyContainer';
 import ServiceContainer from '../paymentService/ServiceContainer';
 import MedicineContainer from '../paymentMedicine.jsx/MedicineContainer';
-import ReceiptContainer from '../receipt/ReceiptContainer';
+import ReceiptCreateContainer from '../paymentReceipt/ReceiptCreateContainer';
+import ReceiptDisplayContainer from '../paymentReceipt/ReceiptDisplayContainer';
 
 function PaymentDetailBody({
   caseData,
@@ -22,7 +23,9 @@ function PaymentDetailBody({
   deletePaymentMedicine,
   updatePaymentService,
   updatePaymentSupply,
-  updatePaymentMedicine
+  updatePaymentMedicine,
+  receipt,
+  formattedTotalPrice
 }) {
   return (
     <ul className="list-group list-group-flush">
@@ -52,7 +55,11 @@ function PaymentDetailBody({
         deletePaymentMedicine={deletePaymentMedicine}
         updatePaymentMedicine={updatePaymentMedicine}
       />
-      <ReceiptContainer />
+      <ReceiptCreateContainer />
+      <ReceiptDisplayContainer
+        receipt={receipt}
+        formattedTotalPrice={formattedTotalPrice}
+      />
     </ul>
   );
 }
