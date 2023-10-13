@@ -7,7 +7,8 @@ function SupplyContainer({
   createPaymentSupply,
   paymentsSupply,
   caseId,
-  deletePaymentSupply
+  deletePaymentSupply,
+  updatePaymentSupply
 }) {
   return (
     <li className="list-group-item py-3">
@@ -21,6 +22,8 @@ function SupplyContainer({
         paymentsSupply={paymentsSupply}
         deletePaymentSupply={deletePaymentSupply}
         caseId={caseId}
+        updatePaymentSupply={updatePaymentSupply}
+        itemsSupply={itemsSupply}
       />
     </li>
   );

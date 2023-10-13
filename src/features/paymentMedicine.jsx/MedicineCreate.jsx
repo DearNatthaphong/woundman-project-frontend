@@ -41,7 +41,7 @@ function MedicineCreate({ itemsMedicine, caseId, createPaymentMedicine }) {
       >
         <option defaultValue="รายการ">เลือกรายการ</option>
         {itemsMedicine.map((item) => (
-          <MedicineOption key={item.id} item={item} />
+          <MedicineOption key={item.id} itemMedicine={item} />
         ))}
       </select>
       <input

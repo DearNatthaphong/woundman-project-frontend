@@ -3,10 +3,12 @@ import MedicineEdit from './MedicineEdit';
 import MedicineDelete from './MedicineDelete';
 
 function MedicinePayment({
+  updatePaymentMedicine,
   index,
   paymentMedicine,
   deletePaymentMedicine,
-  caseId
+  caseId,
+  itemsMedicine
 }) {
   const title = paymentMedicine?.PaymentItem?.title;
 
@@ -17,7 +19,14 @@ function MedicinePayment({
       <td> {title} </td>
       <td>{amount}</td>
       <td>{price}</td>
-      <MedicineEdit />
+      <MedicineEdit
+        updatePaymentMedicine={updatePaymentMedicine}
+        itemsMedicine={itemsMedicine}
+        caseId={caseId}
+        id={id}
+        title={title}
+        amount={amount}
+      />
       <MedicineDelete
         deletePaymentMedicine={deletePaymentMedicine}
         caseId={caseId}

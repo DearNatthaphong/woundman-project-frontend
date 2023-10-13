@@ -1,7 +1,13 @@
 import React from 'react';
 import SupplyPayment from './SupplyPayment';
 
-function SupplyPaymentList({ paymentsSupply, deletePaymentSupply, caseId }) {
+function SupplyPaymentList({
+  paymentsSupply,
+  deletePaymentSupply,
+  caseId,
+  updatePaymentSupply,
+  itemsSupply
+}) {
   return (
     <div>
       <table className="table table-striped">
@@ -22,6 +28,8 @@ function SupplyPaymentList({ paymentsSupply, deletePaymentSupply, caseId }) {
               paymentSupply={item}
               deletePaymentSupply={deletePaymentSupply}
               caseId={caseId}
+              updatePaymentSupply={updatePaymentSupply}
+              itemsSupply={itemsSupply}
             />
           ))}
         </tbody>

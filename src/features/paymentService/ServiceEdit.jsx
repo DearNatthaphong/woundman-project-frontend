@@ -4,7 +4,7 @@ import ServiceEditForm from './ServiceEditForm';
 
 function ServiceEdit({
   itemsService,
-  updatePayment,
+  updatePaymentService,
   caseId,
   id,
   title,
@@ -13,7 +13,7 @@ function ServiceEdit({
   const [isOpen, setIsOpen] = useState(false);
 
   const onSubmit = async (caseId, paymentId, title, amount) => {
-    await updatePayment(caseId, paymentId, title, amount);
+    await updatePaymentService(caseId, paymentId, title, amount);
     setIsOpen(false);
   };
   return (

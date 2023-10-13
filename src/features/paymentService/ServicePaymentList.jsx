@@ -6,7 +6,7 @@ function ServicePaymentList({
   deletePaymentService,
   caseId,
   itemsService,
-  updatePayment
+  updatePaymentService
 }) {
   return (
     <table className="table table-striped">
@@ -28,7 +28,7 @@ function ServicePaymentList({
             deletePaymentService={deletePaymentService}
             caseId={caseId}
             itemsService={itemsService}
-            updatePayment={updatePayment}
+            updatePaymentService={updatePaymentService}
           />
         ))}
       </tbody>

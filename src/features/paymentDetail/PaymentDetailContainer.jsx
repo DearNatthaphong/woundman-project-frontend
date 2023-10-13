@@ -145,7 +145,6 @@ function PaymentDetailContainer() {
     };
     fetchPaymentsService(caseId);
   };
-
   const deletePaymentSupply = async (caseId, paymentId) => {
     await paymentService.deletePaymentByCaseIdPaymentId(caseId, paymentId);
     const fetchPaymentsSupply = async (caseId) => {
@@ -163,18 +162,44 @@ function PaymentDetailContainer() {
     fetchPaymentsMedicine(caseId);
   };
 
-  const updatePayment = async (caseId, paymentId, title, amount) => {
+  const updatePaymentService = async (caseId, paymentId, title, amount) => {
     await paymentService.updatePaymentByCaseIdPaymentId(
       caseId,
       paymentId,
       title,
       amount
     );
-    const fetchPaymentsByTypeService = async (caseId) => {
+    const fetchPaymentsService = async (caseId) => {
       const res = await paymentService.getPaymentsServiceCaseId(caseId);
-      setPaymentsService(res.data.paymentsByTypeService);
+      setPaymentsService(res.data.paymentsByType);
     };
-    fetchPaymentsByTypeService(caseId);
+    fetchPaymentsService(caseId);
+  };
+  const updatePaymentSupply = async (caseId, paymentId, title, amount) => {
+    await paymentService.updatePaymentByCaseIdPaymentId(
+      caseId,
+      paymentId,
+      title,
+      amount
+    );
+    const fetchPaymentsSupply = async (caseId) => {
+      const res = await paymentService.getPaymentsSupplyCaseId(caseId);
+      setPaymentsSupply(res.data.paymentsByType);
+    };
+    fetchPaymentsSupply(caseId);
+  };
+  const updatePaymentMedicine = async (caseId, paymentId, title, amount) => {
+    await paymentService.updatePaymentByCaseIdPaymentId(
+      caseId,
+      paymentId,
+      title,
+      amount
+    );
+    const fetchPaymentsMedicine = async (caseId) => {
+      const res = await paymentService.getPaymentsMedicineCaseId(caseId);
+      setPaymentsMedicine(res.data.paymentsByType);
+    };
+    fetchPaymentsMedicine(caseId);
   };
 
   return (
@@ -198,7 +223,9 @@ function PaymentDetailContainer() {
               deletePaymentService={deletePaymentService}
               deletePaymentSupply={deletePaymentSupply}
               deletePaymentMedicine={deletePaymentMedicine}
-              updatePayment={updatePayment}
+              updatePaymentService={updatePaymentService}
+              updatePaymentSupply={updatePaymentSupply}
+              updatePaymentMedicine={updatePaymentMedicine}
             />
             <PaymentDetailFooter />
           </div>

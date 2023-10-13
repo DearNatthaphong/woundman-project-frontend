@@ -2,7 +2,14 @@ import React from 'react';
 import SupplyEdit from './SupplyEdit';
 import SupplyDelete from './SupplyDelete';
 
-function SupplyPayment({ index, paymentSupply, deletePaymentSupply, caseId }) {
+function SupplyPayment({
+  index,
+  paymentSupply,
+  deletePaymentSupply,
+  caseId,
+  updatePaymentSupply,
+  itemsSupply
+}) {
   const title = paymentSupply?.PaymentItem?.title;
 
   const { amount, price, id } = paymentSupply;
@@ -12,7 +19,14 @@ function SupplyPayment({ index, paymentSupply, deletePaymentSupply, caseId }) {
       <td>{title}</td>
       <td>{amount}</td>
       <td>{price}</td>
-      <SupplyEdit />
+      <SupplyEdit
+        updatePaymentSupply={updatePaymentSupply}
+        itemsSupply={itemsSupply}
+        caseId={caseId}
+        id={id}
+        title={title}
+        amount={amount}
+      />
       <SupplyDelete
         deletePaymentSupply={deletePaymentSupply}
         caseId={caseId}

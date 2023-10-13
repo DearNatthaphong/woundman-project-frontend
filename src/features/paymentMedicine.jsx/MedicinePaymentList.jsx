@@ -4,7 +4,9 @@ import MedicinePayment from './MedicinePayment';
 function MedicinePaymentList({
   paymentsMedicine,
   deletePaymentMedicine,
-  caseId
+  caseId,
+  updatePaymentMedicine,
+  itemsMedicine
 }) {
   return (
     <div>
@@ -26,6 +28,8 @@ function MedicinePaymentList({
               paymentMedicine={item}
               deletePaymentMedicine={deletePaymentMedicine}
               caseId={caseId}
+              updatePaymentMedicine={updatePaymentMedicine}
+              itemsMedicine={itemsMedicine}
             />
           ))}
         </tbody>

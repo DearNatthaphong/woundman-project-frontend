@@ -3,7 +3,7 @@ import ServiceEdit from './ServiceEdit';
 import ServiceDelete from './ServiceDelete';
 
 function ServicePayment({
-  updatePayment,
+  updatePaymentService,
   itemsService,
   caseId,
   deletePaymentService,
@@ -22,7 +22,7 @@ function ServicePayment({
       <td>{price}</td>
       <ServiceEdit
         itemsService={itemsService}
-        updatePayment={updatePayment}
+        updatePaymentService={updatePaymentService}
         caseId={caseId}
         id={id}
         title={title}

@@ -8,7 +8,7 @@ function ServiceContainer({
   caseId,
   paymentsService,
   deletePaymentService,
-  updatePayment
+  updatePaymentService
 }) {
   return (
     <li className="list-group-item py-3">
@@ -23,7 +23,7 @@ function ServiceContainer({
         deletePaymentService={deletePaymentService}
         caseId={caseId}
         itemsService={itemsService}
-        updatePayment={updatePayment}
+        updatePaymentService={updatePaymentService}
       />
     </li>
   );

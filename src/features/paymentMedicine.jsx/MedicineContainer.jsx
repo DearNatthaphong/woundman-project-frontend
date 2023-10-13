@@ -7,7 +7,8 @@ function MedicineContainer({
   caseId,
   createPaymentMedicine,
   paymentsMedicine,
-  deletePaymentMedicine
+  deletePaymentMedicine,
+  updatePaymentMedicine
 }) {
   return (
     <li className="list-group-item py-3">
@@ -22,6 +23,8 @@ function MedicineContainer({
           paymentsMedicine={paymentsMedicine}
           deletePaymentMedicine={deletePaymentMedicine}
           caseId={caseId}
+          updatePaymentMedicine={updatePaymentMedicine}
+          itemsMedicine={itemsMedicine}
         />
       </div>
     </li>

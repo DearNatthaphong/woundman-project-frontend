@@ -2,8 +2,19 @@ import React, { useState } from 'react';
 import Modal from '../../components/ui/Modal';
 import SupplyEditForm from './SupplyEditForm';
 
-function SupplyEdit() {
+function SupplyEdit({
+  itemsSupply,
+  updatePaymentSupply,
+  caseId,
+  id,
+  title,
+  amount
+}) {
   const [isOpen, setIsOpen] = useState(false);
+  const onSubmit = async (caseId, paymentId, title, amount) => {
+    await updatePaymentSupply(caseId, paymentId, title, amount);
+    setIsOpen(false);
+  };
   return (
     <td>
       <button
@@ -20,7 +31,14 @@ function SupplyEdit() {
         open={isOpen}
         onClose={() => setIsOpen(false)}
       >
-        <SupplyEditForm />
+        <SupplyEditForm
+          itemsSupply={itemsSupply}
+          caseId={caseId}
+          onSubmit={onSubmit}
+          id={id}
+          title={title}
+          amount={amount}
+        />
       </Modal>
     </td>
   );

@@ -20,7 +20,9 @@ function PaymentDetailBody({
   deletePaymentService,
   deletePaymentSupply,
   deletePaymentMedicine,
-  updatePayment
+  updatePaymentService,
+  updatePaymentSupply,
+  updatePaymentMedicine
 }) {
   return (
     <ul className="list-group list-group-flush">
@@ -32,7 +34,7 @@ function PaymentDetailBody({
         createPaymentService={createPaymentService}
         paymentsService={paymentsService}
         deletePaymentService={deletePaymentService}
-        updatePayment={updatePayment}
+        updatePaymentService={updatePaymentService}
       />
       <SupplyContainer
         itemsSupply={itemsSupply}
@@ -40,6 +42,7 @@ function PaymentDetailBody({
         createPaymentSupply={createPaymentSupply}
         paymentsSupply={paymentsSupply}
         deletePaymentSupply={deletePaymentSupply}
+        updatePaymentSupply={updatePaymentSupply}
       />
       <MedicineContainer
         itemsMedicine={itemsMedicine}
@@ -47,6 +50,7 @@ function PaymentDetailBody({
         createPaymentMedicine={createPaymentMedicine}
         paymentsMedicine={paymentsMedicine}
         deletePaymentMedicine={deletePaymentMedicine}
+        updatePaymentMedicine={updatePaymentMedicine}
       />
       <ReceiptContainer />
     </ul>
