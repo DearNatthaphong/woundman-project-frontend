@@ -262,6 +262,15 @@ function PaymentDetailContainer() {
     fetchReceipt(caseId);
   };
 
+  const deleteReceipt = async (caseId, receiptId) => {
+    await receiptService.deleteReceiptByCaseIdReceiptId(caseId, receiptId);
+    const fetchReceipt = async (caseId) => {
+      const res = await receiptService.getReceiptByCaseId(caseId);
+      setReceipt(res.data.receipt);
+    };
+    fetchReceipt(caseId);
+  };
+
   return (
     <div>
       <div className="row justify-content-center">
@@ -288,6 +297,7 @@ function PaymentDetailContainer() {
               updatePaymentMedicine={updatePaymentMedicine}
               formattedTotalPrice={formattedTotalPrice}
               receipt={receipt}
+              deleteReceipt={deleteReceipt}
             />
             <PaymentDetailFooter />
           </div>

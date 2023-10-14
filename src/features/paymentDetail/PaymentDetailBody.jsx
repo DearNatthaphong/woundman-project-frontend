@@ -25,7 +25,8 @@ function PaymentDetailBody({
   updatePaymentSupply,
   updatePaymentMedicine,
   receipt,
-  formattedTotalPrice
+  formattedTotalPrice,
+  deleteReceipt
 }) {
   return (
     <ul className="list-group list-group-flush">
@@ -59,6 +60,8 @@ function PaymentDetailBody({
       <ReceiptDisplayContainer
         receipt={receipt}
         formattedTotalPrice={formattedTotalPrice}
+        deleteReceipt={deleteReceipt}
+        caseId={caseId}
       />
     </ul>
   );
