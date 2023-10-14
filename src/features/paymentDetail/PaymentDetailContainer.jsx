@@ -102,12 +102,12 @@ function PaymentDetailContainer() {
       }
     };
 
-    const fetchReceipt = async (caseId) => {
-      const res = await receiptService.getReceiptByCaseId(caseId);
-      console.log('receipt :', receipt);
-      setReceipt(res.data.receipt);
-    };
-    fetchReceipt(caseId);
+    // const fetchReceipt = async (caseId) => {
+    //   const res = await receiptService.getReceiptByCaseId(caseId);
+    //   console.log('receipt :', receipt);
+    //   setReceipt(res.data.receipt);
+    // };
+    // fetchReceipt(caseId);
 
     fetchCaseBycaseId(caseId);
     fetchItemsService();
@@ -251,7 +251,8 @@ function PaymentDetailContainer() {
     .toFixed(2)
     .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-  console.log('totalPrice : ', formattedTotalPrice);
+  // console.log('totalPrice : ', totalPrice);
+  // console.log('formattedTotalPrice : ', formattedTotalPrice);
 
   const createReceipt = async (caseId, totalPrice, method) => {
     await receiptService.createReceipt(caseId, totalPrice, method);
@@ -295,9 +296,11 @@ function PaymentDetailContainer() {
               updatePaymentService={updatePaymentService}
               updatePaymentSupply={updatePaymentSupply}
               updatePaymentMedicine={updatePaymentMedicine}
-              formattedTotalPrice={formattedTotalPrice}
               receipt={receipt}
               deleteReceipt={deleteReceipt}
+              createReceipt={createReceipt}
+              formattedTotalPrice={formattedTotalPrice}
+              totalPrice={totalPrice}
             />
             <PaymentDetailFooter />
           </div>

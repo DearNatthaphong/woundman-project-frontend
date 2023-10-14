@@ -1,6 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useLoading } from '../../contexts/LoadingContext';
+import { toast } from 'react-toastify';
 
-function ReceiptCreateContainer() {
+function ReceiptCreateContainer({
+  createReceipt,
+  formattedTotalPrice,
+  caseId
+}) {
+  const [method, setMethod] = useState('');
+
+  const convertedTotalPrice = formattedTotalPrice
+    ? formattedTotalPrice.replace(/,/g, '')
+    : null;
+
+  const { startLoading, stopLoading } = useLoading();
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+
+      if (!method || convertedTotalPrice === null) {
+        return toast.error('ข้อมูลไม่ครบหรือข้อมูลไม่ถูกต้อง');
+      }
+
+      if (convertedTotalPrice) {
+        const totalPrice = convertedTotalPrice;
+        startLoading();
+        await createReceipt(caseId, totalPrice, method);
+        setMethod('');
+        toast.success('สร้างการจ่ายสำเร็จ');
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response?.data.message);
+    } finally {
+      stopLoading();
+    }
+  };
   return (
     <>
       <li className="list-group-item py-3">
@@ -9,7 +45,7 @@ function ReceiptCreateContainer() {
             <p className="my-auto">ยอดชำระรวม</p>
           </div>
           <div className="col-4">
-            <h5 className="my-auto">total amount</h5>
+            <h5 className="my-auto">{formattedTotalPrice}</h5>
           </div>
           <div className="col-2">
             <p className="my-auto">บาท</p>
@@ -26,10 +62,11 @@ function ReceiptCreateContainer() {
                 type="radio"
                 name="exampleRadios"
                 id="exampleRadios1"
-                value="option1"
+                value="เงินสด"
+                onChange={(e) => setMethod(e.target.value)}
               />
               <label className="form-check-label" htmlFor="exampleRadios1">
-                cash
+                เงินสด
               </label>
             </div>
           </div>
@@ -40,10 +77,11 @@ function ReceiptCreateContainer() {
                 type="radio"
                 name="exampleRadios"
                 id="exampleRadios2"
-                value="option2"
+                value="โอนเงิน"
+                onChange={(e) => setMethod(e.target.value)}
               />
               <label className="form-check-label" htmlFor="exampleRadios2">
-                transfer
+                โอนเงิน
               </label>
             </div>
           </div>
@@ -54,10 +92,11 @@ function ReceiptCreateContainer() {
                 type="radio"
                 name="exampleRadios"
                 id="exampleRadios3"
-                value="option2"
+                value="บัตรเครดิต"
+                onChange={(e) => setMethod(e.target.value)}
               />
               <label className="form-check-label" htmlFor="exampleRadios3">
-                card
+                บัตรเครดิต
               </label>
             </div>
           </div>
@@ -65,7 +104,11 @@ function ReceiptCreateContainer() {
       </li>
       <div className="card-footer">
         <div className="row justify-content-center">
-          <button type="button" className="col-4 btn btn-primary w-100">
+          <button
+            onClick={handleSubmit}
+            type="button"
+            className="col-4 btn btn-primary w-100"
+          >
             ถัดไป
           </button>
         </div>

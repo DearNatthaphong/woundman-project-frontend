@@ -25,44 +25,59 @@ function PaymentDetailBody({
   updatePaymentSupply,
   updatePaymentMedicine,
   receipt,
+  deleteReceipt,
+  createReceipt,
   formattedTotalPrice,
-  deleteReceipt
+  totalPrice
 }) {
   return (
     <ul className="list-group list-group-flush">
-      <PatientDetail caseData={caseData} />
+      {Object.keys(receipt).length ? (
+        <>
+          <PatientDetail caseData={caseData} />
+          <ReceiptDisplayContainer
+            receipt={receipt}
+            formattedTotalPrice={formattedTotalPrice}
+            deleteReceipt={deleteReceipt}
+            caseId={caseId}
+          />
+        </>
+      ) : (
+        <>
+          <PatientDetail caseData={caseData} />
 
-      <ServiceContainer
-        itemsService={itemsService}
-        caseId={caseId}
-        createPaymentService={createPaymentService}
-        paymentsService={paymentsService}
-        deletePaymentService={deletePaymentService}
-        updatePaymentService={updatePaymentService}
-      />
-      <SupplyContainer
-        itemsSupply={itemsSupply}
-        caseId={caseId}
-        createPaymentSupply={createPaymentSupply}
-        paymentsSupply={paymentsSupply}
-        deletePaymentSupply={deletePaymentSupply}
-        updatePaymentSupply={updatePaymentSupply}
-      />
-      <MedicineContainer
-        itemsMedicine={itemsMedicine}
-        caseId={caseId}
-        createPaymentMedicine={createPaymentMedicine}
-        paymentsMedicine={paymentsMedicine}
-        deletePaymentMedicine={deletePaymentMedicine}
-        updatePaymentMedicine={updatePaymentMedicine}
-      />
-      <ReceiptCreateContainer />
-      <ReceiptDisplayContainer
-        receipt={receipt}
-        formattedTotalPrice={formattedTotalPrice}
-        deleteReceipt={deleteReceipt}
-        caseId={caseId}
-      />
+          <ServiceContainer
+            itemsService={itemsService}
+            caseId={caseId}
+            createPaymentService={createPaymentService}
+            paymentsService={paymentsService}
+            deletePaymentService={deletePaymentService}
+            updatePaymentService={updatePaymentService}
+          />
+          <SupplyContainer
+            itemsSupply={itemsSupply}
+            caseId={caseId}
+            createPaymentSupply={createPaymentSupply}
+            paymentsSupply={paymentsSupply}
+            deletePaymentSupply={deletePaymentSupply}
+            updatePaymentSupply={updatePaymentSupply}
+          />
+          <MedicineContainer
+            itemsMedicine={itemsMedicine}
+            caseId={caseId}
+            createPaymentMedicine={createPaymentMedicine}
+            paymentsMedicine={paymentsMedicine}
+            deletePaymentMedicine={deletePaymentMedicine}
+            updatePaymentMedicine={updatePaymentMedicine}
+          />
+          <ReceiptCreateContainer
+            createReceipt={createReceipt}
+            formattedTotalPrice={formattedTotalPrice}
+            caseId={caseId}
+            totalPrice={totalPrice}
+          />
+        </>
+      )}
     </ul>
   );
 }

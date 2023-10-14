@@ -9,7 +9,7 @@ function ReceiptDisplayContainer({
   deleteReceipt,
   caseId
 }) {
-  const { Payments, id } = receipt;
+  const { Payments, id, method } = receipt;
 
   const { startLoading, stopLoading } = useLoading();
 
@@ -31,7 +31,7 @@ function ReceiptDisplayContainer({
   return (
     Payments && (
       <div className="card-body">
-        <h5 className="text-center border ">ใบเสร็จ</h5>
+        <h1 className="text-center border ">ใบเสร็จ</h1>
 
         <table className="table table-striped">
           <thead>
@@ -57,6 +57,7 @@ function ReceiptDisplayContainer({
             </tr>
           </thead>
         </table>
+        <p className="text-end me-3 mb-3">{`ชำระเงินด้วยวิธี : ${method}`}</p>
         <button
           onClick={handleDelete}
           className="btn btn-danger btn-sm w-100"
