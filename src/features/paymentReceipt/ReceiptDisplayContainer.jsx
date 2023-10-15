@@ -2,7 +2,7 @@ import React from 'react';
 import Payment from './Payment';
 import { toast } from 'react-toastify';
 import { useLoading } from '../../contexts/LoadingContext';
-import { useAuth } from '../../contexts/AuthContext';
+// import { useAuth } from '../../contexts/AuthContext';
 
 function ReceiptDisplayContainer({
   receipt,
@@ -10,7 +10,7 @@ function ReceiptDisplayContainer({
   deleteReceipt,
   caseId
 }) {
-  const { staff, patient } = useAuth();
+  // const { staff, patient } = useAuth();
   const { Payments, id, method, totalPrice } = receipt;
 
   const { startLoading, stopLoading } = useLoading();
@@ -63,15 +63,15 @@ function ReceiptDisplayContainer({
           </thead>
         </table>
         <p className="text-end me-3 mb-3">{`ชำระเงินด้วยวิธี : ${method}`}</p>
-        {staff && (
-          <button
-            onClick={handleDelete}
-            className="btn btn-danger btn-sm w-100"
-            type="button"
-          >
-            ลบ
-          </button>
-        )}
+        {/* {staff && ( */}
+        <button
+          onClick={handleDelete}
+          className="btn btn-danger btn-sm w-100"
+          type="button"
+        >
+          ลบ
+        </button>
+        {/* )} */}
       </div>
     )
   );

@@ -11,3 +11,5 @@ export const deleteReceiptByCaseIdReceiptId = (caseId, receiptId) =>
 
 export const getCasesWithReceipt = () =>
   axios.get('/receipts/cases-with-receipt');
+
+export const getReceiptsByPatientId = () => axios.get('/receipts/patient');

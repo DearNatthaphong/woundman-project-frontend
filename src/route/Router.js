@@ -16,6 +16,7 @@ import AppointmentPatientPage from '../pages/AppointmentPatientPage';
 import AppointmentStaffPage from '../pages/AppointmentStaffPage';
 import PaymentDetailPage from '../pages/PaymentDetailPage';
 import ReceiptStaffPage from '../pages/ReceiptStaffPage';
+import ReceiptPatientPage from '../pages/ReceiptPatientPage';
 
 function Router() {
   const { patient, staff } = useAuth();
@@ -31,7 +32,7 @@ function Router() {
             path="/patient/treatments/:id"
             element={<TreatmentDetailPage />}
           />
-          {/* <Route path="/patient/receipts" element={<ReceiptPage />} /> */}
+          <Route path="/patient/receipts" element={<ReceiptPatientPage />} />
           <Route path="*" element={<Navigate to="/patient/home" />} />
         </Route>
       ) : (
