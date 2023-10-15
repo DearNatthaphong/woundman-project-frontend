@@ -1,11 +1,9 @@
 import React from 'react';
-import Avatar from '../../components/ui/Avatar';
+import Avatar from './Avatar';
 import { Link } from 'react-router-dom';
 import * as dateService from '../../utils/dateFormat';
-// import PaymentCreate from './PaymentCreate';
-// import Modal from '../../components/ui/Modal';
 
-function CaseNoReceipt({
+function CasePaymentCard({
   caseData: {
     id,
     Patient: {
@@ -23,7 +21,7 @@ function CaseNoReceipt({
     <div className="col">
       <Link
         className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-        to={`/staff/payments/case-no-receipt/${id}`}
+        to={`/staff/payments/cases/${id}`}
       >
         <div className="card">
           <div className="row g-0 ">
@@ -62,4 +60,4 @@ function CaseNoReceipt({
   );
 }
 
-export default CaseNoReceipt;
+export default CasePaymentCard;

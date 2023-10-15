@@ -3,7 +3,6 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import StaffLoginPage from '../pages/StaffLoginPage';
 import PatientLoginPage from '../pages/PatientLoginPage';
 import { useAuth } from '../contexts/AuthContext';
-import ReceiptListPage from '../pages/ReceiptListPage';
 import PaymentPage from '../pages/PaymentPage';
 import AuthLayout from '../layouts/auth/AuthLayout';
 import ProfilePage from '../pages/ProfilePage';
@@ -16,6 +15,7 @@ import TreatmentDetailPage from '../pages/TreatmentDetailPage';
 import AppointmentPatientPage from '../pages/AppointmentPatientPage';
 import AppointmentStaffPage from '../pages/AppointmentStaffPage';
 import PaymentDetailPage from '../pages/PaymentDetailPage';
+import ReceiptStaffPage from '../pages/ReceiptStaffPage';
 
 function Router() {
   const { patient, staff } = useAuth();
@@ -31,7 +31,7 @@ function Router() {
             path="/patient/treatments/:id"
             element={<TreatmentDetailPage />}
           />
-          <Route path="/patient/receipts" element={<ReceiptListPage />} />
+          {/* <Route path="/patient/receipts" element={<ReceiptPage />} /> */}
           <Route path="*" element={<Navigate to="/patient/home" />} />
         </Route>
       ) : (
@@ -52,10 +52,11 @@ function Router() {
           <Route path="/staff/cases/:id" element={<CaseDetailPage />} />
           <Route path="/staff/payments" element={<PaymentPage />} />
           <Route
-            path="/staff/payments/case-no-receipt/:id"
+            path="/staff/payments/cases/:id"
             element={<PaymentDetailPage />}
           />
-          <Route path="/staff/receipts" element={<ReceiptListPage />} />
+          <Route path="/staff/receipts" element={<ReceiptStaffPage />} />
+
           <Route path="*" element={<Navigate to="/staff/home" />} />
         </Route>
       ) : (

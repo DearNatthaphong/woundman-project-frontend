@@ -5,6 +5,7 @@ import PaymentDetailFooter from './PaymentDetailFooter';
 import { useParams } from 'react-router-dom';
 import * as paymentService from '../../api/paymentApi';
 import * as receiptService from '../../api/receiptApi';
+import * as caseService from '../../api/caseApi';
 
 function PaymentDetailContainer() {
   const { id: caseId } = useParams();
@@ -21,7 +22,8 @@ function PaymentDetailContainer() {
     const fetchCaseBycaseId = async (caseId) => {
       try {
         // startLoading();
-        const res = await paymentService.getCaseNoReceiptById(caseId);
+        // const res = await paymentService.getCaseNoReceiptById(caseId);
+        const res = await caseService.getCaseById(caseId);
         setCaseData(res.data.caseData);
       } catch (err) {
         console.log(err);
@@ -102,12 +104,10 @@ function PaymentDetailContainer() {
       }
     };
 
-    // const fetchReceipt = async (caseId) => {
-    //   const res = await receiptService.getReceiptByCaseId(caseId);
-    //   console.log('receipt :', receipt);
-    //   setReceipt(res.data.receipt);
-    // };
-    // fetchReceipt(caseId);
+    const fetchReceipt = async (caseId) => {
+      const res = await receiptService.getReceiptByCaseId(caseId);
+      setReceipt(res.data.receipt);
+    };
 
     fetchCaseBycaseId(caseId);
     fetchItemsService();
@@ -116,6 +116,7 @@ function PaymentDetailContainer() {
     fetchPaymentsService(caseId);
     fetchPaymentsSupply(caseId);
     fetchPaymentsMedicine(caseId);
+    fetchReceipt(caseId);
   }, [caseId]);
 
   // console.log('itemsSupply :', itemsSupply);

@@ -2,18 +2,22 @@ import React from 'react';
 import Payment from './Payment';
 import { toast } from 'react-toastify';
 import { useLoading } from '../../contexts/LoadingContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 function ReceiptDisplayContainer({
   receipt,
-  formattedTotalPrice,
+  // formattedTotalPrice,
   deleteReceipt,
   caseId
 }) {
-  const { Payments, id, method } = receipt;
+  const { staff, patient } = useAuth();
+  const { Payments, id, method, totalPrice } = receipt;
 
   const { startLoading, stopLoading } = useLoading();
 
   const receiptId = id;
+
+  const formattedTotalPrice = totalPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   const handleDelete = async () => {
     try {
@@ -54,17 +58,20 @@ function ReceiptDisplayContainer({
               <td></td>
               <td>ยอดชำระรวม</td>
               <td>{formattedTotalPrice}</td>
+              {/* <td>{totalPrice}</td> */}
             </tr>
           </thead>
         </table>
         <p className="text-end me-3 mb-3">{`ชำระเงินด้วยวิธี : ${method}`}</p>
-        <button
-          onClick={handleDelete}
-          className="btn btn-danger btn-sm w-100"
-          type="button"
-        >
-          ลบ
-        </button>
+        {staff && (
+          <button
+            onClick={handleDelete}
+            className="btn btn-danger btn-sm w-100"
+            type="button"
+          >
+            ลบ
+          </button>
+        )}
       </div>
     )
   );

@@ -7,4 +7,7 @@ export const getReceiptByCaseId = (caseId) =>
   axios.get(`/receipts/cases/${caseId}`);
 
 export const deleteReceiptByCaseIdReceiptId = (caseId, receiptId) =>
-  axios.delete(`receipts/cases/${caseId}/receipts/${receiptId}`);
+  axios.delete(`/receipts/cases/${caseId}/receipts/${receiptId}`);
+
+export const getCasesWithReceipt = () =>
+  axios.get('/receipts/cases-with-receipt');

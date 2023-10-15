@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import CaseNoReceiptList from './CaseNoReceiptList';
-import * as paymentService from '../../api/paymentApi';
+import CaseWithReceiptList from './CaseWithReceiptList';
+import * as receiptService from '../../api/receiptApi';
 
-function PaymentContainer() {
+function ReceiptContainer() {
   const [casesData, setCasesData] = useState([]);
 
   useEffect(() => {
     const fetchCases = async () => {
       try {
         // startLoading();
-        const res = await paymentService.getCasesNoReceipt();
+        const res = await receiptService.getCasesWithReceipt();
         // console.log('res.data : ', res.data);
         setCasesData(res.data.casesData);
       } catch (err) {
@@ -21,8 +21,7 @@ function PaymentContainer() {
 
     fetchCases();
   }, []);
-
-  return <CaseNoReceiptList casesData={casesData} />;
+  return <CaseWithReceiptList casesData={casesData} />;
 }
 
-export default PaymentContainer;
+export default ReceiptContainer;
