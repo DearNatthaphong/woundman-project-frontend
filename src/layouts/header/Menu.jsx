@@ -19,9 +19,9 @@ function Menu() {
               <i
                 className={`far fa-calendar-alt fa-${
                   pathname === '/patient' ? 'lg' : 'sm'
-                } pe-2 text-${pathname === '/patient' ? 'primary' : 'light'}`}
+                } pe-2 text-${pathname === '/patient' ? 'warning' : 'light'}`}
               >
-                <span> การนัดหมาย</span>
+                <span> ใบนัดหมาย</span>
               </i>
             </MenuItem>
             <MenuItem
@@ -32,7 +32,7 @@ function Menu() {
                 className={`fas fa-hand-holding-medical fa-${
                   pathname === '/patient/treatments' ? 'lg' : 'sm'
                 } pe-2 text-${
-                  pathname === '/patient/treatments' ? 'primary' : 'light'
+                  pathname === '/patient/treatments' ? 'warning' : 'light'
                 }`}
               >
                 <span> การรักษา</span>
@@ -46,7 +46,7 @@ function Menu() {
                 className={`fas fa-receipt fa-${
                   pathname === '/patient/receipts' ? 'lg' : 'sm'
                 } pe-2 text-${
-                  pathname === '/patient/receipts' ? 'primary' : 'light'
+                  pathname === '/patient/receipts' ? 'warning' : 'light'
                 }`}
               >
                 <span> ใบเสร็จ</span>
@@ -62,7 +62,7 @@ function Menu() {
                   pathname === '/staff' ? 'lg' : 'sm'
                 } pe-2 text-${pathname === '/staff' ? 'warning' : 'light'}`}
               >
-                <span> การนัดหมาย</span>
+                <span> ใบนัดหมาย</span>
               </i>
             </MenuItem>
             <MenuItem

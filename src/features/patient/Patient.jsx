@@ -10,7 +10,7 @@ function Patient({ patient }) {
         className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
         to={`/staff/patients/${patient.id}`}
       >
-        <div className="card">
+        <div className="card max-w-362">
           <div className="row g-0 align-items-center">
             <PatientImage patient={patient} />
             <PatientInfoSome patient={patient} />

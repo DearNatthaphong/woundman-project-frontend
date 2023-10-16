@@ -58,7 +58,7 @@ export const convertToBC = (dateOfBirth) => {
 
 export const formattedDate = (date) => {
   if (!date) {
-    return 'Invalid Date'; // Handle the case when date is null or undefined
+    return 'Invalid Date';
   }
 
   const options = {
@@ -84,6 +84,28 @@ export const formattedDate = (date) => {
     return formatted;
   } catch (error) {
     console.error('Error formatting date:', error);
-    return 'Invalid Date'; // Handle any errors that occur during date formatting
+    return 'Invalid Date';
+  }
+};
+
+export const shortFormattedDate = (date) => {
+  if (!date) {
+    return 'Invalid Date';
+  }
+
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  };
+
+  try {
+    const formatted = new Intl.DateTimeFormat('th-TH', options).format(
+      new Date(date)
+    );
+    return formatted;
+  } catch (error) {
+    console.error('Error formatting date:', error);
+    return 'Invalid Date';
   }
 };
