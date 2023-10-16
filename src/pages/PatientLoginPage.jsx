@@ -1,5 +1,5 @@
 import React from 'react';
-import PatientAuthContainer from '../features/auth/PatientAuthContainer';
+import PatientAuthContainer from '../features/authPatient/PatientAuthContainer';
 
 function PatientLoginPage() {
   return (

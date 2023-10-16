@@ -72,7 +72,7 @@ function PatientLoginForm() {
             <label htmlFor="floatingPassword">รหัสผ่าน</label>
           </div>
         </div>
-        <div className="col-12">
+        <div className="col-12 text-center">
           <button
             className="w-100 btn btn-lg btn-success rounded-4 "
             type="submit"

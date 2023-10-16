@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
-import StaffLoginForm from './StaffLoginForm';
+import PatientLoginForm from './PatientLoginForm';
 import Modal from '../../components/ui/Modal';
-import StaffRegisterForm from './StaffRegisterForm';
+import PatientRegisterForm from './PatientRegisterForm';
 
-function StaffAuthForm() {
+function PatientAuthForm() {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <main className="form-signin bg-white border rounded-4 p-4">
-      <StaffLoginForm />
+    <main className="form-signin bg-white border shadow p-3 rounded-4 max-w-362">
+      <PatientLoginForm />
       <hr />
       <div className="text-center mt-5">
         <p className="text-muted">โปรดลงทะเบียนก่อนเข้าระบบ</p>
-        {/* <!-- Button trigger modal --> */}
         <button
-          type="button"
           className="btn btn-primary rounded-4"
+          type="button"
           onClick={() => setIsOpen(true)}
         >
           ลงทะเบียน
         </button>
-        <Modal title="Test" open={isOpen} onClose={() => setIsOpen(false)}>
-          <StaffRegisterForm onSuccess={() => setIsOpen(false)} />
+        <Modal title="ลงทะเบียน" open={isOpen} onClose={() => setIsOpen(false)}>
+          <PatientRegisterForm onSuccess={() => setIsOpen(false)} />
         </Modal>
       </div>
     </main>
   );
 }
 
-export default StaffAuthForm;
+export default PatientAuthForm;

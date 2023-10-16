@@ -1,5 +1,5 @@
 import React from 'react';
-import StaffAuthContainer from '../features/auth/StaffAuthContainer';
+import StaffAuthContainer from '../features/authStaff/StaffAuthContainer';
 
 function StaffLoginPage() {
   return (

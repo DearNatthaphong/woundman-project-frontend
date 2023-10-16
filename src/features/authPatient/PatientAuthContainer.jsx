@@ -3,11 +3,11 @@ import PatientAuthForm from './PatientAuthForm';
 
 function PatientAuthContainer() {
   return (
-    <div className="container-fluid bg-secondary-subtle py-5">
-      <div className="row row-cols-1 row-cols-md-2">
-        <div className="col my-5 d-flex justify-content-center align-items-center">
+    <div className="container-fluid py-5">
+      <div className="row row-cols-1 row-cols-md-2 align-items-center">
+        <div className="col mt-3 ">
           <div className="text-center">
-            <h1 className="display-4 fw-bold text-success pt-3">WOUND MAN</h1>
+            <h1 className="display-2 fw-bold text-success pt-3">WOUND MAN</h1>
           </div>
         </div>
         <div className="col my-5">
