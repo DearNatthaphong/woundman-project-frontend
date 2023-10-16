@@ -11,7 +11,7 @@ function ProfileImage() {
         <div className="col-12 text-center">
           <Avatar
             src={patient ? patient.profileImage : staff.profileImage}
-            size={200}
+            size={150}
           />
         </div>
         {staff && (

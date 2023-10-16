@@ -53,7 +53,7 @@ export const convertToBC = (dateOfBirth) => {
     'ธ.ค.'
   ];
   const formattedMonth = monthNames[month - 1];
-  return `เกิดวันที่ ${day} ${formattedMonth} ${bcYear}`;
+  return `วันที่ ${day} ${formattedMonth} ${bcYear}`;
 };
 
 export const formattedDate = (date) => {
