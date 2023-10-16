@@ -7,19 +7,17 @@ function ProfileImage() {
   const { patient, staff } = useAuth();
   return (
     <div className="card-body">
-      <div className="row">
-        <div className="col-12 text-center">
-          <Avatar
-            src={patient ? patient.profileImage : staff.profileImage}
-            size={150}
-          />
-        </div>
-        {staff && (
-          <div className="col-12 text-center">
-            <ProfileImageEdit />
-          </div>
-        )}
+      <div className="text-center mb-3">
+        <Avatar
+          src={patient ? patient.profileImage : staff.profileImage}
+          size={150}
+        />
       </div>
+      {staff && (
+        <div className="text-center">
+          <ProfileImageEdit />
+        </div>
+      )}
     </div>
   );
 }

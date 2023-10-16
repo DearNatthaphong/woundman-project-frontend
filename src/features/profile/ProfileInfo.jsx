@@ -8,7 +8,7 @@ function ProfileInfo() {
   return (
     <>
       {patient && <PatientInfo patient={patient} />}
-      {staff && <StaffInfo />}
+      {staff && <StaffInfo staff={staff} />}
     </>
   );
 }
