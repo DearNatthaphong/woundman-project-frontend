@@ -1,11 +1,12 @@
 import React from 'react';
-import ProfileInfoEdit from './ProfileInfoEdit';
+// import ProfileInfoEdit from './ProfileInfoEdit';
 import ListItem from '../../components/ui/ListItem';
-import * as dateService from '../../utils/dateFormat';
+// import * as dateService from '../../utils/dateFormat';
 
 function StaffInfo({
-  staff: { titleName, firstName, lastName, role, mobile, email, createdAt }
+  staff: { titleName, firstName, lastName, role, mobile, email }
 }) {
+  const formattedMobile = mobile?.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
   return (
     <>
       <ul className="list-group list-group-flush">
@@ -14,15 +15,18 @@ function StaffInfo({
           text={`${titleName} ${firstName} ${lastName}`}
         />
         <ListItem icon="fas fa-suitcase" text={role} />
-        <ListItem icon="fas fa-phone" text={`${mobile ? mobile : '-'}`} />
+        <ListItem
+          icon="fas fa-phone"
+          text={`${mobile ? formattedMobile : '-'}`}
+        />
         <ListItem icon="far fa-envelope-open" text={email} />
-        <li className="list-group-item text-center">
+        {/* <li className="list-group-item text-center">
           <ProfileInfoEdit />
-        </li>
+        </li> */}
       </ul>
-      <div className="card-footer text-body-secondary text-center">
+      {/* <div className="card-footer text-body-secondary text-center">
         {`ลงทะเบียน : ${dateService.formattedDate(createdAt)}`}
-      </div>
+      </div> */}
     </>
   );
 }

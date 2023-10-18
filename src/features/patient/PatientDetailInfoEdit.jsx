@@ -11,7 +11,7 @@ function PatientDetailInfoEdit({ patientId, patient, setPatient }) {
           <button
             onClick={() => setIsOpen(true)}
             type="button"
-            className="col-12 col-lg-6 btn btn-info"
+            className="btn btn-info"
           >
             แก้ไขข้อมูล
           </button>

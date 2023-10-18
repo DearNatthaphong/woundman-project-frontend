@@ -13,13 +13,19 @@ function Modal({ children, open, onClose, title }) {
   // initial modal
   useEffect(() => {
     const modalObj = new BsModal(modalEl.current); // ถ้าไม่เก็บค่า จะกลายเป็น modalObj 2 ตัวที่หน้าตาเหมือนกัน
-    // modalObj.show();
     setModal(modalObj);
-    // modalInstance.current = new BsModal(modalEl.current);
-    // return () => {
-    //   modalInstance.current.dispose();
-    // };
   }, []);
+
+  // modalObj.show();
+  // modalInstance.current = new BsModal(modalEl.current);
+  // return () => {
+  //   modalInstance.current.dispose();
+  // };
+  // useEffect(() => {
+  //   if (!modal) {
+  //     setModal(new BsModal(modalEl.current));
+  //   }
+  // }, [modal]);
 
   // open modal by bootstrap
   useEffect(() => {
@@ -29,25 +35,8 @@ function Modal({ children, open, onClose, title }) {
       modal?.hide(); // ไม่ให้ error จาก render รอบแรก เพราะ ค่ายังเป็น null อยู่
     }
   }, [open, modal]);
-  // useEffect(() => {
-  //   if (open) {
-  //     modalInstance.current.show();
-  //   } else {
-  //     modalInstance.current.hide();
-  //   }
-  // }, [open]);
-
-  // const handleModalHide = () => {
-  //   const modalBackdrop = document.querySelector('.modal-backdrop');
-  //   if (modalBackdrop) {
-  //     modalBackdrop.parentNode.removeChild(modalBackdrop);
-  //   }
-  //   onClose();
-  // };
 
   return (
-    // <div className='modal-backdrop fade show'></div>
-    // <div className='modal fade show d-block'></div>
     <div className="modal fade" tabIndex="-1" ref={modalEl} onClick={onClose}>
       {/* // vanila js */}
       {/* <div className="modal fade" tabindex="-1" id="modal"> */}

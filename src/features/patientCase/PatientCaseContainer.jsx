@@ -1,47 +1,47 @@
 import React, { useEffect, useState } from 'react';
-import PatientDetailHeader from './PatientDetailHeader';
-import PatientDetailImage from './PatientDetailImage';
+import PatientDetailHeader from '../patient/PatientDetailHeader';
+import PatientDetailImage from '../patient/PatientDetailImage';
 import { useParams } from 'react-router-dom';
-// import { useLoading } from '../../contexts/LoadingContext';
+import { useLoading } from '../../contexts/LoadingContext';
 import * as patientService from '../../api/newPatientApi';
-import CaseContainer from './CaseContainer';
-import PatientDetailInfo from './PatientDetailInfo';
+import CaseContainer from '../patient/CaseContainer';
+import PatientDetailInfo from '../patient/PatientDetailInfo';
 
-function PatientDetailContainer() {
+function PatientCaseContainer() {
   const { id: patientId, caseId } = useParams();
   const [patient, setPatient] = useState({});
   const [cases, setCases] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  // const { startLoading, stopLoading } = useLoading();
+  const { startLoading, stopLoading } = useLoading();
+
+  useEffect(() => {
+    fetchPatientById(patientId);
+    fetchCasesByPatientId(patientId);
+  }, [patientId]);
+
+  const fetchPatientById = async (patientId) => {
+    try {
+      startLoading();
+      const res = await patientService.getPatientById(patientId);
+      setPatient(res.data.patient);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      stopLoading();
+    }
+  };
 
   const fetchCasesByPatientId = async (patientId) => {
     try {
+      startLoading();
       const res = await patientService.getCasesByPatientId(patientId);
       setCases(res.data.cases);
     } catch (err) {
       console.log(err);
     } finally {
-      // stopLoading();
+      stopLoading();
     }
   };
-
-  useEffect(() => {
-    const fetchPatientById = async (patientId) => {
-      try {
-        // startLoading();
-        // console.log('patienId', patientId);
-        const res = await patientService.getPatientById(patientId);
-        setPatient(res.data.patient);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        // stopLoading();
-      }
-    };
-
-    fetchPatientById(patientId);
-    fetchCasesByPatientId(patientId);
-  }, [patientId]);
 
   const handleCaseCreated = () => {
     fetchCasesByPatientId(patientId);
@@ -93,4 +93,4 @@ function PatientDetailContainer() {
   );
 }
 
-export default PatientDetailContainer;
+export default PatientCaseContainer;

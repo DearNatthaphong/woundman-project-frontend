@@ -6,7 +6,6 @@ function TreatmentContent({
 }) {
   return (
     <div className="">
-      {/* <img src="https://picsum.photos/200" className="card-img-top" alt="" /> */}
       <img src={image} className="card-img-top" alt="treatment" />
       <ul className="list-group list-group-flush">
         <li className="list-group-item">

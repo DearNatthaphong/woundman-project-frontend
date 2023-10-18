@@ -1,12 +1,15 @@
 import React from 'react';
-// import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
+import StaffEdit from './StaffEdit';
 
 function ProfileHeader() {
-  // const { patient } = useAuth();
+  const { staff } = useAuth();
   return (
-    <div className="card-header border-dark text-center">
-      {/* <h1>{patient ? 'ข้อมูลส่วนตัวคนไข้' : 'ข้อมูลส่วนตัวพนักงาน'}</h1> */}
-      <h1>ข้อมูลส่วนตัว</h1>
+    <div className="card-header text-bg-secondary">
+      <div className="row">
+        <div className="col-auto">ข้อมูลส่วนตัว</div>
+        <div className="col-auto ms-auto">{staff && <StaffEdit />}</div>
+      </div>
     </div>
   );
 }

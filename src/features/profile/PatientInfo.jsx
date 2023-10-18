@@ -10,8 +10,7 @@ function PatientInfo({
     lastName,
     dateOfBirth,
     mobile,
-    idLine,
-    createdAt
+    idLine
   }
 }) {
   const formattedMobile = mobile.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
@@ -30,9 +29,9 @@ function PatientInfo({
         <ListItem icon="fas fa-phone" text={formattedMobile} />
         <ListItem icon="far fa-comment" text={idLine ? idLine : `-`} />
       </ul>
-      <div className="card-footer text-body-secondary text-center">
+      {/* <div className="card-footer text-body-secondary text-center">
         {`ลงทะเบียน : ${dateService.formattedDate(createdAt)}`}
-      </div>
+      </div> */}
     </>
   );
 }

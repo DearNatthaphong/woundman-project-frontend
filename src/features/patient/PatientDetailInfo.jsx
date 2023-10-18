@@ -1,6 +1,7 @@
 import React from 'react';
 import { calculateAge, convertToBC } from '../../utils/dateFormat';
 import PatientDetailInfoEdit from './PatientDetailInfoEdit';
+import ListItem from '../../components/ui/ListItem';
 
 function PatientDetailInfo({ patientId, patient, setPatient }) {
   return (
@@ -15,12 +16,12 @@ function PatientDetailInfo({ patientId, patient, setPatient }) {
             aria-expanded="false"
             aria-controls="flush-collapseOne"
           >
-            <div className="col-12">
-              <i className="fas fa-user" />
-              <h5 className="ps-3 d-inline-block">
+            <div className="col-12 text-center ">
+              {/* <i className="fas fa-user me-2" /> */}
+              <h5 className="">
                 {`${patient.titleName} ${patient.firstName} ${patient.lastName} `}
               </h5>
-              <h5 className="ps-3 d-inline-block">
+              <h5 className="">
                 {` อายุ : ${calculateAge(patient.dateOfBirth)}`}
               </h5>
             </div>
@@ -33,15 +34,20 @@ function PatientDetailInfo({ patientId, patient, setPatient }) {
         >
           <div className="accordion-body">
             <ul className="list-group list-group-flush">
-              <li className="list-group-item">
+              <ListItem icon="far fa-id-card" text={patient.idCard} />
+              {/* <li className="list-group-item">
                 <div className="row justify-content-center">
                   <div className="col-12">
                     <i className="far fa-id-card" />
                     <h5 className="ps-3 d-inline-block">{patient.idCard}</h5>
                   </div>
                 </div>
-              </li>
-              <li className="list-group-item">
+              </li> */}
+              <ListItem
+                icon="far fa-calendar-alt"
+                text={convertToBC(patient.dateOfBirth)}
+              />
+              {/* <li className="list-group-item">
                 <div className="row justify-content-center">
                   <div className="col-12">
                     <i className="far fa-calendar-alt" />
@@ -50,23 +56,25 @@ function PatientDetailInfo({ patientId, patient, setPatient }) {
                     </h5>
                   </div>
                 </div>
-              </li>
-              <li className="list-group-item">
+              </li> */}
+              <ListItem icon="fas fa-phone" text={patient.mobile} />
+              {/* <li className="list-group-item">
                 <div className="row justify-content-center">
                   <div className="col-12">
                     <i className="fas fa-phone" />
                     <h5 className="ps-3 d-inline-block">{patient.mobile}</h5>
                   </div>
                 </div>
-              </li>
-              <li className="list-group-item">
+              </li> */}
+              <ListItem icon="far fa-comment" text={patient.idLine} />
+              {/* <li className="list-group-item">
                 <div className="row justify-content-center">
                   <div className="col-12">
                     <i className="far fa-comment" />
                     <h5 className="ps-3 d-inline-block">{patient.idLine}</h5>
                   </div>
                 </div>
-              </li>
+              </li> */}
               <PatientDetailInfoEdit
                 patientId={patientId}
                 patient={patient}

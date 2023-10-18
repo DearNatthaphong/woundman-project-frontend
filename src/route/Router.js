@@ -22,7 +22,6 @@ function Router() {
   const { patient, staff } = useAuth();
   return (
     <Routes>
-      {/* patient */}
       {patient ? (
         <Route path="/patient" element={<AuthLayout />}>
           <Route path="/patient" element={<AppointmentPatientPage />} />
@@ -41,14 +40,13 @@ function Router() {
           <Route path="*" element={<Navigate to="/patient" />} />
         </>
       )}
-
-      {/* staff */}
       {staff ? (
         <Route path="/staff" element={<AuthLayout />}>
           <Route path="/staff" element={<AppointmentStaffPage />} />
           <Route path="/staff/profile" element={<ProfilePage />} />
           <Route path="/staff/patients" element={<PatientPage />} />
           <Route path="/staff/patients/:id" element={<PatientDetailPage />} />
+          {/* <Route path="/staff/patients/:id" element={<ProfilePage />} />  */}
           <Route path="/staff/cases" element={<CasePage />} />
           <Route path="/staff/cases/:id" element={<CaseDetailPage />} />
           <Route path="/staff/payments" element={<PaymentPage />} />
@@ -57,7 +55,6 @@ function Router() {
             element={<PaymentDetailPage />}
           />
           <Route path="/staff/receipts" element={<ReceiptStaffPage />} />
-
           <Route path="*" element={<Navigate to="/staff/home" />} />
         </Route>
       ) : (
