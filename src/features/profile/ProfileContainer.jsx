@@ -1,48 +1,103 @@
-// import React, { useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import ProfileHeader from './ProfileHeader';
-// import ProfileInfo from './ProfileInfo';
 import ProfileFooter from './ProfileFooter';
-// import { useAuth } from '../../contexts/AuthContext';
-// import ProfileImage from './ProfileImage';
+import { useAuth } from '../../contexts/AuthContext';
 import ProfileContent from './ProfileContent';
-// import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import * as patientService from '../../api/newPatientApi';
+import { useLoading } from '../../contexts/LoadingContext';
+import CaseContainer from '../patient/CaseContainer';
 
 function ProfileContainer() {
-  // const { id } = useParams();
-  // const [selectedPatient, setSelectedPatient] = useState();
-  // const { staff, patient } = useAuth();
-  // const location = useLocation();
+  const { id: selectedPatientId } = useParams();
+  const [selectedPatient, setSelectedPatient] = useState({});
+  const { staff, patient } = useAuth();
+  const location = useLocation();
 
-  // useEffect(()=>{
-  //   const fetchPatientById = async (id) => {
-  //     // Your fetch logic to get the patient data by id goes here
-  //   };
-  //   fetchPatientById(id);
-  // },[id])
+  const { startLoading, stopLoading } = useLoading();
 
-  // const handleEdit = (updatedData) => {
-  //   // Logic to handle the update of patient data goes here
+  const isStaffProfile = location.pathname === '/staff/profile';
+  const isSelectedPatientProfile =
+    location.pathname === `/staff/patients/${selectedPatientId}`;
 
+  // useEffect(() => {
+  //   fetchPatientById(selectedPatientId);
+  // }, [selectedPatientId]);
+
+  // const fetchPatientById = async (selectedPatientId) => {
+  //   try {
+  //     if (selectedPatientId) {
+  //       startLoading();
+  //       const res = await patientService.getPatientById(selectedPatientId);
+  //       console.log('res.data', res.data);
+  //       if (isSelectedPatientProfile) {
+  //         setSelectedPatient(res.data.patient);
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   } finally {
+  //     stopLoading();
+  //   }
   // };
 
-  // const isStaffProfile = location.pathname === "/profile";
+  useEffect(() => {
+    const fetchPatientById = async (selectedPatientId) => {
+      try {
+        if (selectedPatientId) {
+          // startLoading();
+          const res = await patientService.getPatientById(selectedPatientId);
+          // console.log('res.data', res.data);
+          if (isSelectedPatientProfile) {
+            setSelectedPatient(res.data.patient);
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        // stopLoading();
+      }
+    };
+
+    fetchPatientById(selectedPatientId);
+  }, [selectedPatientId, isSelectedPatientProfile]);
+
+  const updatePatient = async (patientId, input) => {
+    try {
+      startLoading();
+      const res = await patientService.updatePatient(patientId, input);
+      setSelectedPatient(res.data.patient);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      stopLoading();
+    }
+  };
 
   return (
-    <div className="row justify-content-center">
-      <div className="col col-md-6">
+    <div className="row justify-content-center m-1">
+      <div className="col-12 col-md-6">
         <div className="card border border-3 mb-3">
-          <ProfileHeader />
-          <ProfileContent />
+          <ProfileHeader
+            isSelectedPatientProfile={isSelectedPatientProfile}
+            isStaffProfile={isStaffProfile}
+            staff={staff}
+            selectedPatient={selectedPatient}
+            updatePatient={updatePatient}
+            selectedPatientId={selectedPatientId}
+          />
+          <ProfileContent
+            selectedPatient={selectedPatient}
+            patient={patient}
+            staff={staff}
+            isSelectedPatientProfile={isSelectedPatientProfile}
+            isStaffProfile={isStaffProfile}
+          />
           <ProfileFooter />
-          {/* <ProfileHeader onEdit={handleEdit}/>
-          <ProfileContent id={id} patientData={patientData} patient={patient} staff={staff} isStaffProfile={isStaffProfile} />
-          <ProfileFooter /> */}
-          {/* <ProfileImage />
-          <ProfileInfo /> */}
-          {/* {staff && <ProfileFooter isMe={!id} />} */}
-          {/* <ProfileFooter isMe={!id} /> */}
         </div>
+      </div>
+      <div className="col-12 col-md-6">
+        {isSelectedPatientProfile && <CaseContainer />}
       </div>
     </div>
   );

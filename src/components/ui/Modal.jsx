@@ -2,44 +2,26 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Modal as BsModal } from 'bootstrap';
 
 function Modal({ children, open, onClose, title }) {
-  // const modalEl = useRef(6); // { current: 6}
-  // const modalEl = useRef(); // { current: undefined}
-  // const obj = { current: undefined}
-  // modalEl = document.getElementById('modal') // vanila js
-  const modalEl = useRef(); // { current: <div className="modal fade" tabindex="-1"></div>}
-  const [modal, setModal] = useState(null);
-  // const modalInstance = useRef(null);
+  const modalEl = useRef();
 
-  // initial modal
+  const [modal, setModal] = useState(null);
+
   useEffect(() => {
-    const modalObj = new BsModal(modalEl.current); // ถ้าไม่เก็บค่า จะกลายเป็น modalObj 2 ตัวที่หน้าตาเหมือนกัน
+    console.log('Setting up modal');
+    const modalObj = new BsModal(modalEl.current);
     setModal(modalObj);
   }, []);
 
-  // modalObj.show();
-  // modalInstance.current = new BsModal(modalEl.current);
-  // return () => {
-  //   modalInstance.current.dispose();
-  // };
-  // useEffect(() => {
-  //   if (!modal) {
-  //     setModal(new BsModal(modalEl.current));
-  //   }
-  // }, [modal]);
-
-  // open modal by bootstrap
   useEffect(() => {
+    console.log('Open state changed', open);
     if (open) {
-      modal?.show();
-    } else {
-      modal?.hide(); // ไม่ให้ error จาก render รอบแรก เพราะ ค่ายังเป็น null อยู่
+      return modal?.show();
     }
+    modal?.hide();
   }, [open, modal]);
 
   return (
     <div className="modal fade" tabIndex="-1" ref={modalEl} onClick={onClose}>
-      {/* // vanila js */}
-      {/* <div className="modal fade" tabindex="-1" id="modal"> */}
       <div
         className="modal-dialog modal-dialog-centered"
         onClick={(e) => e.stopPropagation()}
