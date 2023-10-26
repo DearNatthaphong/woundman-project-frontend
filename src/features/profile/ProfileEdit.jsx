@@ -29,7 +29,7 @@ function ProfileEdit({
       <button
         onClick={() => setIsOpen(true)}
         type="button"
-        className="btn btn-primary btn-sm"
+        className="btn btn-outline-primary rounded-pill btn-sm"
       >
         <i className="fas fa-pen" />
         {` แก้ไข`}

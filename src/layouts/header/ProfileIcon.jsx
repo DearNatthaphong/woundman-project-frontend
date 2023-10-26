@@ -11,8 +11,8 @@ function ProfileIcon() {
   const dropdownEl = useClickOutside(closeDropdown);
 
   return (
-    <div className="d-flex justify-content-end flex-1">
-      <div className="dropdown" ref={dropdownEl}>
+    <div className="d-flex justify-content-md-end flex-1 px-2">
+      <div className="nav-item dropdown" ref={dropdownEl}>
         <DropdownToggle onClick={() => setIsOpen((prev) => !prev)} />
         <DropdownMenu open={isOpen} onClose={() => setIsOpen(false)} />
       </div>

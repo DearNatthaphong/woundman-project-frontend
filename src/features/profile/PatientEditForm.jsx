@@ -148,36 +148,40 @@ function PatientEditForm({
   return (
     <form className="row pt-3 g-3 text-start" onSubmit={handleSubmit}>
       <div className="col-12 text-center">
-        <div
-          className="position-relative "
-          role="button"
-          onClick={() => fileEl.current.click()}
-        >
-          {input.profileImage ? (
-            <>
-              <button
-                type="button"
-                className="btn-close position-absolute"
-                style={{
-                  top: 1,
-                  right: 100,
-                  backgroundColor: 'red'
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setFile(null);
-                  setInput({ ...input, profileImage: null });
-                  fileEl.current.value = '';
-                }}
-              />
-              <Avatar
-                src={file ? URL.createObjectURL(file) : input.profileImage}
-                size="168"
-              />
-            </>
-          ) : (
-            <AddPhotoButton />
-          )}
+        <div className="d-inline-flex">
+          <div
+            className="position-relative "
+            role="button"
+            onClick={() => fileEl.current.click()}
+          >
+            {input.profileImage ? (
+              <>
+                <button
+                  type="button"
+                  className="btn-close position-absolute"
+                  style={{
+                    top: 0,
+                    right: 0,
+                    backgroundColor: 'red'
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setFile(null);
+                    setInput({ ...input, profileImage: null });
+                    fileEl.current.value = '';
+                  }}
+                />
+                {/* <div className="d-inline-flex"> */}
+                <Avatar
+                  src={file ? URL.createObjectURL(file) : input.profileImage}
+                  size="168"
+                />
+                {/* </div> */}
+              </>
+            ) : (
+              <AddPhotoButton />
+            )}
+          </div>
         </div>
         <input
           type="file"

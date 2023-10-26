@@ -22,8 +22,15 @@ function Modal({ children, open, onClose, title }) {
 
   return (
     <div className="modal fade" tabIndex="-1" ref={modalEl} onClick={onClose}>
+      {/* <div
+      className={`modal fade ${open ? 'show d-block' : ''}`}
+      tabIndex="-1"
+      ref={modalEl}
+      onClick={onClose}
+      style={{ zIndex: 100 }}
+    > */}
       <div
-        className="modal-dialog modal-dialog-centered"
+        className="modal-dialog modal-dialog-centered modal-dialog-scrollable"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="modal-content">

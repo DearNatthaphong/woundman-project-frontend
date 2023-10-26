@@ -7,10 +7,9 @@ function DropdownMenu({ open, onClose }) {
   const { patient, patientLogout, staffLogout, staff } = useAuth();
   return (
     <ul
-      className={`dropdown-menu end-0 px-2 mt-1 border shadow-sm rounded-xl w-sm-90${
+      className={`dropdown-menu dropdown-menu-md-end px-2 mt-1 border shadow-sm rounded-xl w-sm-90${
         open ? ' d-block' : ''
       }`}
-      // aria-labelledby="dropdownUser1"
     >
       <li>
         {patient && (

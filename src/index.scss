@@ -17,6 +17,14 @@ code {
 // include all of Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+// // Bootstrap and customized SCSS
+// @import 'bootstrap/scss/functions';
+// @import 'bootstrap/scss/variables';
+// @import 'bootstrap/scss/mixins';
+// @import 'bootstrap/scss/root';
+// @import 'bootstrap/scss/reboot';
+// @import 'bootstrap/scss/type';
+
 // .App {
 //   // max-width: 800px;
 //   // height: 1000px;
@@ -27,8 +35,35 @@ code {
 // }
 
 body {
-  background-color: #e9ecef;
+  background-color: #edfff3;
 }
+
+$colors: (
+  'green-100': $green-100,
+  'teal-700': $teal-700
+);
+
+.bg-green-100 {
+  background-color: map-get($colors, 'green-100');
+}
+.bg-teal-700 {
+  background-color: map-get($colors, 'teal-700');
+}
+
+$text-colors: (
+  'gray-600': $gray-600
+);
+
+.text-bg-gray-600 {
+  background-color: map-get($text-colors, 'gray-600');
+  color: white;
+}
+
+// $teal-700: #007777;
+
+// $theme-colors: (
+//   'success': $teal-700
+// );
 
 .max-w-362 {
   max-width: 362px;
@@ -58,3 +93,35 @@ body {
 .tw-pt-14 {
   padding-top: 3.5rem;
 }
+
+// Define z-index variables
+$zindex-dropdown: 1000;
+$zindex-sticky: 1020;
+$zindex-fixed: 1030;
+$zindex-offcanvas-backdrop: 1040;
+$zindex-offcanvas: 1045;
+$zindex-modal-backdrop: 1050;
+$zindex-modal: 1065;
+$zindex-popover: 1070;
+$zindex-tooltip: 1080;
+$zindex-toast: 1090;
+
+// Use the defined variables in your styles
+.modal-backdrop {
+  --bs-backdrop-zindex: $zindex-modal-backdrop;
+  --bs-backdrop-bg: #000;
+  --bs-backdrop-opacity: 0.5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--bs-backdrop-zindex);
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bs-backdrop-bg);
+}
+
+.modal-dialog {
+  z-index: $zindex-modal !important;
+}
+
+// You can use the other z-index variables similarly in your styles

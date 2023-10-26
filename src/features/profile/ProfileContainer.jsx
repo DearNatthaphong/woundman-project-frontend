@@ -76,27 +76,42 @@ function ProfileContainer() {
 
   return (
     <div className="row justify-content-center m-1">
-      <div className="col-12 col-md-6">
-        <div className="card border border-3 mb-3">
-          <ProfileHeader
-            isSelectedPatientProfile={isSelectedPatientProfile}
-            isStaffProfile={isStaffProfile}
-            staff={staff}
-            selectedPatient={selectedPatient}
-            updatePatient={updatePatient}
-            selectedPatientId={selectedPatientId}
-          />
-          <ProfileContent
-            selectedPatient={selectedPatient}
-            patient={patient}
-            staff={staff}
-            isSelectedPatientProfile={isSelectedPatientProfile}
-            isStaffProfile={isStaffProfile}
-          />
-          <ProfileFooter />
+      <div
+        className={`col-12 ${
+          isSelectedPatientProfile ? 'col-sm-5 col-md-4' : ''
+        }`}
+      >
+        <div
+          className="card mb-3 mx-auto"
+          // style={{ width: '300px' }}
+        >
+          <div className="card-body">
+            <ProfileHeader
+              isSelectedPatientProfile={isSelectedPatientProfile}
+              isStaffProfile={isStaffProfile}
+              staff={staff}
+              selectedPatient={selectedPatient}
+              updatePatient={updatePatient}
+              selectedPatientId={selectedPatientId}
+            />
+            <div className="card mb-3 mx-auto">
+              <ProfileContent
+                selectedPatient={selectedPatient}
+                patient={patient}
+                staff={staff}
+                isSelectedPatientProfile={isSelectedPatientProfile}
+                isStaffProfile={isStaffProfile}
+              />
+              <ProfileFooter />
+            </div>
+          </div>
         </div>
       </div>
-      <div className="col-12 col-md-6">
+      <div
+        className={`col-12 ${
+          isSelectedPatientProfile ? 'col-sm-7 col-md-8' : ''
+        }`}
+      >
         {isSelectedPatientProfile && <CaseContainer />}
       </div>
     </div>

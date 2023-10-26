@@ -11,19 +11,21 @@ function ProfileContent({
   isStaffProfile
 }) {
   return (
-    <div className="card-body row justify-content-center">
-      <div className="col-auto mb-3">
-        <Avatar
-          src={
-            isSelectedPatientProfile
-              ? selectedPatient.profileImage
-              : isStaffProfile
-              ? staff.profileImage
-              : patient.profileImage
-          }
-          size={150}
-        />
-      </div>
+    <ul className="list-group list-group-flush">
+      <li className="list-group-item text-center">
+        <div className="d-inline-flex">
+          <Avatar
+            src={
+              isSelectedPatientProfile
+                ? selectedPatient.profileImage
+                : isStaffProfile
+                ? staff.profileImage
+                : patient.profileImage
+            }
+            size={125}
+          />
+        </div>
+      </li>
       {isSelectedPatientProfile ? (
         <PatientInfo patient={selectedPatient} />
       ) : isStaffProfile ? (
@@ -31,7 +33,7 @@ function ProfileContent({
       ) : (
         <PatientInfo patient={patient} />
       )}
-    </div>
+    </ul>
   );
 }
 

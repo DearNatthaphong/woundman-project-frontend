@@ -92,7 +92,6 @@ export const shortFormattedDate = (date) => {
   if (!date) {
     return 'Invalid Date';
   }
-
   const options = {
     year: 'numeric',
     month: 'short',
