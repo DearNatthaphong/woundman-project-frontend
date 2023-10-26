@@ -7,11 +7,11 @@ function ProfileFooter() {
 
   return (
     <div className="card-footer ">
-      <p className="text-muted my-auto">
-        {`ลงทะเบียน : ${dateService.shortFormattedDate(
+      <small className="text-body-secondary">
+        {`ลงทะเบียน ${dateService.shortFormattedDate(
           patient ? patient.createdAt : staff.createdAt
         )}`}
-      </p>
+      </small>
     </div>
   );
 }
