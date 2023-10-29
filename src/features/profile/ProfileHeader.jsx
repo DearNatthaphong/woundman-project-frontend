@@ -27,7 +27,6 @@ function ProfileHeader({
         )}
       </div>
     </div>
-    // </div>
   );
 }
 

@@ -2,10 +2,11 @@ import TimeAgo from 'javascript-time-ago';
 
 // English.
 import en from 'javascript-time-ago/locale/en';
-import fr from 'javascript-time-ago/locale/fr';
+import th from 'javascript-time-ago/locale/th';
 
 TimeAgo.addDefaultLocale(en);
-TimeAgo.addLocale(fr);
+TimeAgo.addLocale(th);
+
 export const timeSince = (date) => {
   const timeAgo = new TimeAgo('en-US');
   const newTiemSince = timeAgo.format(new Date(date), 'round');
@@ -32,12 +33,19 @@ export const calculateAge = (dateOfBirth) => {
   return `${years} ปี ${months} เดือน`;
 };
 
-export const convertToBC = (dateOfBirth) => {
-  if (!dateOfBirth) {
+export const convertToBC = (dateString) => {
+  if (!dateString) {
     return '';
   }
-  const [year, month, day] = dateOfBirth.split('-').map(Number);
+  // const [year, month, day] = dateOfBirth.split('-').map(Number);
+
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
   const bcYear = year + 543;
+
   const monthNames = [
     'ม.ค.',
     'ก.พ.',
@@ -53,6 +61,7 @@ export const convertToBC = (dateOfBirth) => {
     'ธ.ค.'
   ];
   const formattedMonth = monthNames[month - 1];
+
   return `วันที่ ${day} ${formattedMonth} ${bcYear}`;
 };
 

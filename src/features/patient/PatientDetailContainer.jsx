@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import PatientDetailHeader from '../patient/PatientDetailHeader';
-import PatientDetailImage from '../patient/PatientDetailImage';
+import PatientDetailHeader from './PatientDetailHeader';
+import PatientDetailImage from './PatientDetailImage';
 import { useParams } from 'react-router-dom';
 import { useLoading } from '../../contexts/LoadingContext';
 import * as patientService from '../../api/newPatientApi';
-import CaseContainer from '../patient/CaseContainer';
-import PatientDetailInfo from '../patient/PatientDetailInfo';
+import CaseContainer from './CaseContainer';
+import PatientDetailInfo from './PatientDetailInfo';
 
-function PatientCaseContainer() {
+function PatientDeatailContainer() {
   const { id: patientId, caseId } = useParams();
   const [patient, setPatient] = useState({});
   const [cases, setCases] = useState([]);
@@ -93,4 +93,4 @@ function PatientCaseContainer() {
   );
 }
 
-export default PatientCaseContainer;
+export default PatientDeatailContainer;

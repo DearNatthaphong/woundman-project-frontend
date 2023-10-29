@@ -12,25 +12,19 @@ function CaseContainer({
   fetchCases
 }) {
   return (
-    <div className="card text-bg-secondary mb-3">
-      <CaseContainerHeader />
-      <ul className="list-group list-group-flush">
-        {/* <li className="list-group-item">
-          <CaseCreate
-            patientId={patientId}
-            onSuccess={onSuccess}
-            setIsOpen={setIsOpen}
-            isOpen={isOpen}
-          />
-        </li> */}
-        <li className="list-group-item">
-          <CaseList
-            cases={cases}
-            patientId={patientId}
-            fetchCases={fetchCases}
-          />
-        </li>
-      </ul>
+    <div className="card mb-3">
+      <div className="card-body">
+        <CaseContainerHeader />
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">
+            <CaseList
+              cases={cases}
+              patientId={patientId}
+              fetchCases={fetchCases}
+            />
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }

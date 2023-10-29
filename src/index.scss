@@ -125,3 +125,9 @@ $zindex-toast: 1090;
 }
 
 // You can use the other z-index variables similarly in your styles
+
+.row {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

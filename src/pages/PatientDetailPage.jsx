@@ -1,10 +1,10 @@
-import PatientCaseContainer from '../features/patientCase/PatientCaseContainer';
+import PatientDeatailContainer from '../features/patient/PatientDetailContainer';
 
 function PatientDetailPage() {
   return (
     <div>
       <div>
-        <PatientCaseContainer />
+        <PatientDeatailContainer />
       </div>
     </div>
   );
