@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from '../../components/ui/Modal';
-import CaseCreateForm from './CaseCreateForm';
+// import CaseCreateForm from './CaseCreateForm';
+import CaseForm from './CaseForm';
 
 function CaseCreate({ createCase, selectedPatientId }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +31,11 @@ function CaseCreate({ createCase, selectedPatientId }) {
             open={isOpen}
             onClose={() => setIsOpen(false)}
           >
-            <CaseCreateForm
+            {/* <CaseCreateForm
+              selectedPatientId={selectedPatientId}
+              onSubmit={onSubmit}
+            /> */}
+            <CaseForm
               selectedPatientId={selectedPatientId}
               onSubmit={onSubmit}
             />

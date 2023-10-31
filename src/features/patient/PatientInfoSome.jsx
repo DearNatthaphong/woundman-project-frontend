@@ -7,9 +7,9 @@ function PatientInfoSome({
 }) {
   return (
     <div className="col-8">
-      <div class="card-body px-0">
-        <h5 class="card-title">{`${titleName} ${firstName} ${lastName}`}</h5>
-        <p class="card-text mb-2">
+      <div className="card-body px-0">
+        <h5 className="card-title">{`${titleName} ${firstName} ${lastName}`}</h5>
+        <p className="card-text mb-2">
           {`อายุ : ${dateService.calculateAge(dateOfBirth)}`}
         </p>
         <div className="text-end px-3">

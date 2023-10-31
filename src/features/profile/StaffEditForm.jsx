@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import validator from 'validator';
-import { useLoading } from '../../contexts/LoadingContext';
 import { toast } from 'react-toastify';
 import AddPhotoButton from '../case/AddPhotoButton';
 import Avatar from '../../components/ui/Avatar';
@@ -12,32 +11,18 @@ function StaffEditForm({ onSubmit }) {
   } = useAuth();
 
   const [input, setInput] = useState({
-    titleName: '',
-    firstName: '',
-    lastName: '',
-    role: '',
-    mobile: '',
-    email: '',
-    profileImage: null
+    titleName,
+    firstName,
+    lastName,
+    role,
+    mobile,
+    email,
+    profileImage
   });
 
   const [file, setFile] = useState(null);
 
-  useEffect(() => {
-    setInput({
-      titleName: titleName,
-      firstName: firstName,
-      lastName: lastName,
-      role: role,
-      mobile: mobile,
-      email: email,
-      profileImage: profileImage
-    });
-  }, [titleName, firstName, lastName, role, mobile, email, profileImage]);
-
   const fileEl = useRef();
-
-  const { startLoading, stopLoading } = useLoading();
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -106,14 +91,11 @@ function StaffEditForm({ onSubmit }) {
       if (file) {
         formData.append('profileImage', file);
       }
-      startLoading();
       await onSubmit(formData);
       toast.success('แก้ไขข้อมูลส่วนตัวสำเร็จ');
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data.message);
-    } finally {
-      stopLoading();
     }
   };
 

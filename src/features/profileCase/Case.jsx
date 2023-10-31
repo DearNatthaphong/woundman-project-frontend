@@ -2,14 +2,19 @@ import React from 'react';
 import CaseHeader from './CaseHeader';
 import CaseContent from './CaseContent';
 
-function Case({ caseData }) {
+function Case({ caseData, updateCase, selectedPatientId, deleteCase }) {
   return (
-    // <div className="col">
-    <div className="col card">
-      <CaseHeader caseData={caseData} />
-      <CaseContent caseData={caseData} />
+    <div className="col">
+      <div className="card">
+        <CaseHeader
+          caseData={caseData}
+          updateCase={updateCase}
+          selectedPatientId={selectedPatientId}
+          deleteCase={deleteCase}
+        />
+        <CaseContent caseData={caseData} />
+      </div>
     </div>
-    // </div>
   );
 }
 

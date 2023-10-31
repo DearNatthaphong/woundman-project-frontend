@@ -14,12 +14,12 @@ function ProfileEdit({
   const [isOpen, setIsOpen] = useState(false);
   const { updateStaff } = useAuth();
 
-  const onSubmit = async (input) => {
+  const onUpdateStaff = async (input) => {
     await updateStaff(input);
     setIsOpen(false);
   };
 
-  const onSubmitPatient = async (patientId, input) => {
+  const onUpdatePatient = async (patientId, input) => {
     await updatePatient(patientId, input);
     setIsOpen(false);
   };
@@ -39,10 +39,10 @@ function ProfileEdit({
         open={isOpen}
         onClose={() => setIsOpen(false)}
       >
-        {isStaffProfile && <StaffEditForm onSubmit={onSubmit} />}
+        {isStaffProfile && <StaffEditForm onSubmit={onUpdateStaff} />}
         {isSelectedPatientProfile && (
           <PatientEditForm
-            onSubmitPatient={onSubmitPatient}
+            onSubmit={onUpdatePatient}
             selectedPatient={selectedPatient}
             selectedPatientId={selectedPatientId}
           />

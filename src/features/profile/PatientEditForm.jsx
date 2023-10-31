@@ -1,64 +1,50 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import validator from 'validator';
-import { useLoading } from '../../contexts/LoadingContext';
 import AddPhotoButton from '../case/AddPhotoButton';
 import Avatar from '../../components/ui/Avatar';
 
-function PatientEditForm({
-  onSubmitPatient,
-  selectedPatient,
-  selectedPatientId
-}) {
-  const {
-    titleName,
-    firstName,
-    lastName,
-    idCard,
-    dateOfBirth,
-    mobile,
-    idLine,
-    profileImage
-  } = selectedPatient;
-
+function PatientEditForm({ onSubmit, selectedPatient, selectedPatientId }) {
   const [input, setInput] = useState({
-    titleName: titleName || '',
-    firstName: firstName || '',
-    lastName: lastName || '',
-    idCard: idCard || '',
-    dateOfBirth: dateOfBirth || '',
-    mobile: mobile || '',
-    idLine: idLine || '',
-    profileImage: profileImage || null
+    titleName: '',
+    firstName: '',
+    lastName: '',
+    idCard: '',
+    dateOfBirth: '',
+    mobile: '',
+    idLine: '',
+    profileImage: null
   });
+
+  useEffect(() => {
+    if (selectedPatient) {
+      const {
+        titleName,
+        firstName,
+        lastName,
+        idCard,
+        dateOfBirth,
+        mobile,
+        idLine,
+        profileImage
+      } = selectedPatient;
+
+      setInput({
+        titleName: titleName || '',
+        firstName: firstName || '',
+        lastName: lastName || '',
+        idCard: idCard || '',
+        dateOfBirth: dateOfBirth || '',
+        mobile: mobile || '',
+        idLine: idLine || '',
+        profileImage: profileImage || ''
+      });
+    }
+  }, [selectedPatient]);
 
   const [file, setFile] = useState(null);
 
-  useEffect(() => {
-    setInput({
-      titleName: titleName,
-      firstName: firstName,
-      lastName: lastName,
-      idCard: idCard,
-      dateOfBirth: dateOfBirth,
-      mobile: mobile,
-      idLine: idLine,
-      profileImage: profileImage
-    });
-  }, [
-    titleName,
-    firstName,
-    lastName,
-    idCard,
-    dateOfBirth,
-    mobile,
-    idLine,
-    profileImage
-  ]);
-
   const fileEl = useRef();
-
-  const { startLoading, stopLoading } = useLoading();
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -134,14 +120,11 @@ function PatientEditForm({
       if (file) {
         formData.append('profileImage', file);
       }
-      startLoading();
-      await onSubmitPatient(selectedPatientId, formData);
+      await onSubmit(selectedPatientId, formData);
       toast.success('แก้ไขข้อมูลส่วนตัวสำเร็จ');
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data.message);
-    } finally {
-      stopLoading();
     }
   };
 

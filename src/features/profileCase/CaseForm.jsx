@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { toast } from 'react-toastify';
 import * as validate from '../../validations/caseValidate';
+import { toast } from 'react-toastify';
 
-function CaseCreateForm({ onSubmit, selectedPatientId }) {
-  const [input, setInput] = useState({
+function CaseForm({ onSubmit, selectedPatientId, isEdit, caseData }) {
+  let initialState = {
     chiefComplain: '',
     presentIllness: '',
     pastHistory: '',
@@ -13,46 +13,45 @@ function CaseCreateForm({ onSubmit, selectedPatientId }) {
     systolicBloodPressure: '',
     diastolicBloodPressure: '',
     bloodOxygen: ''
-  });
+  };
+
+  if (isEdit) {
+    initialState = { ...caseData };
+  }
+
+  const [input, setInput] = useState(initialState);
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
   const clearInputFields = () => {
-    setInput({
-      chiefComplain: '',
-      presentIllness: '',
-      pastHistory: '',
-      height: '',
-      weight: '',
-      temperature: '',
-      systolicBloodPressure: '',
-      diastolicBloodPressure: '',
-      bloodOxygen: ''
-    });
+    setInput(initialState);
   };
 
   const handleSubmitForm = async (e) => {
-    e.preventDefault(); // หยุด default action
-
-    //err validate
-    const errors = validate.caseVlidationErrors(input);
-    if (errors.length) {
-      const errorMessage = errors.join('; ');
-      return toast.error(errorMessage);
-    }
-
     try {
-      onSubmit(selectedPatientId, input);
-      toast.success('สร้างการตรวจรักษาสำเร็จ');
-      clearInputFields();
+      e.preventDefault();
+
+      const errors = validate.caseVlidationErrors(input);
+      if (errors.length) {
+        const errorMessage = errors.join('; ');
+        return toast.error(errorMessage);
+      }
+
+      if (isEdit) {
+        await onSubmit(selectedPatientId, caseData.id, input);
+        toast.success('แก้ไขข้อมูลสำเร็จ');
+      } else {
+        onSubmit(selectedPatientId, input);
+        toast.success('สร้างการตรวจรักษาสำเร็จ');
+        clearInputFields();
+      }
     } catch (err) {
-      toast.error('สร้างการตรวจรักษาไม่สำเร็จ');
+      toast.error('มีข้อผิดพลาดเกิดขึ้น');
       toast.error(err.response.data.message);
     }
   };
-
   return (
     <form className="row gx-2 gy-2" onSubmit={handleSubmitForm}>
       <div className="col-12">
@@ -191,4 +190,4 @@ function CaseCreateForm({ onSubmit, selectedPatientId }) {
   );
 }
 
-export default CaseCreateForm;
+export default CaseForm;

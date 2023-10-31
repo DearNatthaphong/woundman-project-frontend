@@ -1,54 +1,86 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import * as validate from '../../validations/caseValidate';
 
-function CaseCreateForm({ onSubmit, selectedPatientId }) {
+function CaseEditForm({ caseData, onSubmit, selectedPatientId }) {
+  const {
+    chiefComplain,
+    presentIllness,
+    pastHistory,
+    height,
+    weight,
+    temperature,
+    systolicBloodPressure,
+    diastolicBloodPressure,
+    bloodOxygen,
+    id
+  } = caseData;
+
   const [input, setInput] = useState({
-    chiefComplain: '',
-    presentIllness: '',
-    pastHistory: '',
-    height: '',
-    weight: '',
-    temperature: '',
-    systolicBloodPressure: '',
-    diastolicBloodPressure: '',
-    bloodOxygen: ''
+    chiefComplain,
+    presentIllness,
+    pastHistory,
+    height,
+    weight,
+    temperature,
+    systolicBloodPressure,
+    diastolicBloodPressure,
+    bloodOxygen
   });
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const clearInputFields = () => {
-    setInput({
-      chiefComplain: '',
-      presentIllness: '',
-      pastHistory: '',
-      height: '',
-      weight: '',
-      temperature: '',
-      systolicBloodPressure: '',
-      diastolicBloodPressure: '',
-      bloodOxygen: ''
-    });
-  };
-
   const handleSubmitForm = async (e) => {
-    e.preventDefault(); // หยุด default action
+    e.preventDefault();
 
-    //err validate
-    const errors = validate.caseVlidationErrors(input);
+    const validationErrors = (input) => {
+      const errors = [];
+
+      if (!input.chiefComplain.trim()) {
+        errors.push('ต้องใส่อาการเจ็บป่วยที่มาพบแพทย์');
+      }
+
+      if (!input.presentIllness.trim()) {
+        errors.push('ต้องใส่ประวัติการเจ็บป่วยในปัจจุบัน');
+      }
+
+      if (!input.pastHistory.trim()) {
+        errors.push('ต้องใส่ประวัติย้อนหลัง');
+      }
+
+      if (!input.height) {
+        errors.push('ต้องใส่ความสูง');
+      }
+      if (!input.weight) {
+        errors.push('ต้องใส่น้ำหนัก');
+      }
+      if (!input.temperature) {
+        errors.push('ต้องใส่อุณหภูมิ');
+      }
+      if (!input.bloodOxygen) {
+        errors.push('ต้องใส่ค่าออกซิเจนในเลือด');
+      }
+      if (!input.systolicBloodPressure) {
+        errors.push('ต้องใส่ค.ดันโลหิตบน');
+      }
+      if (!input.diastolicBloodPressure) {
+        errors.push('ต้องใส่ค.ดันโลหิตล่าง');
+      }
+      return errors;
+    };
+
+    const errors = validationErrors(input);
     if (errors.length) {
       const errorMessage = errors.join('; ');
       return toast.error(errorMessage);
     }
 
     try {
-      onSubmit(selectedPatientId, input);
-      toast.success('สร้างการตรวจรักษาสำเร็จ');
-      clearInputFields();
+      await onSubmit(selectedPatientId, id, input);
+      toast.success('แก้ไขข้อมูลสำเร็จ');
     } catch (err) {
-      toast.error('สร้างการตรวจรักษาไม่สำเร็จ');
+      toast.error('แก้ไขข้อมูลไม่สำเร็จ');
       toast.error(err.response.data.message);
     }
   };
@@ -184,11 +216,11 @@ function CaseCreateForm({ onSubmit, selectedPatientId }) {
           type="submit"
           className="w-100 btn btn-md btn-success rounded-4"
         >
-          ยืนยัน
+          แก้ไข
         </button>
       </div>
     </form>
   );
 }
 
-export default CaseCreateForm;
+export default CaseEditForm;

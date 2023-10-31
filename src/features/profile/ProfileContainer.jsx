@@ -64,7 +64,7 @@ function ProfileContainer() {
       try {
         // startLoading();
         const res = await patientService.getCasesByPatientId(patientId);
-        console.log('res.data.cases', res.data.cases);
+        // console.log('res.data.cases', res.data.cases);
         setCases(res.data.cases);
       } catch (err) {
         console.log(err);
@@ -96,8 +96,59 @@ function ProfileContainer() {
         selectedPatientId,
         input
       );
-      console.log('res.data.newCase', res.data.newCase);
+      // console.log('res.data.newCase', res.data.newCase);
       setCases((prevCases) => [res.data.newCase, ...prevCases]);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      stopLoading();
+    }
+  };
+
+  const updateCase = async (selectedPatientId, caseId, updatedData) => {
+    try {
+      startLoading();
+      const res = await patientService.updateCaseByPatientId(
+        selectedPatientId,
+        caseId,
+        updatedData
+      );
+      // console.log('res.data.updatedCase', res.data.updatedCase);
+      setCases((prevCases) =>
+        prevCases.map((prevCase) =>
+          prevCase.id === res.data.updatedCase.id
+            ? res.data.updatedCase
+            : prevCase
+        )
+      );
+    } catch (err) {
+      console.log(err);
+    } finally {
+      stopLoading();
+    }
+  };
+
+  const fetchCases = async (patientId) => {
+    try {
+      // startLoading();
+      const res = await patientService.getCasesByPatientId(patientId);
+      // console.log('res.data.cases', res.data.cases);
+      setCases(res.data.cases);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      // stopLoading();
+    }
+  };
+
+  const deleteCase = async (selectedPatientId, caseId) => {
+    try {
+      startLoading();
+      await patientService.deleteCaseByPatientId(selectedPatientId, caseId);
+      // setCases((prevCases) =>
+      //   prevCases.filter((caseItem) => caseItem.id !== caseId)
+      // );
+      fetchCases(selectedPatientId);
     } catch (err) {
       console.log(err);
     } finally {
@@ -107,15 +158,8 @@ function ProfileContainer() {
 
   return (
     <div className="row justify-content-center m-1">
-      <div
-        className={`col-12 ${
-          isSelectedPatientProfile ? 'col-sm-5 col-md-4' : ''
-        }`}
-      >
-        <div
-          className="card mb-3 mx-auto"
-          // style={{ width: '300px' }}
-        >
+      <div className="col-12 col-sm-5">
+        <div className="card mb-3 mx-auto">
           <div className="card-body">
             <ProfileHeader
               isSelectedPatientProfile={isSelectedPatientProfile}
@@ -138,20 +182,19 @@ function ProfileContainer() {
           </div>
         </div>
       </div>
-      <div
-        className={`col-12 ${
-          isSelectedPatientProfile ? 'col-sm-7 col-md-8' : ''
-        }`}
-      >
-        {isSelectedPatientProfile && (
+      {isSelectedPatientProfile && (
+        <div className="col-12 col-sm-7">
           <CaseContainer
             cases={cases}
             createCase={createCase}
             selectedPatientId={selectedPatientId}
+            updateCase={updateCase}
+            deleteCase={deleteCase}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
+    // </div>
   );
 }
 
