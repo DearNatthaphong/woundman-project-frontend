@@ -15,9 +15,9 @@ function CaseContainer() {
       try {
         // startLoading();
         if (showCasesWithoutTreatment) {
-          fetchCasesWithoutTreatment();
+          await fetchCasesWithoutTreatment();
         } else {
-          getCases();
+          await getCases();
         }
       } catch (err) {
         console.log(err);
@@ -49,33 +49,16 @@ function CaseContainer() {
   };
 
   return (
-    <div>
-      <div className="row m-3 justify-content-center">
-        <div className="col-12 col-md-6">
-          <CaseSearch
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            handleSearch={handleSearch}
-          />
-          <div className="form-check form-switch">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              id="flexSwitchCheckDefault"
-              checked={showCasesWithoutTreatment}
-              onChange={() =>
-                setShowCasesWithoutTreatment(!showCasesWithoutTreatment)
-              }
-            />
-            <label
-              className="form-check-label"
-              htmlFor="flexSwitchCheckDefault"
-            >
-              การตรวจรักษาที่รอการรักษา
-            </label>
-          </div>
-        </div>
-      </div>
+    <div className="container-fluid">
+      <CaseSearch
+        searchTerm={searchTerm}
+        handleSearchTerm={(newSearchTerm) => setSearchTerm(newSearchTerm)}
+        handleSearch={handleSearch}
+        showCasesWithoutTreatment={showCasesWithoutTreatment}
+        onToggle={() =>
+          setShowCasesWithoutTreatment(!showCasesWithoutTreatment)
+        }
+      />
       <CaseList cases={searchResults.length > 0 ? searchResults : casesData} />
     </div>
   );

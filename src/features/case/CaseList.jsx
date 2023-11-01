@@ -6,10 +6,18 @@ function CaseList({ cases }) {
   //   return null;
   // }
   return (
-    <div className="row row-cols-1 row-cols-md-2 g-2 mx-3">
-      {cases.map((item) => (
-        <Case key={item.id} case={item} />
-      ))}
+    <div className="row mt-3 justify-content-center">
+      <div className="col-12">
+        <div className="card">
+          <div className="card-body">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-2">
+              {cases.map((item) => (
+                <Case key={item.id} case={item} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

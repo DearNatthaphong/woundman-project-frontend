@@ -8,7 +8,7 @@ function TreatmentList({
   deleteTreatment
 }) {
   return (
-    <div>
+    <>
       {treatments.map((item) => (
         <Treatment
           key={item.id}
@@ -18,7 +18,7 @@ function TreatmentList({
           deleteTreatment={deleteTreatment}
         />
       ))}
-    </div>
+    </>
   );
 }
 

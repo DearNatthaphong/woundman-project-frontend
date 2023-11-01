@@ -35,32 +35,35 @@ function CaseDetailContainer() {
   }, [caseId]);
 
   return (
-    <div>
+    <div className="container-fluid">
       <div className="row justify-content-center">
-        <div className="col col-sm-6">
-          <div className="card border border-3 p-0">
-            <CaseDetailHeader />
-            <ul className="list-group list-group-flush p-0">
-              <li className="list-group-item p-0">
-                <PatientDetail caseData={caseData} />
-              </li>
-              <li className="list-group-item">
-                <CaseDetail
-                  caseData={caseData}
-                  setCaseData={setCaseData}
-                  caseId={caseId}
-                />
-              </li>
-            </ul>
+        <div className="col-12 col-sm-6">
+          <CaseDetailHeader />
+          <div className="card mb-3 mx-1">
+            <div className="card-body">
+              {/* <ul className="list-group list-group-flush p-0">
+                <li className="list-group-item p-0"> */}
+              <PatientDetail caseData={caseData} />
+              {/* </li>
+                <li className="list-group-item"> */}
+              <CaseDetail
+                caseData={caseData}
+                setCaseData={setCaseData}
+                caseId={caseId}
+              />
+              {/* </li>
+              </ul> */}
+            </div>
           </div>
-
-          <div className="card  border border-3 p-0">
-            <TreatmentContainer caseId={caseId} />
-          </div>
-
-          <div className="card  border border-3 p-0">
+          <div className="card my-3 mx-1">
             <AppointmentContainer caseId={caseId} />
           </div>
+        </div>
+        <div className="col-12 col-sm-6">
+          <TreatmentContainer caseId={caseId} />
+          {/* <div className="card  border border-3 p-0">
+            <AppointmentContainer caseId={caseId} />
+          </div> */}
         </div>
       </div>
     </div>

@@ -40,7 +40,7 @@ function PatientContainer() {
   };
 
   return (
-    <div>
+    <div className="container-fluid">
       <PatientSearch
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}

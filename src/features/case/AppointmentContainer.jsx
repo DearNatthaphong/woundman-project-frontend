@@ -52,7 +52,7 @@ function AppointmentContainer({ caseId }) {
   };
 
   return (
-    <div>
+    <div className="card-body">
       <AppointmentContainerHeader />
       <ul className="list-group">
         {appointment !== null ? (
