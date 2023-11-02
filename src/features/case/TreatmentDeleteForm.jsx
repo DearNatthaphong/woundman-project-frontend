@@ -3,19 +3,20 @@ import { useLoading } from '../../contexts/LoadingContext';
 import { toast } from 'react-toastify';
 // import * as caseService from '../../api/caseApi';
 
-function TreatmentDeleteForm({ caseId, treatment: { id }, onClose, onSubmit }) {
+function TreatmentDeleteForm({ caseId, treatment, onClose, onSubmit }) {
   const { startLoading, stopLoading } = useLoading();
+  const treatmentId = treatment.id;
 
   const handleSubmitForm = async (e) => {
     try {
       e.preventDefault();
       startLoading();
-      await onSubmit(caseId, id);
+      await onSubmit(caseId, treatmentId);
       toast.success('ลบข้อมูลการรักษาสำเร็จ');
     } catch (err) {
       console.log(err);
       toast.error('ลบข้อมูลการตรวจรักษาไม่สำเร็จ');
-      toast.error(err.response?.data.message);
+      toast.error(err.response.data.message);
     } finally {
       stopLoading();
     }

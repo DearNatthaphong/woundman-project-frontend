@@ -1,11 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+// import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import validator from 'validator';
 import AddPhotoButton from '../case/AddPhotoButton';
 import Avatar from '../../components/ui/Avatar';
+import { useLoading } from '../../contexts/LoadingContext';
 
 function PatientEditForm({ onSubmit, selectedPatient, selectedPatientId }) {
-  const [input, setInput] = useState({
+  const { startLoading, stopLoading } = useLoading();
+
+  let initialState = {
     titleName: '',
     firstName: '',
     lastName: '',
@@ -14,33 +18,9 @@ function PatientEditForm({ onSubmit, selectedPatient, selectedPatientId }) {
     mobile: '',
     idLine: '',
     profileImage: null
-  });
+  };
 
-  useEffect(() => {
-    if (selectedPatient) {
-      const {
-        titleName,
-        firstName,
-        lastName,
-        idCard,
-        dateOfBirth,
-        mobile,
-        idLine,
-        profileImage
-      } = selectedPatient;
-
-      setInput({
-        titleName: titleName || '',
-        firstName: firstName || '',
-        lastName: lastName || '',
-        idCard: idCard || '',
-        dateOfBirth: dateOfBirth || '',
-        mobile: mobile || '',
-        idLine: idLine || '',
-        profileImage: profileImage || ''
-      });
-    }
-  }, [selectedPatient]);
+  const [input, setInput] = useState({ ...initialState, ...selectedPatient });
 
   const [file, setFile] = useState(null);
 
@@ -53,6 +33,7 @@ function PatientEditForm({ onSubmit, selectedPatient, selectedPatientId }) {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      startLoading();
       const formData = new FormData();
 
       const validationErrors = (input) => {
@@ -120,11 +101,14 @@ function PatientEditForm({ onSubmit, selectedPatient, selectedPatientId }) {
       if (file) {
         formData.append('profileImage', file);
       }
-      await onSubmit(selectedPatientId, formData);
+      const patientId = selectedPatientId;
+      await onSubmit(patientId, formData);
       toast.success('แก้ไขข้อมูลส่วนตัวสำเร็จ');
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data.message);
+    } finally {
+      stopLoading();
     }
   };
 

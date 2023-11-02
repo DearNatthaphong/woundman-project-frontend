@@ -1,14 +1,17 @@
 import React, { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import AddPhotoButton from './AddPhotoButton';
+import { useLoading } from '../../contexts/LoadingContext';
 
 function TreatmentForm({ onSubmit, caseId, isEdit, treatment }) {
-  let initialState = useState({
+  const { startLoading, stopLoading } = useLoading();
+
+  let initialState = {
     position: '',
     diagnosis: '',
     treatment: '',
     image: null
-  });
+  };
 
   if (isEdit) {
     initialState = { ...treatment };
@@ -27,6 +30,7 @@ function TreatmentForm({ onSubmit, caseId, isEdit, treatment }) {
   const handleSubmitForm = async (e) => {
     try {
       e.preventDefault();
+      startLoading();
 
       const formData = new FormData();
 
@@ -55,7 +59,8 @@ function TreatmentForm({ onSubmit, caseId, isEdit, treatment }) {
       }
 
       if (isEdit) {
-        await onSubmit(caseId, treatment.id, formData);
+        const treatmentId = treatment.id;
+        await onSubmit(caseId, treatmentId, formData);
         toast.success('แก้ไขข้อมูลสำเร็จ');
       } else {
         await onSubmit(caseId, formData);
@@ -66,6 +71,8 @@ function TreatmentForm({ onSubmit, caseId, isEdit, treatment }) {
       console.log(err);
       toast.error('มีข้อผิดพลาดเกิดขึ้น');
       toast.error(err.response?.data.message);
+    } finally {
+      stopLoading();
     }
   };
 

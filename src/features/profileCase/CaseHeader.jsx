@@ -20,12 +20,10 @@ function CaseHeader({ caseData, updateCase, selectedPatientId, deleteCase }) {
     setIsOpenDropdown(false);
   };
 
-  const onDeleteCase = async (selectedPatientId, caseId) => {
-    await deleteCase(selectedPatientId, caseId);
-    // setTimeout(() => {
+  const onDeleteCase = async (patientId, caseId) => {
+    await deleteCase(patientId, caseId);
     setIsOpenDeleteModal(false);
     setIsOpenDropdown(false);
-    // }, 1);
   };
 
   return (
@@ -61,7 +59,6 @@ function CaseHeader({ caseData, updateCase, selectedPatientId, deleteCase }) {
                 >
                   แก้ไข
                 </button>
-                {/* {isOpenEditModal && ( */}
                 <Modal
                   title="แก้ไขประวัติสุขภาพ"
                   open={isOpenEditModal}
@@ -77,7 +74,6 @@ function CaseHeader({ caseData, updateCase, selectedPatientId, deleteCase }) {
                     isEdit={true}
                   />
                 </Modal>
-                {/* )} */}
               </li>
               <li>
                 <button
@@ -90,7 +86,6 @@ function CaseHeader({ caseData, updateCase, selectedPatientId, deleteCase }) {
                 >
                   ลบ
                 </button>
-                {/* {isOpenDeleteModal && ( */}
                 <Modal
                   title="ยันยันการลบประวัติสุขภาพ"
                   open={isOpenDeleteModal}
@@ -109,7 +104,6 @@ function CaseHeader({ caseData, updateCase, selectedPatientId, deleteCase }) {
                     }}
                   />
                 </Modal>
-                {/* )} */}
               </li>
               <li>
                 <Link className="dropdown-item" to="#">

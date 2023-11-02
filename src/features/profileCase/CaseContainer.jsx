@@ -4,8 +4,8 @@ import CaseCreate from './CaseCreate';
 
 function CaseContainer({
   cases,
-  createCase,
   selectedPatientId,
+  createCase,
   updateCase,
   deleteCase
 }) {

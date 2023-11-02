@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import * as validate from '../../validations/caseValidate';
 import { toast } from 'react-toastify';
+import { useLoading } from '../../contexts/LoadingContext';
 
 function CaseForm({ onSubmit, selectedPatientId, isEdit, caseData }) {
+  const { startLoading, stopLoading } = useLoading();
+
   let initialState = {
     chiefComplain: '',
     presentIllness: '',
@@ -32,24 +35,29 @@ function CaseForm({ onSubmit, selectedPatientId, isEdit, caseData }) {
   const handleSubmitForm = async (e) => {
     try {
       e.preventDefault();
-
+      startLoading();
       const errors = validate.caseVlidationErrors(input);
       if (errors.length) {
         const errorMessage = errors.join('; ');
         return toast.error(errorMessage);
       }
 
+      const patientId = selectedPatientId;
+
       if (isEdit) {
-        await onSubmit(selectedPatientId, caseData.id, input);
+        const caseId = caseData.id;
+        await onSubmit(patientId, caseId, input);
         toast.success('แก้ไขข้อมูลสำเร็จ');
       } else {
-        onSubmit(selectedPatientId, input);
+        onSubmit(patientId, input);
         toast.success('สร้างการตรวจรักษาสำเร็จ');
         clearInputFields();
       }
     } catch (err) {
       toast.error('มีข้อผิดพลาดเกิดขึ้น');
       toast.error(err.response.data.message);
+    } finally {
+      stopLoading();
     }
   };
   return (

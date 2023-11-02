@@ -2,13 +2,32 @@ import React, { useCallback, useState } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import * as dateService from '../../utils/dateFormat';
 import Modal from '../../components/ui/Modal';
+import TreatmentForm from './TreatmentForm';
+import TreatmentDeleteForm from './TreatmentDeleteForm';
 
-function TreatmentHeader({ treatment }) {
+function TreatmentHeader({
+  treatment,
+  caseId,
+  updateTreatment,
+  deleteTreatment
+}) {
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
   const closeDropdown = useCallback(() => setIsOpenDropdown(false), []);
   const dropdownEl = useClickOutside(closeDropdown);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+
+  const onUpdate = async (caseId, treatmentId, input) => {
+    await updateTreatment(caseId, treatmentId, input);
+    setIsOpenDropdown(false);
+    setIsOpenEditModal(false);
+  };
+
+  const onDelete = async (caseId, treatmentId) => {
+    await deleteTreatment(caseId, treatmentId);
+    setIsOpenDropdown(false);
+    setIsOpenDeleteModal(false);
+  };
 
   return (
     <div className="card-header">
@@ -53,12 +72,12 @@ function TreatmentHeader({ treatment }) {
                     setIsOpenDropdown(false);
                   }}
                 >
-                  {/* <CaseForm
-                    caseData={caseData}
-                    onSubmit={onUpdateCase}
-                    selectedPatientId={selectedPatientId}
+                  <TreatmentForm
+                    treatment={treatment}
+                    caseId={caseId}
+                    onSubmit={onUpdate}
                     isEdit={true}
-                  /> */}
+                  />
                 </Modal>
               </li>
               <li>
@@ -80,15 +99,15 @@ function TreatmentHeader({ treatment }) {
                     setIsOpenDropdown(false);
                   }}
                 >
-                  {/* <CaseDeleteForm
-                    onSubmit={onDeleteCase}
-                    selectedPatientId={selectedPatientId}
-                    caseData={caseData}
+                  <TreatmentDeleteForm
+                    treatment={treatment}
+                    caseId={caseId}
+                    onSubmit={onDelete}
                     onClose={() => {
                       setIsOpenDeleteModal(false);
                       setIsOpenDropdown(false);
                     }}
-                  /> */}
+                  />
                 </Modal>
               </li>
             </ul>

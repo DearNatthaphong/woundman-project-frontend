@@ -1,31 +1,27 @@
 // import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useLoading } from '../../contexts/LoadingContext';
 
 function CaseDeleteForm({ onSubmit, selectedPatientId, caseData, onClose }) {
-  //   const [isDeleted, setIsDeleted] = useState(false);
-
+  const { startLoading, stopLoading } = useLoading();
   const caseId = caseData.id;
+  const patientId = selectedPatientId;
+
   const handleSubmitForm = async (e) => {
     try {
       e.preventDefault();
-      await onSubmit(selectedPatientId, caseId);
+      startLoading();
+      await onSubmit(patientId, caseId);
       //   setIsDeleted(true);
       toast.success('ลบข้อมูลการตรวจรักษาสำเร็จ');
       //   onClose();
     } catch (err) {
       toast.error('ลบข้อมูลการตรวจรักษาไม่สำเร็จ');
       toast.error(err.response.data.message);
+    } finally {
+      stopLoading();
     }
   };
-
-  //   useEffect(() => {
-  //     if (isDeleted) {
-  //       const timeout = setTimeout(() => {
-  //         onClose();
-  //       }, 1500);
-  //       return () => clearTimeout(timeout);
-  //     }
-  //   }, [isDeleted, onClose]);
 
   return (
     <form className="row" onSubmit={handleSubmitForm}>

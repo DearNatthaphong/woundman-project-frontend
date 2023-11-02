@@ -6,7 +6,7 @@ function CaseList({ cases, updateCase, selectedPatientId, deleteCase }) {
     <div
       className="row row-cols-1 mt-1 mb-3 g-2"
       style={{
-        height: '100vh',
+        // height: '100vh',
         overflow: 'auto',
         scrollbarWidth: 'none',
         msOverflowStyle: 'none'

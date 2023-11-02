@@ -6,7 +6,12 @@ import TreatmentHeader from './TreatmentHeader';
 function Treatment({ treatment, caseId, updateTreatment, deleteTreatment }) {
   return (
     <div className="card mt-3 mx-1">
-      <TreatmentHeader treatment={treatment} />
+      <TreatmentHeader
+        treatment={treatment}
+        caseId={caseId}
+        updateTreatment={updateTreatment}
+        deleteTreatment={deleteTreatment}
+      />
       <TreatmentContent treatment={treatment} />
       {/* <TreatmentFooter
     //   treatment={treatment}

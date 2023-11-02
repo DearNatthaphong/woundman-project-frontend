@@ -31,7 +31,6 @@ function CaseDetailContainer() {
     };
 
     fetchCaseById(caseId);
-    // fetchTreatmentsByCaseId(caseId);
   }, [caseId]);
 
   return (

@@ -5,7 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import ProfileContent from './ProfileContent';
 import { useLocation, useParams } from 'react-router-dom';
 import * as patientService from '../../api/newPatientApi';
-import { useLoading } from '../../contexts/LoadingContext';
+// import { useLoading } from '../../contexts/LoadingContext';
 import CaseContainer from '../profileCase/CaseContainer';
 
 function ProfileContainer() {
@@ -13,45 +13,23 @@ function ProfileContainer() {
   const [selectedPatient, setSelectedPatient] = useState({});
   const [cases, setCases] = useState([]);
   const { staff, patient } = useAuth();
+
   const location = useLocation();
 
-  const { startLoading, stopLoading } = useLoading();
+  // const { startLoading, stopLoading } = useLoading();
 
   const isStaffProfile = location.pathname === '/staff/profile';
   const isSelectedPatientProfile =
     location.pathname === `/staff/patients/${selectedPatientId}`;
 
-  // useEffect(() => {
-  //   fetchPatientById(selectedPatientId);
-  // }, [selectedPatientId]);
-
-  // const fetchPatientById = async (selectedPatientId) => {
-  //   try {
-  //     if (selectedPatientId) {
-  //       startLoading();
-  //       const res = await patientService.getPatientById(selectedPatientId);
-  //       console.log('res.data', res.data);
-  //       if (isSelectedPatientProfile) {
-  //         setSelectedPatient(res.data.patient);
-  //       }
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   } finally {
-  //     stopLoading();
-  //   }
-  // };
-
   useEffect(() => {
-    const fetchPatientById = async (selectedPatientId) => {
+    const fetchPatientById = async (patientId) => {
       try {
-        if (selectedPatientId) {
+        if (isSelectedPatientProfile) {
           // startLoading();
-          const res = await patientService.getPatientById(selectedPatientId);
+          const res = await patientService.getPatientById(patientId);
           // console.log('res.data', res.data);
-          if (isSelectedPatientProfile) {
-            setSelectedPatient(res.data.patient);
-          }
+          setSelectedPatient(res.data.patient);
         }
       } catch (err) {
         console.log(err);
@@ -59,13 +37,14 @@ function ProfileContainer() {
         // stopLoading();
       }
     };
-
     const fetchCases = async (patientId) => {
       try {
-        // startLoading();
-        const res = await patientService.getCasesByPatientId(patientId);
-        // console.log('res.data.cases', res.data.cases);
-        setCases(res.data.cases);
+        if (isSelectedPatientProfile) {
+          // startLoading();
+          const res = await patientService.getCasesByPatientId(patientId);
+          console.log('res.data.cases', res.data.cases);
+          setCases(res.data.cases);
+        }
       } catch (err) {
         console.log(err);
       } finally {
@@ -78,82 +57,36 @@ function ProfileContainer() {
   }, [selectedPatientId, isSelectedPatientProfile]);
 
   const updatePatient = async (patientId, input) => {
-    try {
-      startLoading();
-      const res = await patientService.updatePatient(patientId, input);
-      setSelectedPatient(res.data.patient);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      stopLoading();
-    }
+    const res = await patientService.updatePatient(patientId, input);
+    setSelectedPatient(res.data.patient);
   };
 
   const createCase = async (selectedPatientId, input) => {
-    try {
-      startLoading();
-      const res = await patientService.createCaseByPatientId(
-        selectedPatientId,
-        input
-      );
-      // console.log('res.data.newCase', res.data.newCase);
-      setCases((prevCases) => [res.data.newCase, ...prevCases]);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      stopLoading();
-    }
+    const res = await patientService.createCaseByPatientId(
+      selectedPatientId,
+      input
+    );
+    setCases([res.data.newCase, ...cases]);
   };
 
-  const updateCase = async (selectedPatientId, caseId, updatedData) => {
-    try {
-      startLoading();
-      const res = await patientService.updateCaseByPatientId(
-        selectedPatientId,
-        caseId,
-        updatedData
-      );
-      // console.log('res.data.updatedCase', res.data.updatedCase);
-      setCases((prevCases) =>
-        prevCases.map((prevCase) =>
-          prevCase.id === res.data.updatedCase.id
-            ? res.data.updatedCase
-            : prevCase
-        )
-      );
-    } catch (err) {
-      console.log(err);
-    } finally {
-      stopLoading();
-    }
+  const updateCase = async (patientId, caseId, updatedData) => {
+    const res = await patientService.updateCaseByPatientId(
+      patientId,
+      caseId,
+      updatedData
+    );
+    const newCases = cases.map((item) =>
+      item.id === res.data.updatedCase.id ? res.data.updatedCase : item
+    );
+    setCases(newCases);
   };
 
-  const fetchCases = async (patientId) => {
-    try {
-      // startLoading();
-      const res = await patientService.getCasesByPatientId(patientId);
-      // console.log('res.data.cases', res.data.cases);
-      setCases(res.data.cases);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      // stopLoading();
-    }
-  };
-
-  const deleteCase = async (selectedPatientId, caseId) => {
-    try {
-      startLoading();
-      await patientService.deleteCaseByPatientId(selectedPatientId, caseId);
-      // setCases((prevCases) =>
-      //   prevCases.filter((caseItem) => caseItem.id !== caseId)
-      // );
-      fetchCases(selectedPatientId);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      stopLoading();
-    }
+  const deleteCase = async (patientId, caseId) => {
+    await patientService.deleteCaseByPatientId(patientId, caseId);
+    setTimeout(() => {
+      const newCases = cases.filter((item) => item.id !== caseId);
+      setCases(newCases);
+    }, 100);
   };
 
   return (
@@ -186,8 +119,8 @@ function ProfileContainer() {
         <div className="col-12 col-sm-7">
           <CaseContainer
             cases={cases}
-            createCase={createCase}
             selectedPatientId={selectedPatientId}
+            createCase={createCase}
             updateCase={updateCase}
             deleteCase={deleteCase}
           />
