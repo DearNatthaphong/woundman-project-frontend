@@ -1,6 +1,7 @@
 import React from 'react';
 import AppointmentContent from './AppointmentContent';
-import AppointmentFooter from './AppointmentFooter';
+// import AppointmentFooter from './AppointmentFooter';
+import AppointmentHeader from './AppointmentHeader';
 
 function Appointment({
   appointment,
@@ -9,17 +10,21 @@ function Appointment({
   deleteAppointment
 }) {
   return (
-    <li className="list-group-item">
-      <div className="card">
-        <AppointmentContent appointment={appointment} />
-        <AppointmentFooter
+    <div className="card mt-3">
+      <AppointmentHeader
+        appointment={appointment}
+        caseId={caseId}
+        updateAppointment={updateAppointment}
+        deleteAppointment={deleteAppointment}
+      />
+      <AppointmentContent appointment={appointment} />
+      {/* <AppointmentFooter
           appointment={appointment}
           caseId={caseId}
           updateAppointment={updateAppointment}
           deleteAppointment={deleteAppointment}
-        />
-      </div>
-    </li>
+        /> */}
+    </div>
   );
 }
 

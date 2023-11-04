@@ -1,5 +1,5 @@
 import React from 'react';
-import CaseDetailEdit from './CaseDetailEdit';
+// import CaseDetailEdit from './CaseDetailEdit';
 
 function CaseDetail({ caseData, setCaseData, caseId }) {
   return (
@@ -28,43 +28,43 @@ function CaseDetail({ caseData, setCaseData, caseId }) {
           <div className="accordion-body p-1">
             <ul className="list-group list-group-flush ">
               <li className="list-group-item px-0 m-0">
-                <h5>อาการเจ็บป่วย</h5>
-                <p className="mb-0">{caseData.chiefComplain}</p>
+                <p className="mb-0">อาการเจ็บป่วย</p>
+                <small className="mb-0">{caseData.chiefComplain}</small>
               </li>
               <li className="list-group-item px-0 m-0">
-                <h5>ประวัติปัจจุบัน</h5>
-                <p className="mb-0">{caseData.presentIllness}</p>
+                <p className="mb-0">ประวัติปัจจุบัน</p>
+                <small className="mb-0">{caseData.presentIllness}</small>
               </li>
               <li className="list-group-item px-0 m-0">
-                <h5>ประวัติย้อนหลัง</h5>
-                <p className="mb-0">{caseData.pastHistory}</p>
+                <p className="mb-0">ประวัติย้อนหลัง</p>
+                <small className="mb-0">{caseData.pastHistory}</small>
               </li>
 
               <li className="list-group-item">
                 <div className="row gap-2 px-2">
                   <div className="col-auto border rounded-4">
-                    <p className="card-title">ความสูง</p>
-                    <p className="card-text text-center">{`${caseData.height} cm.`}</p>
+                    <p className="card-title mb-0">ความสูง</p>
+                    <small className="card-text text-center">{`${caseData.height} cm.`}</small>
                   </div>
                   <div className="col-auto border rounded-4">
-                    <p className="card-title">น้ำหนัก</p>
-                    <p className="card-text text-center">{`${caseData.weight} kg.`}</p>
+                    <p className="card-title mb-0">น้ำหนัก</p>
+                    <small className="card-text text-center">{`${caseData.weight} kg.`}</small>
                   </div>
                   <div className="col-auto border rounded-4">
-                    <p className="card-title">อุณหภูมิ</p>
-                    <p className="card-text text-center">{`${caseData.temperature} C`}</p>
+                    <p className="card-title mb-0">อุณหภูมิ</p>
+                    <small className="card-text text-center">{`${caseData.temperature} C`}</small>
                   </div>
                   <div className="col-auto border rounded-4">
-                    <p className="card-title">ระดับออกซิเจน</p>
-                    <p className="card-text text-center">{`${caseData.bloodOxygen} %`}</p>
+                    <p className="card-title mb-0">ระดับออกซิเจน</p>
+                    <small className="card-text text-center">{`${caseData.bloodOxygen} %`}</small>
                   </div>
                   <div className="col-auto border rounded-4">
-                    <p className="card-title">ระดับความดันช่วงบน</p>
-                    <p className="card-text text-center">{`${caseData.systolicBloodPressure} mm Hg`}</p>
+                    <p className="card-title mb-0">ระดับความดันช่วงบน</p>
+                    <small className="card-text text-center">{`${caseData.systolicBloodPressure} mm Hg`}</small>
                   </div>
                   <div className="col-auto border rounded-4">
-                    <p className="card-title">ระดับความดันช่วงล่าง</p>
-                    <p className="card-text text-center">{`${caseData.diastolicBloodPressure} mm Hg`}</p>
+                    <p className="card-title mb-0">ระดับความดันช่วงล่าง</p>
+                    <small className="card-text text-center">{`${caseData.diastolicBloodPressure} mm Hg`}</small>
                   </div>
                 </div>
               </li>

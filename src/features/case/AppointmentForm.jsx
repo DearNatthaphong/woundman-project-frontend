@@ -1,24 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import React, { useState } from 'react';
 import { useLoading } from '../../contexts/LoadingContext';
+import { toast } from 'react-toastify';
 
-function AppointmentEditForm({ caseId, onSubmit, appointment }) {
-  const { reason, appointmentDate, status, id } = appointment;
-  const [input, setInput] = useState({
+function AppointmentForm({ onSubmit, caseId, isEdit, appointment }) {
+  const { startLoading, stopLoading } = useLoading();
+  let initialState = {
     reason: '',
     appointmentDate: '',
     status: 'รอดำเนินการ'
-  });
+  };
 
-  useEffect(() => {
-    setInput({
-      reason: reason,
-      appointmentDate: appointmentDate,
-      status: status
-    });
-  }, [reason, appointmentDate, status]);
+  if (isEdit) {
+    initialState = { ...appointment };
+  }
 
-  const { startLoading, stopLoading } = useLoading();
+  const [input, setInput] = useState(initialState);
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -27,7 +23,7 @@ function AppointmentEditForm({ caseId, onSubmit, appointment }) {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-
+      startLoading();
       if (
         !input.reason ||
         !input.reason.trim() ||
@@ -36,10 +32,15 @@ function AppointmentEditForm({ caseId, onSubmit, appointment }) {
       ) {
         return toast.error('ข้อมูลไม่ครบ');
       }
-
-      startLoading();
-      await onSubmit(caseId, id, input);
-      toast.success('แก้ไขการรักษาสำเร็จ');
+      if (isEdit) {
+        const appointmentId = appointment.id;
+        await onSubmit(caseId, appointmentId, input);
+        toast.success('สร้างการรักษาสำเร็จ');
+      } else {
+        await onSubmit(caseId, input);
+        toast.success('สร้างการรักษาสำเร็จ');
+        setInput({ reason: '', appointmentDate: '', status: 'รอดำเนินการ' });
+      }
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data.message);
@@ -94,4 +95,4 @@ function AppointmentEditForm({ caseId, onSubmit, appointment }) {
   );
 }
 
-export default AppointmentEditForm;
+export default AppointmentForm;

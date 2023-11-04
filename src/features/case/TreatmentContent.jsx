@@ -14,15 +14,15 @@ function TreatmentContent({
       />
       <ul className="list-group list-group-flush">
         <li className="list-group-item">
-          <h5 className="card-title">ตำแหน่งของบาดแผล</h5>
+          <p className="card-title fw-bold mb-0">ตำแหน่งของบาดแผล</p>
           <p className="card-text">{position}</p>
         </li>
         <li className="list-group-item">
-          <h5 className="card-title">คำวินิจฉัยแพทย์</h5>
+          <p className="card-title fw-bold mb-0">คำวินิจฉัยแพทย์</p>
           <p className="card-text">{diagnosis}</p>
         </li>
         <li className="list-group-item">
-          <h5 className="card-title">การรักษา</h5>
+          <p className="card-title fw-bold mb-0">การรักษา</p>
           <p className="card-text">{treatment}</p>
         </li>
         <li className="list-group-item">

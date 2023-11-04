@@ -2,19 +2,18 @@ import React from 'react';
 import { useLoading } from '../../contexts/LoadingContext';
 import { toast } from 'react-toastify';
 
-function AppointmentDeleteForm({
-  caseId,
-  onClose,
-  onSubmit,
-  appointment: { id }
-}) {
+function AppointmentDeleteForm({ caseId, onClose, onSubmit, appointment }) {
   const { startLoading, stopLoading } = useLoading();
+
+  const appointmentId = appointment.id;
+  console.log('appointment.id:', appointment.id);
+  console.log('caseId:', caseId);
 
   const handleSubmitForm = async (e) => {
     try {
       e.preventDefault();
       startLoading();
-      await onSubmit(caseId, id);
+      await onSubmit(caseId, appointmentId);
       toast.success('ลบข้อมูลการรักษาสำเร็จ');
     } catch (err) {
       console.log(err);

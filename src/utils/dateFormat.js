@@ -2,16 +2,22 @@ import TimeAgo from 'javascript-time-ago';
 
 // English.
 import en from 'javascript-time-ago/locale/en';
-import th from 'javascript-time-ago/locale/th';
+// import th from 'javascript-time-ago/locale/th';
 
 TimeAgo.addDefaultLocale(en);
-TimeAgo.addLocale(th);
+// TimeAgo.addLocale(th);
+
+const timeAgo = new TimeAgo('en-US');
 
 export const timeSince = (date) => {
-  const timeAgo = new TimeAgo('en-US');
-  const newTiemSince = timeAgo.format(new Date(date), 'round');
-  return newTiemSince;
+  if (date) {
+    return timeAgo.format(new Date(date.slice(0, 10)), 'round-minute');
+  }
+  return 'Invalid date';
 };
+// const newTiemSince = timeAgo.format(new Date(date), 'round');
+// const newTiemSince = timeAgo.format(new Date(Date.parse(date)), 'round');
+// return newTiemSince;
 
 export const calculateAge = (dateOfBirth) => {
   const today = new Date();

@@ -1,15 +1,15 @@
 import React, { useCallback, useState } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
-import * as dateService from '../../utils/dateFormat';
 import Modal from '../../components/ui/Modal';
-import TreatmentForm from './TreatmentForm';
-import TreatmentDeleteForm from './TreatmentDeleteForm';
+import * as dateService from '../../utils/dateFormat';
+import AppointmentForm from './AppointmentForm';
+import AppointmentDeleteForm from './AppointmentDeleteForm';
 
-function TreatmentHeader({
-  treatment,
+function AppointmentHeader({
+  appointment,
   caseId,
-  updateTreatment,
-  deleteTreatment
+  updateAppointment,
+  deleteAppointment
 }) {
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
   const closeDropdown = useCallback(() => setIsOpenDropdown(false), []);
@@ -17,14 +17,14 @@ function TreatmentHeader({
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
 
-  const onUpdate = async (caseId, treatmentId, input) => {
-    await updateTreatment(caseId, treatmentId, input);
+  const onUpdate = async (caseId, appointmentId, input) => {
+    await updateAppointment(caseId, appointmentId, input);
     setIsOpenDropdown(false);
     setIsOpenEditModal(false);
   };
 
-  const onDelete = async (caseId, treatmentId) => {
-    await deleteTreatment(caseId, treatmentId);
+  const onDelete = async (caseId, appointmentId) => {
+    await deleteAppointment(caseId, appointmentId);
     setIsOpenDropdown(false);
     setIsOpenDeleteModal(false);
   };
@@ -33,7 +33,9 @@ function TreatmentHeader({
     <div className="card-header">
       <div className="d-flex my-auto">
         <div className="my-auto">
-          <p className="mb-0">{dateService.convertToBC(treatment.createdAt)}</p>
+          <p className="mb-0">
+            {dateService.convertToBC(appointment.createdAt)}
+          </p>
         </div>
         <div className="ms-auto">
           <div className="btn-group" ref={dropdownEl}>
@@ -63,19 +65,21 @@ function TreatmentHeader({
                   แก้ไข
                 </button>
                 <Modal
-                  title="แก้ไขการรักษา"
+                  title="แก้ไขการนัดหมาย"
                   open={isOpenEditModal}
                   onClose={() => {
                     setIsOpenEditModal(false);
                     setIsOpenDropdown(false);
                   }}
                 >
-                  <TreatmentForm
-                    treatment={treatment}
-                    caseId={caseId}
+                  {/* {appointment && appointment.id && ( */}
+                  <AppointmentForm
                     onSubmit={onUpdate}
+                    caseId={caseId}
                     isEdit={true}
+                    appointment={appointment}
                   />
+                  {/* )} */}
                 </Modal>
               </li>
               <li>
@@ -97,8 +101,8 @@ function TreatmentHeader({
                     setIsOpenDropdown(false);
                   }}
                 >
-                  <TreatmentDeleteForm
-                    treatment={treatment}
+                  <AppointmentDeleteForm
+                    appointment={appointment}
                     caseId={caseId}
                     onSubmit={onDelete}
                     onClose={() => {
@@ -106,6 +110,15 @@ function TreatmentHeader({
                       setIsOpenDropdown(false);
                     }}
                   />
+                  {/* <TreatmentDeleteForm
+                      treatment={treatment}
+                      caseId={caseId}
+                      onSubmit={onDelete}
+                      onClose={() => {
+                        setIsOpenDeleteModal(false);
+                        setIsOpenDropdown(false);
+                      }}
+                    /> */}
                 </Modal>
               </li>
             </ul>
@@ -116,4 +129,4 @@ function TreatmentHeader({
   );
 }
 
-export default TreatmentHeader;
+export default AppointmentHeader;

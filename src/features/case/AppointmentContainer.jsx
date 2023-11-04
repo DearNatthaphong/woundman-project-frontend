@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import * as caseService from '../../api/caseApi';
-import AppointmentContainerHeader from './AppointmentContainerHeader';
-import AppointmentCreate from './AppointmentCreate';
+// import AppointmentCreate from './AppointmentCreate';
 import Appointment from './Appointment';
+import AppointmentToggleCreate from './AppointmentToggleCreate';
+import AppointmentList from './AppointmentList';
 
 function AppointmentContainer({ caseId }) {
-  const [appointment, setAppointment] = useState(null);
+  const [appointments, setAppointments] = useState([]);
   // const { startLoading, stopLoading } = useLoading();
 
   useEffect(() => {
@@ -13,7 +14,13 @@ function AppointmentContainer({ caseId }) {
       try {
         // startLoading();
         const res = await caseService.getAppointmentByCaseId(caseId);
-        setAppointment(res.data.appointment);
+        console.log('res.data', res.data);
+        console.log('res.data.appointment', res.data.appointments);
+        // if (res.data.appointment !== null) {
+        setAppointments(res.data.appointments);
+        // } else {
+        // setAppointment({});
+        // }
       } catch (err) {
         console.log(err);
       } finally {
@@ -25,50 +32,73 @@ function AppointmentContainer({ caseId }) {
   }, [caseId]);
 
   const createAppointment = async (caseId, input) => {
-    await caseService.createAppointmentByCaseId(caseId, input);
-    const fetchAppointment = async () => {
-      const res = await caseService.getAppointmentByCaseId(caseId);
-      setAppointment(res.data.appointment);
-    };
-    fetchAppointment();
+    const res = await caseService.createAppointmentByCaseId(caseId, input);
+    setTimeout(() => {
+      setAppointments([res.data.newAppointment, ...appointments]);
+    }, 100);
   };
 
   const updateAppointment = async (caseId, appointmentId, input) => {
-    await caseService.updateAppointmentByCaseId(caseId, appointmentId, input);
-    const fetchAppointment = async () => {
-      const res = await caseService.getAppointmentByCaseId(caseId);
-      setAppointment(res.data.appointment);
-    };
-    fetchAppointment();
+    const res = await caseService.updateAppointmentByCaseId(
+      caseId,
+      appointmentId,
+      input
+    );
+    const newAppointments = appointments.map((item) =>
+      item.id === appointmentId ? res.data.updatedAppointment : item
+    );
+    setAppointments(newAppointments);
   };
 
   const deleteAppointment = async (caseId, appointmentId) => {
     await caseService.deleteAppointmentByCaseId(caseId, appointmentId);
-    const fetchAppointment = async () => {
-      const res = await caseService.getAppointmentByCaseId(caseId);
-      setAppointment(res.data.appointment);
-    };
-    fetchAppointment();
+    setTimeout(() => {
+      // if (appointment.length === 1 && appointment[0].id === appointmentId) {
+      //   setAppointment([]);
+      // } else {
+      const newAppointments = appointments.filter(
+        (item) => item.id !== appointmentId
+      );
+      setAppointments(newAppointments);
+      // }
+    }, 100);
   };
 
   return (
     <div className="card-body">
-      <AppointmentContainerHeader />
-      <ul className="list-group">
-        {appointment !== null ? (
-          <Appointment
-            appointment={appointment}
-            caseId={caseId}
-            updateAppointment={updateAppointment}
-            deleteAppointment={deleteAppointment}
-          />
-        ) : (
+      <AppointmentToggleCreate
+        appointments={appointments}
+        createAppointment={createAppointment}
+        caseId={caseId}
+      />
+      <AppointmentList
+        caseId={caseId}
+        appointments={appointments}
+        updateAppointment={updateAppointment}
+        deleteAppointment={deleteAppointment}
+      />
+      {/* <Appointment
+        caseId={caseId}
+        appointment={appointment}
+        updateAppointment={updateAppointment}
+        deleteAppointment={deleteAppointment}
+      /> */}
+
+      {/* <ul className="list-group"> */}
+      {/* {appointment !== null ? ( */}
+      {/* <Appointment
+          appointment={appointment}
+          caseId={caseId}
+          updateAppointment={updateAppointment}
+          deleteAppointment={deleteAppointment}
+        /> */}
+      {/* ) : (
           <AppointmentCreate
             caseId={caseId}
             createAppointment={createAppointment}
           />
-        )}
-      </ul>
+        )} */}
+      {/* </ul> */}
     </div>
   );
 }

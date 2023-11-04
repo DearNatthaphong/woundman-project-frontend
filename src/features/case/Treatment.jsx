@@ -5,7 +5,7 @@ import TreatmentHeader from './TreatmentHeader';
 
 function Treatment({ treatment, caseId, updateTreatment, deleteTreatment }) {
   return (
-    <div className="card mt-3 mx-1">
+    <div className="card mt-3">
       <TreatmentHeader
         treatment={treatment}
         caseId={caseId}

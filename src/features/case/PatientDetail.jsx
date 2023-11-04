@@ -16,14 +16,14 @@ function PatientDetail({ caseData }) {
         <Avatar src={profileImage} size="50" />
       </div>
       <div className="col">
-        <h5 className="card-title p-0 m-0">
+        <p className="card-title p-0 m-0">
           <span>{`${titleName} ${firstName} ${lastName}`}</span>
-        </h5>
-        <p className="card-text">
+        </p>
+        <small className="card-text">
           <span className="text-body-secondary">{`อายุ : ${dateService.calculateAge(
             dateOfBirth
           )}`}</span>
-        </p>
+        </small>
       </div>
       <div className="col-auto">
         <button className="btn btn-outline-secondary border border-0 rounded-circle">
