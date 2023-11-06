@@ -22,7 +22,11 @@ function PaymentContainer() {
     fetchCases();
   }, []);
 
-  return <CaseNoReceiptList casesData={casesData} />;
+  return (
+    <div className="container-fluid">
+      <CaseNoReceiptList casesData={casesData} />
+    </div>
+  );
 }
 
 export default PaymentContainer;

@@ -42,7 +42,7 @@ function ProfileContainer() {
         if (isSelectedPatientProfile) {
           // startLoading();
           const res = await patientService.getCasesByPatientId(patientId);
-          console.log('res.data.cases', res.data.cases);
+          // console.log('res.data.cases', res.data.cases);
           setCases(res.data.cases);
         }
       } catch (err) {

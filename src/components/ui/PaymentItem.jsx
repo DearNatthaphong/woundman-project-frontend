@@ -1,21 +1,18 @@
 import React, { useCallback, useState } from 'react';
-import ServiceEdit from './ServiceEdit';
-import ServiceDelete from './ServiceDelete';
 import { useClickOutside } from '../../hooks/useClickOutside';
-import Modal from '../../components/ui/Modal';
-import ServiceEditForm from './ServiceEditForm';
-import PaymentForm from '../../components/ui/PaymentForm';
-import PaymentDeleteForm from '../../components/ui/PaymentDeleteForm';
+import Modal from './Modal';
+import PaymentForm from './PaymentForm';
+import PaymentDeleteForm from './PaymentDeleteForm';
 
-function ServicePayment({
-  updatePaymentService,
-  itemsService,
+function PaymentItem({
+  updatePayment,
+  itemsType,
   caseId,
-  deletePaymentService,
+  deletePayment,
   index,
-  paymentService
+  payment
 }) {
-  const { amount, price, PaymentItem } = paymentService;
+  const { amount, price, PaymentItem } = payment;
   const { title } = PaymentItem;
 
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
@@ -25,13 +22,13 @@ function ServicePayment({
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
 
   const onUpdate = async (caseId, paymentId, title, amount) => {
-    await updatePaymentService(caseId, paymentId, title, amount);
+    await updatePayment(caseId, paymentId, title, amount);
     setIsOpenDropdown(false);
     setIsOpenEditModal(false);
   };
 
   const onDelete = async (caseId, paymentId) => {
-    await deletePaymentService(caseId, paymentId);
+    await deletePayment(caseId, paymentId);
     setIsOpenDropdown(false);
     setIsOpenDeleteModal(false);
   };
@@ -78,11 +75,11 @@ function ServicePayment({
                 }}
               >
                 <PaymentForm
-                  items={itemsService}
+                  items={itemsType}
                   onSubmit={onUpdate}
                   caseId={caseId}
                   isEdit={true}
-                  payment={paymentService}
+                  payment={payment}
                 />
               </Modal>
             </li>
@@ -106,7 +103,7 @@ function ServicePayment({
                 }}
               >
                 <PaymentDeleteForm
-                  payment={paymentService}
+                  payment={payment}
                   caseId={caseId}
                   onSubmit={onDelete}
                   onClose={() => {
@@ -114,37 +111,13 @@ function ServicePayment({
                     setIsOpenDropdown(false);
                   }}
                 />
-                {/* <AppointmentDeleteForm
-                    appointment={appointment}
-                    caseId={caseId}
-                    onSubmit={onDelete}
-                    onClose={() => {
-                      setIsOpenDeleteModal(false);
-                      setIsOpenDropdown(false);
-                    }}
-                  /> */}
               </Modal>
             </li>
           </ul>
         </div>
       </td>
-
-      {/* <ServiceEdit
-        itemsService={itemsService}
-        updatePaymentService={updatePaymentService}
-        caseId={caseId}
-        id={id}
-        title={title}
-        amount={amount}
-      />
-
-      <ServiceDelete
-        caseId={caseId}
-        deletePaymentService={deletePaymentService}
-        id={id}
-      /> */}
     </tr>
   );
 }
 
-export default ServicePayment;
+export default PaymentItem;

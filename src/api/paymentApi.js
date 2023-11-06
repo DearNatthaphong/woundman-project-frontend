@@ -18,6 +18,7 @@ export const getPaymentItemsByTypeMedicine = () =>
 //     `/payments/cases-no-receipt/${caseId}/payment?paymentItemTitle=${title}`,
 //     amount
 //   );
+
 export const createPayment = (caseId, title, amount) =>
   axios.post(
     `/payments/cases-no-receipt/${caseId}/payment`,
@@ -45,6 +46,21 @@ export const getPaymentsMedicineCaseId = (caseId) =>
 export const deletePaymentByCaseIdPaymentId = (caseId, paymentId) =>
   axios.delete(`/payments/cases-no-receipt/${caseId}/payment/${paymentId}`);
 
+// export const updatePaymentByCaseIdPaymentId = (
+//   caseId,
+//   paymentId,
+//   title,
+//   amount
+// ) =>
+//   axios.patch(
+//     `/payments/cases-no-receipt/${caseId}/payment/${paymentId}`,
+//     { amount },
+//     {
+//       params: {
+//         paymentItemTitle: title
+//       }
+//     }
+//   );
 export const updatePaymentByCaseIdPaymentId = (
   caseId,
   paymentId,
@@ -52,11 +68,6 @@ export const updatePaymentByCaseIdPaymentId = (
   amount
 ) =>
   axios.patch(
-    `/payments/cases-no-receipt/${caseId}/payment/${paymentId}`,
-    { amount },
-    {
-      params: {
-        paymentItemTitle: title
-      }
-    }
+    `/payments/cases-no-receipt/${caseId}/payment/${paymentId}?paymentItemTitle=${title}`,
+    { amount }
   );

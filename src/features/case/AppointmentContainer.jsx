@@ -14,13 +14,7 @@ function AppointmentContainer({ caseId }) {
       try {
         // startLoading();
         const res = await caseService.getAppointmentByCaseId(caseId);
-        console.log('res.data', res.data);
-        console.log('res.data.appointment', res.data.appointments);
-        // if (res.data.appointment !== null) {
         setAppointments(res.data.appointments);
-        // } else {
-        // setAppointment({});
-        // }
       } catch (err) {
         console.log(err);
       } finally {
@@ -53,14 +47,10 @@ function AppointmentContainer({ caseId }) {
   const deleteAppointment = async (caseId, appointmentId) => {
     await caseService.deleteAppointmentByCaseId(caseId, appointmentId);
     setTimeout(() => {
-      // if (appointment.length === 1 && appointment[0].id === appointmentId) {
-      //   setAppointment([]);
-      // } else {
       const newAppointments = appointments.filter(
         (item) => item.id !== appointmentId
       );
       setAppointments(newAppointments);
-      // }
     }, 100);
   };
 

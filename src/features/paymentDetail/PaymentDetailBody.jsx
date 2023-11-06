@@ -45,7 +45,6 @@ function PaymentDetailBody({
       ) : (
         <>
           <PatientDetail caseData={caseData} />
-
           <ServiceContainer
             itemsService={itemsService}
             caseId={caseId}

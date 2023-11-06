@@ -33,6 +33,14 @@ function CaseDetailContainer() {
     fetchCaseById(caseId);
   }, [caseId]);
 
+  const updateCase = async (caseId, updatedData) => {
+    const res = await caseService.updateCaseByCaseId(caseId, updatedData);
+    const newCases = caseData.map((item) =>
+      item.id === res.data.updatedCase.id ? res.data.updatedCase : item
+    );
+    setCaseData(newCases);
+  };
+
   return (
     <div className="container-fluid">
       <div className="row justify-content-center">
@@ -42,7 +50,7 @@ function CaseDetailContainer() {
             <div className="card-body">
               {/* <ul className="list-group list-group-flush p-0">
                 <li className="list-group-item p-0"> */}
-              <PatientDetail caseData={caseData} />
+              <PatientDetail caseData={caseData} updateCase={updateCase} />
               {/* </li>
                 <li className="list-group-item"> */}
               <CaseDetail

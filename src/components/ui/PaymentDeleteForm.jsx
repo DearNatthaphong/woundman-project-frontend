@@ -1,21 +1,21 @@
 import React from 'react';
-import { useLoading } from '../../contexts/LoadingContext';
 import { toast } from 'react-toastify';
+import { useLoading } from '../../contexts/LoadingContext';
 
-function AppointmentDeleteForm({ caseId, onClose, onSubmit, appointment }) {
+function PaymentDeleteForm({ caseId, onClose, onSubmit, payment }) {
   const { startLoading, stopLoading } = useLoading();
 
-  const appointmentId = appointment.id;
+  const paymentId = payment.id;
 
   const handleSubmitForm = async (e) => {
     try {
       e.preventDefault();
       startLoading();
-      await onSubmit(caseId, appointmentId);
-      toast.success('ลบข้อมูลการรักษาสำเร็จ');
+      await onSubmit(caseId, paymentId);
+      toast.success('ลบข้อมูลการจ่ายเงินสำเร็จ');
     } catch (err) {
       console.log(err);
-      toast.error('ลบข้อมูลการตรวจรักษาไม่สำเร็จ');
+      toast.error('ลบข้อมูลการจ่ายเงินไม่สำเร็จ');
       toast.error(err.response?.data.message);
     } finally {
       stopLoading();
@@ -42,4 +42,4 @@ function AppointmentDeleteForm({ caseId, onClose, onSubmit, appointment }) {
   );
 }
 
-export default AppointmentDeleteForm;
+export default PaymentDeleteForm;

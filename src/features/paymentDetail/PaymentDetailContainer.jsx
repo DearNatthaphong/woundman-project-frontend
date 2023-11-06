@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PaymentDetailHeader from './PaymentDetailHeader';
+// import PaymentDetailHeader from './PaymentDetailHeader';
 import PaymentDetailBody from './PaymentDetailBody';
 import PaymentDetailFooter from './PaymentDetailFooter';
 import { useParams } from 'react-router-dom';
@@ -9,21 +9,21 @@ import * as caseService from '../../api/caseApi';
 
 function PaymentDetailContainer() {
   const { id: caseId } = useParams();
-  const [caseData, setCaseData] = useState({});
+  const [caseData, setCaseData] = useState([]);
   const [itemsService, setItemsService] = useState([]);
   const [itemsSupply, setItemsSupply] = useState([]);
   const [itemsMedicine, setItemsMedicine] = useState([]);
   const [paymentsService, setPaymentsService] = useState([]);
   const [paymentsSupply, setPaymentsSupply] = useState([]);
   const [paymentsMedicine, setPaymentsMedicine] = useState([]);
-  const [receipt, setReceipt] = useState({});
+  const [receipt, setReceipt] = useState([]);
 
   useEffect(() => {
-    const fetchCaseBycaseId = async (caseId) => {
+    const fetchCase = async (caseId) => {
       try {
         // startLoading();
-        // const res = await paymentService.getCaseNoReceiptById(caseId);
         const res = await caseService.getCaseById(caseId);
+        // console.log('res.data', res.data);
         setCaseData(res.data.caseData);
       } catch (err) {
         console.log(err);
@@ -71,7 +71,7 @@ function PaymentDetailContainer() {
       try {
         // startLoading();
         const res = await paymentService.getPaymentsServiceCaseId(caseId);
-        // console.log('API Response for fetchPaymentsService:', res);
+        // console.log('res.data:', res.data);
         setPaymentsService(res.data.paymentsByType);
       } catch (err) {
         console.log(err);
@@ -79,6 +79,7 @@ function PaymentDetailContainer() {
         // stopLoading();
       }
     };
+
     const fetchPaymentsSupply = async (caseId) => {
       try {
         // startLoading();
@@ -91,125 +92,110 @@ function PaymentDetailContainer() {
         // stopLoading();
       }
     };
-    const fetchPaymentsMedicine = async (caseId) => {
-      try {
-        // startLoading();
-        const res = await paymentService.getPaymentsMedicineCaseId(caseId);
-        // console.log('API Response for fetchPaymentsService:', res);
-        setPaymentsMedicine(res.data.paymentsByType);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        // stopLoading();
-      }
-    };
+    // const fetchPaymentsMedicine = async (caseId) => {
+    //   try {
+    //     // startLoading();
+    //     const res = await paymentService.getPaymentsMedicineCaseId(caseId);
+    //     // console.log('API Response for fetchPaymentsService:', res);
+    //     setPaymentsMedicine(res.data.paymentsByType);
+    //   } catch (err) {
+    //     console.log(err);
+    //   } finally {
+    //     // stopLoading();
+    //   }
+    // };
 
-    const fetchReceipt = async (caseId) => {
+    const fetchReceipt = async () => {
       const res = await receiptService.getReceiptByCaseId(caseId);
       setReceipt(res.data.receipt);
     };
 
-    fetchCaseBycaseId(caseId);
+    fetchCase(caseId);
     fetchItemsService();
     fetchItemsSupply();
     fetchItemsMedicine();
     fetchPaymentsService(caseId);
     fetchPaymentsSupply(caseId);
-    fetchPaymentsMedicine(caseId);
-    fetchReceipt(caseId);
+    // fetchPaymentsMedicine(caseId);
+    fetchReceipt();
   }, [caseId]);
 
-  // console.log('itemsSupply :', itemsSupply);
-  // console.log('itemsMedicine :', itemsMedicine);
-
   const createPaymentService = async (caseId, title, amount) => {
-    await paymentService.createPayment(caseId, title, amount);
-    const fetchPaymentsService = async (caseId) => {
-      const res = await paymentService.getPaymentsServiceCaseId(caseId);
-      setPaymentsService(res.data.paymentsByType);
-    };
-    fetchPaymentsService(caseId);
+    const res = await paymentService.createPayment(caseId, title, amount);
+    setPaymentsService([...paymentsService, res.data.newPayment]);
   };
   const createPaymentSupply = async (caseId, title, amount) => {
-    await paymentService.createPayment(caseId, title, amount);
-    const fetchPaymentsSupply = async (caseId) => {
-      const res = await paymentService.getPaymentsSupplyCaseId(caseId);
-      setPaymentsSupply(res.data.paymentsByType);
-    };
-    fetchPaymentsSupply(caseId);
+    const res = await paymentService.createPayment(caseId, title, amount);
+    setPaymentsSupply([...paymentsSupply, res.data.newPayment]);
   };
   const createPaymentMedicine = async (caseId, title, amount) => {
-    await paymentService.createPayment(caseId, title, amount);
-    const fetchPaymentsMedicine = async (caseId) => {
-      const res = await paymentService.getPaymentsMedicineCaseId(caseId);
-      setPaymentsMedicine(res.data.paymentsByType);
-    };
-    fetchPaymentsMedicine(caseId);
+    const res = await paymentService.createPayment(caseId, title, amount);
+    setPaymentsMedicine([...paymentsMedicine, res.data.newPayment]);
   };
 
   const deletePaymentService = async (caseId, paymentId) => {
     await paymentService.deletePaymentByCaseIdPaymentId(caseId, paymentId);
-    const fetchPaymentsService = async (caseId) => {
-      const res = await paymentService.getPaymentsServiceCaseId(caseId);
-      setPaymentsService(res.data.paymentsByType);
-    };
-    fetchPaymentsService(caseId);
+    setTimeout(() => {
+      const newPaymentsService = paymentsService.filter(
+        (item) => item.id !== paymentId
+      );
+      setPaymentsService(newPaymentsService);
+    }, 100);
   };
   const deletePaymentSupply = async (caseId, paymentId) => {
     await paymentService.deletePaymentByCaseIdPaymentId(caseId, paymentId);
-    const fetchPaymentsSupply = async (caseId) => {
-      const res = await paymentService.getPaymentsSupplyCaseId(caseId);
-      setPaymentsSupply(res.data.paymentsByType);
-    };
-    fetchPaymentsSupply(caseId);
+    setTimeout(() => {
+      const newPaymentsSupply = paymentsSupply.filter(
+        (item) => item.id !== paymentId
+      );
+      setPaymentsSupply(newPaymentsSupply);
+    }, 100);
   };
   const deletePaymentMedicine = async (caseId, paymentId) => {
     await paymentService.deletePaymentByCaseIdPaymentId(caseId, paymentId);
-    const fetchPaymentsMedicine = async (caseId) => {
-      const res = await paymentService.getPaymentsMedicineCaseId(caseId);
-      setPaymentsMedicine(res.data.paymentsByType);
-    };
-    fetchPaymentsMedicine(caseId);
+    setTimeout(() => {
+      const newPaymentsMedicine = paymentsMedicine.filter(
+        (item) => item.id !== paymentId
+      );
+      setPaymentsMedicine(newPaymentsMedicine);
+    }, 100);
   };
 
   const updatePaymentService = async (caseId, paymentId, title, amount) => {
-    await paymentService.updatePaymentByCaseIdPaymentId(
+    const res = await paymentService.updatePaymentByCaseIdPaymentId(
       caseId,
       paymentId,
       title,
       amount
     );
-    const fetchPaymentsService = async (caseId) => {
-      const res = await paymentService.getPaymentsServiceCaseId(caseId);
-      setPaymentsService(res.data.paymentsByType);
-    };
-    fetchPaymentsService(caseId);
+    const newPaymentsService = paymentsService.map((item) =>
+      item.id === paymentId ? res.data.updatedPayment : item
+    );
+    setPaymentsService(newPaymentsService);
   };
   const updatePaymentSupply = async (caseId, paymentId, title, amount) => {
-    await paymentService.updatePaymentByCaseIdPaymentId(
+    const res = await paymentService.updatePaymentByCaseIdPaymentId(
       caseId,
       paymentId,
       title,
       amount
     );
-    const fetchPaymentsSupply = async (caseId) => {
-      const res = await paymentService.getPaymentsSupplyCaseId(caseId);
-      setPaymentsSupply(res.data.paymentsByType);
-    };
-    fetchPaymentsSupply(caseId);
+    const newPaymentsSupply = paymentsSupply.map((item) =>
+      item.id === paymentId ? res.data.updatedPayment : item
+    );
+    setPaymentsSupply(newPaymentsSupply);
   };
   const updatePaymentMedicine = async (caseId, paymentId, title, amount) => {
-    await paymentService.updatePaymentByCaseIdPaymentId(
+    const res = await paymentService.updatePaymentByCaseIdPaymentId(
       caseId,
       paymentId,
       title,
       amount
     );
-    const fetchPaymentsMedicine = async (caseId) => {
-      const res = await paymentService.getPaymentsMedicineCaseId(caseId);
-      setPaymentsMedicine(res.data.paymentsByType);
-    };
-    fetchPaymentsMedicine(caseId);
+    const newPaymentsMedicine = paymentsMedicine.map((item) =>
+      item.id === paymentId ? res.data.updatedPayment : item
+    );
+    setPaymentsMedicine(newPaymentsMedicine);
   };
 
   // Initialize totalPriceService, totalPriceSupply, and totalPriceMedicine to 0
@@ -233,14 +219,7 @@ function PaymentDetailContainer() {
 
   if (paymentsMedicine.length > 0) {
     totalPriceMedicine = paymentsMedicine.reduce(
-      (total, payment) =>
-        total +
-        parseFloat(
-          payment.price
-          // parseFloat(payment.price)
-          //   .toFixed(2)
-          //   .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        ),
+      (total, payment) => total + parseFloat(payment.price),
       0
     );
   }
@@ -274,11 +253,12 @@ function PaymentDetailContainer() {
   };
 
   return (
-    <div>
+    <div className="container-fluid">
       <div className="row justify-content-center">
-        <div className="col col-md-6">
-          <div className="card border-dark mb-3">
-            <PaymentDetailHeader />
+        <div className="col col-md-8">
+          <h3>การทำจ่าย</h3>
+          {/* <PaymentDetailHeader /> */}
+          <div className="card mb-3">
             <PaymentDetailBody
               caseData={caseData}
               itemsService={itemsService}

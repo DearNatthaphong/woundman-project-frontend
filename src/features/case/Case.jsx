@@ -37,26 +37,25 @@ function Case({
                 dateOfBirth
               )}`}</p>
               <p className="card-title">{`อาการเจ็บป่วย : ${chiefComplain}`}</p>
-              <div className="text-end px-3">
-                <Link
-                  to={`/staff/cases/${id}`}
-                  className="btn btn-outline-primary btn-sm "
-                >
-                  ข้อมูลการรักษา
-                </Link>
-              </div>
-              {/* <p className="card-text">
-                <small className="text-muted">{`created at : ${dateService.timeSince(
-                  createdAt
-                )}`}</small> */}
-              {/* </p> */}
             </div>
           </div>
         </div>
         <div className="card-footer">
-          <small className="text-body-secondary">
-            {`การรักษา ${dateService.shortFormattedDate(createdAt)}`}
-          </small>
+          <div className="row align-items-center">
+            <div className="col-auto ps-1 pe-0">
+              <small className="text-body-secondary">
+                {`การรักษา ${dateService.shortFormattedDate(createdAt)}`}
+              </small>
+            </div>
+            <div className="col-auto pe-1 ms-auto">
+              <Link
+                to={`/staff/cases/${id}`}
+                className="btn btn-outline-primary btn-sm "
+              >
+                ข้อมูลการรักษา
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
       {/* </Link> */}

@@ -35,7 +35,7 @@ function AppointmentForm({ onSubmit, caseId, isEdit, appointment }) {
       if (isEdit) {
         const appointmentId = appointment.id;
         await onSubmit(caseId, appointmentId, input);
-        toast.success('สร้างการรักษาสำเร็จ');
+        toast.success('แก้ไขการรักษาสำเร็จ');
       } else {
         await onSubmit(caseId, input);
         toast.success('สร้างการรักษาสำเร็จ');

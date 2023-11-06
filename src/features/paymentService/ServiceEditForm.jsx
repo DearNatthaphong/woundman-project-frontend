@@ -26,6 +26,7 @@ function ServiceEditForm({
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      startLoading();
 
       const isNumber = validator.isNumeric(amount);
 
@@ -33,7 +34,6 @@ function ServiceEditForm({
         return toast.error('ข้อมูลไม่ครบหรือข้อมูลไม่ถูกต้อง');
       }
 
-      startLoading();
       await onSubmit(caseId, paymentId, title, amount);
       toast.success('สร้างการจ่ายสำเร็จ');
     } catch (err) {

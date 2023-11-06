@@ -106,7 +106,10 @@ function CaseHeader({ caseData, updateCase, selectedPatientId, deleteCase }) {
                 </Modal>
               </li>
               <li>
-                <Link className="dropdown-item" to="#">
+                <Link
+                  className="dropdown-item"
+                  to={`/staff/cases/${caseData.id}`}
+                >
                   ข้อมูลการรักษา
                 </Link>
               </li>
