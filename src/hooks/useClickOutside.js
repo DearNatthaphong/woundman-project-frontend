@@ -5,7 +5,7 @@ export const useClickOutside = (callback) => {
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (!dropdownEl.current.contains(e.target)) {
+      if (dropdownEl.current && !dropdownEl.current.contains(e.target)) {
         callback();
       }
     };

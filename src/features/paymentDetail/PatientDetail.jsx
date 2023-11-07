@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from '../../components/ui/Avatar';
 import * as dateService from '../../utils/dateFormat';
-import CasePaymentCard from '../../components/ui/CasePaymentCard';
+import CaseCard from '../../components/ui/CaseCard';
 
 function PatientDetail({ caseData }) {
   // if (!caseData || !caseData.Patient) {
@@ -36,7 +36,7 @@ function PatientDetail({ caseData }) {
           </div>
         </div>
       </div> */}
-      <CasePaymentCard caseData={caseData} />
+      <CaseCard caseData={caseData} />
     </li>
   );
 }

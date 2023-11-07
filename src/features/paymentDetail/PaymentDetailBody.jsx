@@ -5,6 +5,7 @@ import ServiceContainer from '../paymentService/ServiceContainer';
 import MedicineContainer from '../paymentMedicine.jsx/MedicineContainer';
 import ReceiptCreateContainer from '../paymentReceipt/ReceiptCreateContainer';
 import ReceiptDisplayContainer from '../paymentReceipt/ReceiptDisplayContainer';
+import ReceiptList from '../paymentReceipt/ReceiptList';
 
 function PaymentDetailBody({
   caseData,
@@ -24,27 +25,38 @@ function PaymentDetailBody({
   updatePaymentService,
   updatePaymentSupply,
   updatePaymentMedicine,
-  receipt,
+  receipts,
   deleteReceipt,
   createReceipt,
-  formattedTotalPrice,
+  // formattedTotalPrice,
   totalPrice
 }) {
+  console.log('receipts', receipts);
   return (
-    <ul className="list-group list-group-flush">
-      {Object.keys(receipt).length ? (
-        <>
-          <PatientDetail caseData={caseData} />
-          <ReceiptDisplayContainer
-            receipt={receipt}
-            formattedTotalPrice={formattedTotalPrice}
-            deleteReceipt={deleteReceipt}
-            caseId={caseId}
-          />
-        </>
+    <>
+      {/* <ul className="list-group list-group-flush"> */}
+      {/* {Object.keys(receipt).length ? ( */}
+      <PatientDetail caseData={caseData} />
+      {/* {receipts ? ( */}
+      {/* {receipts.map((item) => (
+        <ReceiptDisplayContainer
+        key={item.id}
+        receipt={item}
+        // formattedTotalPrice={formattedTotalPrice}
+        deleteReceipt={deleteReceipt}
+        caseId={caseId}
+        />
+      ))} */}
+      {/* ))
+      ) : ( */}
+      {receipts.length ? (
+        <ReceiptList
+          receipts={receipts}
+          caseId={caseId}
+          deleteReceipt={deleteReceipt}
+        />
       ) : (
         <>
-          <PatientDetail caseData={caseData} />
           <ServiceContainer
             itemsService={itemsService}
             caseId={caseId}
@@ -71,13 +83,15 @@ function PaymentDetailBody({
           />
           <ReceiptCreateContainer
             createReceipt={createReceipt}
-            formattedTotalPrice={formattedTotalPrice}
+            // formattedTotalPrice={formattedTotalPrice}
             caseId={caseId}
             totalPrice={totalPrice}
           />
         </>
       )}
-    </ul>
+      {/* )} */}
+      {/* </ul> */}
+    </>
   );
 }
 

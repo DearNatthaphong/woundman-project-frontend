@@ -12,28 +12,30 @@ function MedicineContainer({
   updatePaymentMedicine
 }) {
   return (
-    <li className="list-group-item py-3">
-      <div className="col text-bg-light rounded">
-        <h5 className="">3.ค่ายา</h5>
-        <PaymentForm
-          items={itemsMedicine}
-          caseId={caseId}
-          onSubmit={createPaymentMedicine}
-        />
-        {/* <MedicineCreate
+    <div className="mt-3">
+      {/* // <li className="list-group-item py-3">
+    //   <div className="col text-bg-light rounded"> */}
+      <h5 className="">3.ค่ายา</h5>
+      <PaymentForm
+        items={itemsMedicine}
+        caseId={caseId}
+        onSubmit={createPaymentMedicine}
+      />
+      {/* <MedicineCreate
           itemsMedicine={itemsMedicine}
           caseId={caseId}
           createPaymentMedicine={createPaymentMedicine}
         /> */}
-        <MedicinePaymentList
-          paymentsMedicine={paymentsMedicine}
-          caseId={caseId}
-          itemsMedicine={itemsMedicine}
-          updatePaymentMedicine={updatePaymentMedicine}
-          deletePaymentMedicine={deletePaymentMedicine}
-        />
-      </div>
-    </li>
+      <MedicinePaymentList
+        paymentsMedicine={paymentsMedicine}
+        caseId={caseId}
+        itemsMedicine={itemsMedicine}
+        updatePaymentMedicine={updatePaymentMedicine}
+        deletePaymentMedicine={deletePaymentMedicine}
+      />
+      {/* //   </div>
+    // </li> */}
+    </div>
   );
 }
 

@@ -12,7 +12,8 @@ function ServiceContainer({
   updatePaymentService
 }) {
   return (
-    <li className="list-group-item px-1 py-3">
+    <div className="mt-3">
+      {/* <li className="list-group-item px-1 py-3"> */}
       <h5 className="">1.ค่าบริการ</h5>
       <PaymentForm
         items={itemsService}
@@ -37,7 +38,8 @@ function ServiceContainer({
         updatePaymentService={updatePaymentService}
         deletePaymentService={deletePaymentService}
       />
-    </li>
+      {/* </li> */}
+    </div>
   );
 }
 

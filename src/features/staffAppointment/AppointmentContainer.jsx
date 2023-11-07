@@ -84,17 +84,22 @@ function AppointmentContainer() {
 
   return (
     <div className="row g-3 mx-3 justify-content-center">
-      <AppointmentSearch
-        handleSearch={handleSearch}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-      />
-      <AppointmentFilter
-        handleFilter={handleFilter}
-        status={status}
-        setStatus={setStatus}
-      />
-
+      <div className="col-12 col-md-6">
+        <div className="card">
+          <div className="card-body">
+            <AppointmentSearch
+              handleSearch={handleSearch}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+            />
+            <AppointmentFilter
+              handleFilter={handleFilter}
+              status={status}
+              setStatus={setStatus}
+            />
+          </div>
+        </div>
+      </div>
       {searchResult === null ? (
         <AppointmentList
           appointments={appointments}

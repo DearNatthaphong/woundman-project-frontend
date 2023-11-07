@@ -12,7 +12,8 @@ function SupplyContainer({
   updatePaymentSupply
 }) {
   return (
-    <li className="list-group-item py-3">
+    <div className="mt-3">
+      {/* <li className="list-group-item py-3"> */}
       <h5 className="">2.ค่าเวชภัณฑ์</h5>
       <PaymentForm
         items={itemsSupply}
@@ -31,7 +32,8 @@ function SupplyContainer({
         updatePaymentSupply={updatePaymentSupply}
         itemsSupply={itemsSupply}
       />
-    </li>
+      {/* </li> */}
+    </div>
   );
 }
 

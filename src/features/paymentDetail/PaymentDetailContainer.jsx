@@ -16,7 +16,7 @@ function PaymentDetailContainer() {
   const [paymentsService, setPaymentsService] = useState([]);
   const [paymentsSupply, setPaymentsSupply] = useState([]);
   const [paymentsMedicine, setPaymentsMedicine] = useState([]);
-  const [receipt, setReceipt] = useState([]);
+  const [receipts, setReceipts] = useState([]);
 
   useEffect(() => {
     const fetchCase = async (caseId) => {
@@ -92,22 +92,23 @@ function PaymentDetailContainer() {
         // stopLoading();
       }
     };
-    // const fetchPaymentsMedicine = async (caseId) => {
-    //   try {
-    //     // startLoading();
-    //     const res = await paymentService.getPaymentsMedicineCaseId(caseId);
-    //     // console.log('API Response for fetchPaymentsService:', res);
-    //     setPaymentsMedicine(res.data.paymentsByType);
-    //   } catch (err) {
-    //     console.log(err);
-    //   } finally {
-    //     // stopLoading();
-    //   }
-    // };
+    const fetchPaymentsMedicine = async (caseId) => {
+      try {
+        // startLoading();
+        const res = await paymentService.getPaymentsMedicineCaseId(caseId);
+        // console.log('API Response for fetchPaymentsService:', res);
+        setPaymentsMedicine(res.data.paymentsByType);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        // stopLoading();
+      }
+    };
 
     const fetchReceipt = async () => {
       const res = await receiptService.getReceiptByCaseId(caseId);
-      setReceipt(res.data.receipt);
+      console.log('res.data', res.data);
+      setReceipts(res.data.receipts);
     };
 
     fetchCase(caseId);
@@ -116,7 +117,7 @@ function PaymentDetailContainer() {
     fetchItemsMedicine();
     fetchPaymentsService(caseId);
     fetchPaymentsSupply(caseId);
-    // fetchPaymentsMedicine(caseId);
+    fetchPaymentsMedicine(caseId);
     fetchReceipt();
   }, [caseId]);
 
@@ -227,64 +228,72 @@ function PaymentDetailContainer() {
   // Calculate the grand total
   const totalPrice = totalPriceService + totalPriceSupply + totalPriceMedicine;
 
-  const formattedTotalPrice = totalPrice
-    .toFixed(2)
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  // const formattedTotalPrice = totalPrice;
+  //   .toFixed(2)
+  //   .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   // console.log('totalPrice : ', totalPrice);
   // console.log('formattedTotalPrice : ', formattedTotalPrice);
 
   const createReceipt = async (caseId, totalPrice, method) => {
-    await receiptService.createReceipt(caseId, totalPrice, method);
-    const fetchReceipt = async (caseId) => {
-      const res = await receiptService.getReceiptByCaseId(caseId);
-      setReceipt(res.data.receipt);
-    };
-    fetchReceipt(caseId);
+    try {
+      const res = await receiptService.createReceipt(
+        caseId,
+        totalPrice,
+        method
+      );
+      // console.log('res.data', red.data);
+      setReceipts([res.data.newReceipt, ...receipts]);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const deleteReceipt = async (caseId, receiptId) => {
-    await receiptService.deleteReceiptByCaseIdReceiptId(caseId, receiptId);
-    const fetchReceipt = async (caseId) => {
-      const res = await receiptService.getReceiptByCaseId(caseId);
-      setReceipt(res.data.receipt);
-    };
-    fetchReceipt(caseId);
+    try {
+      await receiptService.deleteReceiptByCaseIdReceiptId(caseId, receiptId);
+      const newReceipt = receipts.filter((item) => item.id !== receiptId);
+      setReceipts(newReceipt);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  console.log('receipts', receipts);
 
   return (
     <div className="container-fluid">
       <div className="row justify-content-center">
         <div className="col col-md-8">
-          <h3>การทำจ่าย</h3>
+          <h3 className="text-center">การทำจ่าย</h3>
           {/* <PaymentDetailHeader /> */}
-          <div className="card mb-3">
-            <PaymentDetailBody
-              caseData={caseData}
-              itemsService={itemsService}
-              itemsSupply={itemsSupply}
-              itemsMedicine={itemsMedicine}
-              caseId={caseId}
-              createPaymentService={createPaymentService}
-              paymentsService={paymentsService}
-              createPaymentSupply={createPaymentSupply}
-              paymentsSupply={paymentsSupply}
-              createPaymentMedicine={createPaymentMedicine}
-              paymentsMedicine={paymentsMedicine}
-              deletePaymentService={deletePaymentService}
-              deletePaymentSupply={deletePaymentSupply}
-              deletePaymentMedicine={deletePaymentMedicine}
-              updatePaymentService={updatePaymentService}
-              updatePaymentSupply={updatePaymentSupply}
-              updatePaymentMedicine={updatePaymentMedicine}
-              receipt={receipt}
-              deleteReceipt={deleteReceipt}
-              createReceipt={createReceipt}
-              formattedTotalPrice={formattedTotalPrice}
-              totalPrice={totalPrice}
-            />
-            <PaymentDetailFooter />
-          </div>
+          {/* <div className="card mb-3"> */}
+          <PaymentDetailBody
+            caseData={caseData}
+            itemsService={itemsService}
+            itemsSupply={itemsSupply}
+            itemsMedicine={itemsMedicine}
+            caseId={caseId}
+            createPaymentService={createPaymentService}
+            paymentsService={paymentsService}
+            createPaymentSupply={createPaymentSupply}
+            paymentsSupply={paymentsSupply}
+            createPaymentMedicine={createPaymentMedicine}
+            paymentsMedicine={paymentsMedicine}
+            deletePaymentService={deletePaymentService}
+            deletePaymentSupply={deletePaymentSupply}
+            deletePaymentMedicine={deletePaymentMedicine}
+            updatePaymentService={updatePaymentService}
+            updatePaymentSupply={updatePaymentSupply}
+            updatePaymentMedicine={updatePaymentMedicine}
+            receipts={receipts}
+            deleteReceipt={deleteReceipt}
+            createReceipt={createReceipt}
+            // formattedTotalPrice={formattedTotalPrice}
+            totalPrice={totalPrice}
+          />
+          <PaymentDetailFooter />
+          {/* </div> */}
         </div>
       </div>
     </div>

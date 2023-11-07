@@ -2,7 +2,8 @@ import React from 'react';
 
 function AppointmentSearch({ searchTerm, setSearchTerm, handleSearch }) {
   return (
-    <div className="form col-12 col-md-6 text-secondary">
+    // <div className="form col-12 col-md-6 text-secondary">
+    <div className="form">
       <div className="input-group mb-3">
         <input
           type="text"
