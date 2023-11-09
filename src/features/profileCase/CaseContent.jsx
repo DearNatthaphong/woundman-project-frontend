@@ -34,7 +34,7 @@ function CaseContent({ caseData }) {
             <h5 className="card-title">ความสูง</h5>
             <p className="card-text text-center">{`${height} cm.`}</p>
           </div>
-          <div className="col-auto border rounded-4">
+          <div className="col-auto border rounded-4 py-1">
             <h5 className="card-title">น้ำหนัก</h5>
             <p className="card-text text-center">{`${weight} kg.`}</p>
           </div>

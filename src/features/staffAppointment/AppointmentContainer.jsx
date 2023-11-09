@@ -3,13 +3,13 @@ import AppointmentSearch from './AppointmentSearch';
 import AppointmentFilter from './AppointmentFilter';
 import AppointmentList from './AppointmentList';
 import * as appointmentService from '../../api/appointmentApi';
+import { useLoading } from '../../contexts/LoadingContext';
 
 function AppointmentContainer() {
   const [appointments, setAppointments] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResult, setSearchResult] = useState(null);
   const [status, setStatus] = useState('');
-  // const { startLoading, stopLoading } = useLoading();
+  const { startLoading, stopLoading } = useLoading();
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -30,88 +30,85 @@ function AppointmentContainer() {
 
   const handleSearch = async () => {
     try {
+      startLoading();
       const res = await appointmentService.getAppointmentsBySearchTerm(
         searchTerm
       );
-      setSearchResult(res.data.appointments);
+      // console.log('res.data', res.data);
+
+      if (res.data.appointments.length) {
+        setAppointments(res.data.appointments);
+        setSearchTerm('');
+      } else {
+        setAppointments([]);
+        setSearchTerm('');
+      }
     } catch (err) {
       console.log(err);
+    } finally {
+      stopLoading();
     }
   };
 
   const handleFilter = async () => {
-    // try {
-    //   if (status === '') {
-    //     const res = await appointmentService.getAppointments();
-    //     setSearchResult(res.data.appointments);
-    //   } else {
-    //     const res = await appointmentService.getAppointmentsByFilter(status);
-    //     setSearchResult(res.data.appointments);
-    //   }
     try {
-      let res;
-
-      if (status === '') {
-        res = await appointmentService.getAppointments();
-      } else {
-        res = await appointmentService.getAppointmentsByFilter(status);
-      }
-
-      const appointmentsData = res.data.appointments;
-
-      setSearchResult(appointmentsData);
-
-      if (appointmentsData.length === 0) {
-        setSearchResult([]);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const updateAppointment = async (id, updatedData) => {
-    try {
-      await appointmentService.updateAppointmentById(id, updatedData);
-      const fetchAppointments = async () => {
-        const res = await appointmentService.getAppointments();
+      startLoading();
+      const res = await appointmentService.getAppointmentsByFilter(status);
+      // console.log('res.data', res.data);
+      if (res.data.appointments.length) {
         setAppointments(res.data.appointments);
-      };
-      fetchAppointments();
+      } else {
+        setAppointments([]);
+      }
     } catch (err) {
       console.log(err);
+    } finally {
+      stopLoading();
     }
   };
+
+  // const updateAppointment = async (id, updatedData) => {
+  //   try {
+  //     await appointmentService.updateAppointmentById(id, updatedData);
+  //     const fetchAppointments = async () => {
+  //       const res = await appointmentService.getAppointments();
+  //       setAppointments(res.data.appointments);
+  //     };
+  //     fetchAppointments();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
-    <div className="row g-3 mx-3 justify-content-center">
-      <div className="col-12 col-md-6">
-        <div className="card">
-          <div className="card-body">
-            <AppointmentSearch
-              handleSearch={handleSearch}
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-            />
-            <AppointmentFilter
-              handleFilter={handleFilter}
-              status={status}
-              setStatus={setStatus}
-            />
-          </div>
+    <div className="container-fluid">
+      <div className="row g-2 mt-1 justify-content-center">
+        <div className="col-12 col-sm-6">
+          <AppointmentSearch
+            handleSearch={handleSearch}
+            searchTerm={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div className="col-12 col-sm-6">
+          <AppointmentFilter
+            handleFilter={handleFilter}
+            status={status}
+            onChange={(e) => setStatus(e.target.value)}
+          />
         </div>
       </div>
-      {searchResult === null ? (
-        <AppointmentList
-          appointments={appointments}
-          updateAppointment={updateAppointment}
-        />
-      ) : searchResult.length === 0 ? (
-        <div>No appointments found.</div>
+      {appointments.length > 0 ? (
+        <AppointmentList appointments={appointments} />
       ) : (
-        <AppointmentList
-          appointments={searchResult}
-          updateAppointment={updateAppointment}
-        />
+        <div className="card mt-3">
+          <div className="card-body">
+            <p className="m-0">
+              <i className="fa-solid fa-magnifying-glass pe-3" />
+              ไม่พบข้อมูล
+            </p>
+          </div>
+        </div>
       )}
     </div>
   );

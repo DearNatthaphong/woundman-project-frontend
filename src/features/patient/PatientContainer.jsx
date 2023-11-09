@@ -40,15 +40,21 @@ function PatientContainer() {
   };
 
   return (
-    <div className="container-fluid">
-      <PatientSearch
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        handleSearch={handleSearch}
-      />
-      <PatientList
-        patients={searchResults.length > 0 ? searchResults : patients}
-      />
+    <div className="container-fluid mt-2">
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-6">
+          <PatientSearch
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            handleSearch={handleSearch}
+          />
+        </div>
+      </div>
+      <div className="row mt-2 row-cols-1 row-cols-sm-2 row-cols-lg-3 g-2">
+        <PatientList
+          patients={searchResults.length > 0 ? searchResults : patients}
+        />
+      </div>
     </div>
   );
 }

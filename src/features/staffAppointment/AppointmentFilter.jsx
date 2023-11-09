@@ -1,15 +1,14 @@
 import React from 'react';
 
-function AppointmentFilter({ status, setStatus, handleFilter }) {
+function AppointmentFilter({ status, onChange, handleFilter }) {
   return (
-    // <div className="col-12 col-md-6">
     <div className="input-group ">
       <select
         className="form-select"
         id="inputGroupSelect04"
         aria-label="Example select with button addon"
         value={status}
-        onChange={(e) => setStatus(e.target.value)}
+        onChange={onChange}
       >
         <option value="">เลือกทุกประเกทการนัดหมาย</option>
         <option value="รอดำเนินการ">รอดำเนินการ</option>
@@ -24,7 +23,6 @@ function AppointmentFilter({ status, setStatus, handleFilter }) {
         ค้นหา
       </button>
     </div>
-    // </div>
   );
 }
 

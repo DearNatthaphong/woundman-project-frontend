@@ -1,6 +1,9 @@
 import React from 'react';
-import AppointmentEdit from './AppointmentEdit';
+// import AppointmentEdit from './AppointmentEdit';
 import * as dateService from '../../utils/dateFormat';
+// import Avatar from '../../components/ui/Avatar';
+import PatientCard from '../../components/ui/PatientCard';
+import { Link } from 'react-router-dom';
 
 function Appointment({
   appointment: {
@@ -8,64 +11,85 @@ function Appointment({
     appointmentDate,
     status,
     createdAt,
-    id,
+    caseId,
     Case: {
-      Patient: { titleName, firstName, lastName }
+      Patient
+      // chiefComplain
+      // : { profileImage, titleName, firstName, lastName, dateOfBirth }
     }
   },
   updateAppointment
 }) {
   return (
-    <div className="col-12 col-md-6">
-      {/* <div className="card" width="18rem"> */}
+    <div className="col">
       <div className="card max-w-362">
-        <h5 className="card-header">{`${titleName} ${firstName} ${lastName}`}</h5>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">
-            <div className="d-flex">
-              <p className="fw-bold m-0">สาเหตุ :</p>
-              <span className="ms-3 mb-0">{reason}</span>
-            </div>
-          </li>
-          <li className="list-group-item">
-            <div className="d-flex">
-              <p className="fw-bold m-0">วันนัด :</p>
-              <span className="ms-3 mb-0">
-                {dateService.formattedDate(appointmentDate)}
-              </span>
-            </div>
-            {/* <p>
-              วันนัด : <span>{dateService.formattedDate(appointmentDate)}</span>
-            </p> */}
-          </li>
-          <li className="list-group-item">
-            <div className="d-flex">
-              <p className="fw-bold m-0">สถานะ :</p>
-              <span className="ms-3 mb-0">{status}</span>
-            </div>
-            {/* <p>
-              สถานะ : <span>{status}</span>
-            </p> */}
-          </li>
-          <li className="list-group-item">
+        <PatientCard patient={Patient} />
+        <div className="card mx-2 mt-0 mb-1">
+          <div className="card-body py-1">
             <div className="row">
-              <div className="col-auto">
-                <p className="card-text">
-                  <small className="text-body-secondary">
-                    {dateService.timeSince(createdAt)}
-                  </small>
+              <div className="col-auto px-0">
+                <span className=" m-0">สาเหตุ :</span>
+              </div>
+              <div className="col-auto ps-1 pe-0">
+                <p className="fw-bold m-0">{reason}</p>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-auto px-0">
+                <span className=" m-0">วันนัด :</span>
+              </div>
+              <div className="col-auto ps-1 pe-0">
+                <p className="fw-bold m-0">
+                  {dateService.formattedDate(appointmentDate)}
                 </p>
               </div>
-              <AppointmentEdit
-                id={id}
-                reason={reason}
-                appointmentDate={appointmentDate}
-                status={status}
-                updateAppointment={updateAppointment}
-              />
             </div>
-          </li>
-        </ul>
+            <div className="row">
+              <div className="col-auto px-0">
+                <span className=" m-0">สถานะ :</span>
+              </div>
+              <div className="col-auto ps-1 pe-0">
+                <p className="fw-bold m-0">{status}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <div className="card-body pt-0">
+          <div className="card">
+            <Link
+              className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+              to={`/staff/cases/${caseId}`}
+            >
+              <p className="m-0">{`อาการ : ${chiefComplain}`}</p>
+            </Link>
+          </div>
+        </div> */}
+        <div className="card-footer">
+          <div className="row">
+            <div className="col-auto">
+              <p className="card-text">
+                <small className="text-body-secondary">
+                  {dateService.timeSince(createdAt)}
+                </small>
+              </p>
+            </div>
+            {/* <AppointmentEdit
+              id={id}
+              reason={reason}
+              appointmentDate={appointmentDate}
+              status={status}
+              updateAppointment={updateAppointment}
+            /> */}
+            <div className="col-auto pe-1 ms-auto">
+              <Link
+                to={`/staff/cases/${caseId}`}
+                className="btn btn-outline-primary btn-sm "
+              >
+                การตรวจรักษา
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

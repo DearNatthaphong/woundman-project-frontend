@@ -1,27 +1,48 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
-function AppointmentSearch({ searchTerm, setSearchTerm, handleSearch }) {
+function AppointmentSearch({ searchTerm, onChange, handleSearch }) {
+  const inputEl = useRef();
+
+  useEffect(() => {
+    inputEl.current.focus();
+  }, []);
+
+  const handleKeyUpEnter = async (e) => {
+    try {
+      if (e.key === 'Enter') {
+        await handleSearch({ searchTerm: inputEl.current.value });
+        inputEl.current.value = '';
+        onChange({ target: { value: '' } });
+        return;
+      }
+      if (e.key === 'Escape') {
+        inputEl.current.value = '';
+        onChange({ target: { value: '' } });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
-    // <div className="form col-12 col-md-6 text-secondary">
-    <div className="form">
-      <div className="input-group mb-3">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="ค้นหาชื่อหรือนามสกุลคนไข้"
-          aria-label="ค้นหาชื่อหรือนามสกุลคนไข้"
-          aria-describedby="basic-addon2"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button
-          className="btn btn-outline-secondary"
-          onClick={handleSearch}
-          type="button"
-        >
-          ค้นหา
-        </button>
-      </div>
+    <div className="input-group">
+      <input
+        type="text"
+        className="form-control"
+        placeholder="ค้นหาชื่อหรือนามสกุลคนไข้"
+        aria-label="ค้นหาชื่อหรือนามสกุลคนไข้"
+        aria-describedby="basic-addon2"
+        value={searchTerm}
+        onChange={onChange}
+        onKeyDown={handleKeyUpEnter}
+      />
+      <button
+        ref={inputEl}
+        className="btn btn-outline-secondary"
+        onClick={handleSearch}
+        type="button"
+      >
+        ค้นหา
+      </button>
     </div>
   );
 }

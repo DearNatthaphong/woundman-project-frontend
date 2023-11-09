@@ -21,7 +21,13 @@ function ReceiptContainer() {
 
     fetchCases();
   }, []);
-  return <CaseWithReceiptList casesData={casesData} />;
+  return (
+    <div className="container-fluid mt-2">
+      <div className="row row-cols-1 row-cols-md-2 g-2 mx-3">
+        <CaseWithReceiptList casesData={casesData} />;
+      </div>
+    </div>
+  );
 }
 
 export default ReceiptContainer;

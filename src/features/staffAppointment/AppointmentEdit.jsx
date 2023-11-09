@@ -19,7 +19,7 @@ function AppointmentEdit({
   return (
     <div className="col-auto ms-auto">
       <button
-        className="btn btn-sm btn-primary"
+        className="btn btn-sm btn-outline-primary"
         type="button"
         onClick={() => {
           setIsOpen(true);

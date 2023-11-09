@@ -2,19 +2,20 @@ import React from 'react';
 import Avatar from './Avatar';
 import { Link } from 'react-router-dom';
 import * as dateService from '../../utils/dateFormat';
+import PatientCard from './PatientCard';
 
 function CaseCard({ isReceiptPage, isCasePage, isPaymentPage, caseData }) {
   const { id, chiefComplain, createdAt, Patient } = caseData;
   if (!Patient) {
     return null;
   }
-  const { profileImage, titleName, firstName, lastName, dateOfBirth } = Patient;
+  // const { profileImage, titleName, firstName, lastName, dateOfBirth } = Patient;
   return (
     <div className="col">
       <div className="card max-w-362">
         {/* <ul className="list-group list-group-flush">
           <li className="list-group-item"> */}
-        <div className="row g-0 align-items-center">
+        {/* <div className="row g-0 align-items-center">
           <div className="col-4 d-flex flex-column justify-content-around align-items-center">
             <div>
               <Avatar src={profileImage} size="80" />
@@ -28,7 +29,8 @@ function CaseCard({ isReceiptPage, isCasePage, isPaymentPage, caseData }) {
               )}`}</p>
             </div>
           </div>
-        </div>
+        </div> */}
+        <PatientCard patient={Patient} />
         {/* </li>
           <li className="list-group-item"> */}
         <div className="card mx-3 mb-2 px-2 ">
@@ -59,7 +61,7 @@ function CaseCard({ isReceiptPage, isCasePage, isPaymentPage, caseData }) {
                   to={`/staff/cases/${id}`}
                   className="btn btn-outline-primary btn-sm "
                 >
-                  การรักษา
+                  การตรวจรักษา
                 </Link>
               </div>
             )}
