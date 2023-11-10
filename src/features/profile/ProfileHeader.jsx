@@ -10,11 +10,11 @@ function ProfileHeader({
   selectedPatientId
 }) {
   return (
-    <div className="row align-items-center mb-3">
+    <div className="row align-items-center mb-2">
       <div className="col-auto">
         <h5 className="fw-bold my-auto">ข้อมูลส่วนตัว</h5>
       </div>
-      <div className="col-auto ms-auto">
+      {/* <div className="col-auto ms-auto">
         {staff && (
           <ProfileEdit
             isStaffProfile={isStaffProfile}
@@ -25,7 +25,7 @@ function ProfileHeader({
             selectedPatientId={selectedPatientId}
           />
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

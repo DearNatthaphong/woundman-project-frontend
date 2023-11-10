@@ -105,7 +105,7 @@ function PaymentDetailContainer() {
       }
     };
 
-    const fetchReceipt = async () => {
+    const fetchReceipt = async (caseId) => {
       const res = await receiptService.getReceiptByCaseId(caseId);
       console.log('res.data', res.data);
       setReceipts(res.data.receipts);
@@ -118,7 +118,7 @@ function PaymentDetailContainer() {
     fetchPaymentsService(caseId);
     fetchPaymentsSupply(caseId);
     fetchPaymentsMedicine(caseId);
-    fetchReceipt();
+    fetchReceipt(caseId);
   }, [caseId]);
 
   const createPaymentService = async (caseId, title, amount) => {

@@ -3,8 +3,9 @@ import React from 'react';
 function Payment({ Payment, index }) {
   const title = Payment?.PaymentItem?.title;
   const { amount, price } = Payment;
+
   return (
-    <tr key={Payment.id}>
+    <tr>
       <th className="py-0 pe-0" scope="row">
         {index + 1}
       </th>

@@ -90,44 +90,54 @@ function ProfileContainer() {
   };
 
   return (
-    <div className="row justify-content-center m-1">
-      <div className="col-12 col-sm-5">
-        <div className="card mb-3 mx-auto">
-          <div className="card-body">
-            <ProfileHeader
+    <div className="container-fluid mt-2">
+      <div className="row justify-content-center">
+        <div className="col-12 col-sm-5">
+          {/* <div className="card mb-3 mx-auto">
+            <div className="card-body"> */}
+          <ProfileHeader
+            isStaffProfile={isStaffProfile}
+            isSelectedPatientProfile={isSelectedPatientProfile}
+            staff={staff}
+            selectedPatient={selectedPatient}
+            updatePatient={updatePatient}
+            selectedPatientId={selectedPatientId}
+          />
+          <div className="card mb-3 mx-auto">
+            <ProfileContent
+              selectedPatient={selectedPatient}
+              patient={patient}
+              staff={staff}
               isSelectedPatientProfile={isSelectedPatientProfile}
               isStaffProfile={isStaffProfile}
+            />
+            <ProfileFooter
+              isStaffProfile={isStaffProfile}
+              isSelectedPatientProfile={isSelectedPatientProfile}
               staff={staff}
+              patient={patient}
               selectedPatient={selectedPatient}
               updatePatient={updatePatient}
               selectedPatientId={selectedPatientId}
             />
-            <div className="card mb-3 mx-auto">
-              <ProfileContent
-                selectedPatient={selectedPatient}
-                patient={patient}
-                staff={staff}
-                isSelectedPatientProfile={isSelectedPatientProfile}
-                isStaffProfile={isStaffProfile}
-              />
-              <ProfileFooter />
-            </div>
+            {/* </div>
+            </div> */}
           </div>
         </div>
+        {isSelectedPatientProfile && (
+          <div className="col-12 col-sm-7">
+            <CaseContainer
+              cases={cases}
+              selectedPatientId={selectedPatientId}
+              createCase={createCase}
+              updateCase={updateCase}
+              deleteCase={deleteCase}
+            />
+          </div>
+        )}
       </div>
-      {isSelectedPatientProfile && (
-        <div className="col-12 col-sm-7">
-          <CaseContainer
-            cases={cases}
-            selectedPatientId={selectedPatientId}
-            createCase={createCase}
-            updateCase={updateCase}
-            deleteCase={deleteCase}
-          />
-        </div>
-      )}
+      {/* // </div> */}
     </div>
-    // </div>
   );
 }
 

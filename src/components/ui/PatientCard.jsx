@@ -3,9 +3,13 @@ import Avatar from './Avatar';
 import { Link } from 'react-router-dom';
 import * as dateService from '../../utils/dateFormat';
 
-function PatientCard({
-  patient: { profileImage, titleName, firstName, lastName, dateOfBirth, id }
-}) {
+function PatientCard({ patient }) {
+  if (!patient) {
+    return null;
+  }
+  const { profileImage, titleName, firstName, lastName, dateOfBirth, id } =
+    patient;
+
   return (
     <div className="container">
       <div className="row align-items-center my-2">

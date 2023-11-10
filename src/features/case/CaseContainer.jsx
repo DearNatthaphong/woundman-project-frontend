@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import CaseSearch from './CaseSearch';
 import CaseList from './CaseList';
 import * as caseService from '../../api/caseApi';
+import CaseFilter from './CaseFilter';
 
 function CaseContainer() {
   const [casesData, setCasesData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
   const [showCasesWithoutTreatment, setShowCasesWithoutTreatment] =
     useState(false);
 
@@ -14,11 +14,14 @@ function CaseContainer() {
     const fetchCases = async () => {
       try {
         // startLoading();
+        let res;
         if (showCasesWithoutTreatment) {
-          await fetchCasesWithoutTreatment();
+          res = await caseService.getCasesWithoutTreatment();
+          console.log(res.data);
         } else {
-          await getCases();
+          res = await caseService.getCases();
         }
+        setCasesData(res.data.casesData);
       } catch (err) {
         console.log(err);
       } finally {
@@ -32,34 +35,50 @@ function CaseContainer() {
   const handleSearch = async () => {
     try {
       const res = await caseService.getCasesBySearchTerm(searchTerm);
-      setSearchResults(res.data.casesData);
+      if (res.data.casesData.length) {
+        setCasesData(res.data.casesData);
+      } else {
+        setCasesData([]);
+      }
     } catch (err) {
       console.log(err);
     }
   };
 
-  const getCases = async () => {
-    const res = await caseService.getCases();
-    setCasesData(res.data.casesData);
-  };
-
-  const fetchCasesWithoutTreatment = async () => {
-    const res = await caseService.getCasesWithoutTreatment();
-    setCasesData(res.data.cases);
-  };
-
+  useEffect(() => {
+    console.log('casesData', casesData);
+  }, []);
   return (
-    <div className="container-fluid">
-      <CaseSearch
-        searchTerm={searchTerm}
-        handleSearchTerm={(newSearchTerm) => setSearchTerm(newSearchTerm)}
-        handleSearch={handleSearch}
-        showCasesWithoutTreatment={showCasesWithoutTreatment}
-        onToggle={() =>
-          setShowCasesWithoutTreatment(!showCasesWithoutTreatment)
-        }
-      />
-      <CaseList cases={searchResults.length > 0 ? searchResults : casesData} />
+    <div className="container-fluid mt-2">
+      <div className="row justify-content-center">
+        <div className="col-12 col-sm-6">
+          <CaseSearch
+            searchTerm={searchTerm}
+            handleSearchTerm={(newSearchTerm) => setSearchTerm(newSearchTerm)}
+            handleSearch={handleSearch}
+          />
+        </div>
+        <CaseFilter
+          showCasesWithoutTreatment={showCasesWithoutTreatment}
+          onToggle={() =>
+            setShowCasesWithoutTreatment(!showCasesWithoutTreatment)
+          }
+        />
+      </div>
+      {casesData.length ? (
+        <div className="row mt-2 row-cols-1 row-cols-sm-2 row-cols-lg-3 g-2">
+          <CaseList casesData={casesData} />
+        </div>
+      ) : (
+        <div className="card mt-3">
+          <div className="card-body">
+            <p className="m-0">
+              <i className="fa-solid fa-magnifying-glass pe-3" />
+              ไม่พบข้อมูล
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

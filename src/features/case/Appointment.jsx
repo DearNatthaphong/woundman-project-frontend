@@ -10,7 +10,7 @@ function Appointment({
   deleteAppointment
 }) {
   return (
-    <div className="card mt-3">
+    <div className="card mt-1">
       <AppointmentHeader
         appointment={appointment}
         caseId={caseId}

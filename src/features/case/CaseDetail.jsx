@@ -2,15 +2,23 @@ import React from 'react';
 // import CaseDetailEdit from './CaseDetailEdit';
 
 function CaseDetail({ caseData, setCaseData, caseId }) {
+  const {
+    chiefComplain,
+    presentIllness,
+    pastHistory,
+    height,
+    weight,
+    temperature,
+    bloodOxygen,
+    systolicBloodPressure,
+    diastolicBloodPressure
+  } = caseData;
   return (
-    <div
-      className="accordion accordion-flush p-0 m-0 border"
-      id="accordionFlushExample"
-    >
+    <div className="accordion accordion-flush p-0 mb-3 border" id="case">
       <div className="accordion-item">
         <h2 className="accordion-header">
           <button
-            className="accordion-button collapsed"
+            className="accordion-button collapsed p-2 border"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#flush-collapseOne"
@@ -23,82 +31,69 @@ function CaseDetail({ caseData, setCaseData, caseId }) {
         <div
           id="flush-collapseOne"
           className="accordion-collapse collapse"
-          data-bs-parent="#accordionFlushExample"
+          data-bs-parent="#case"
         >
           <div className="accordion-body p-1">
             <ul className="list-group list-group-flush ">
-              <li className="list-group-item px-0 m-0">
-                <p className="mb-0">อาการเจ็บป่วย</p>
-                <small className="mb-0">{caseData.chiefComplain}</small>
+              <li className="list-group-item ">
+                <div className="d-flex">
+                  <p className="">{`อาการเจ็บป่วย : `}</p>
+                  <p className="fw-bold ps-2">{chiefComplain}</p>
+                </div>
               </li>
-              <li className="list-group-item px-0 m-0">
-                <p className="mb-0">ประวัติปัจจุบัน</p>
-                <small className="mb-0">{caseData.presentIllness}</small>
+              <li className="list-group-item ">
+                <div className="d-flex">
+                  <p className="">{`ประวัติปัจจุบัน : `}</p>
+                  <p className="fw-bold ps-2">{presentIllness}</p>
+                </div>
               </li>
-              <li className="list-group-item px-0 m-0">
-                <p className="mb-0">ประวัติย้อนหลัง</p>
-                <small className="mb-0">{caseData.pastHistory}</small>
+              <li className="list-group-item ">
+                <div className="d-flex">
+                  <p className="mb-0">{`ประวัติย้อนหลัง : `}</p>
+                  <p className="fw-bold ps-2">{pastHistory}</p>
+                </div>
               </li>
 
               <li className="list-group-item">
                 <div className="row gap-2 px-2">
-                  <div className="col-auto border rounded-4">
-                    <p className="card-title mb-0">ความสูง</p>
-                    <small className="card-text text-center">{`${caseData.height} cm.`}</small>
+                  <div className="col-auto p-0">
+                    <div className="card rounded-4 p-2">
+                      <p className="card-title">ความสูง</p>
+                      <p className="card-text text-center fw-bold">{`${height} cm.`}</p>
+                    </div>
                   </div>
-                  <div className="col-auto border rounded-4">
-                    <p className="card-title mb-0">น้ำหนัก</p>
-                    <small className="card-text text-center">{`${caseData.weight} kg.`}</small>
+                  <div className="col-auto p-0">
+                    <div className="card rounded-4 p-2">
+                      <p className="card-title">น้ำหนัก</p>
+                      <p className="card-text text-center fw-bold">{`${weight} kg.`}</p>
+                    </div>
                   </div>
-                  <div className="col-auto border rounded-4">
-                    <p className="card-title mb-0">อุณหภูมิ</p>
-                    <small className="card-text text-center">{`${caseData.temperature} C`}</small>
+                  <div className="col-auto p-0">
+                    <div className="card rounded-4 p-2">
+                      <p className="card-title">อุณหภูมิ</p>
+                      <p className="card-text text-center fw-bold">{`${temperature} C`}</p>
+                    </div>
                   </div>
-                  <div className="col-auto border rounded-4">
-                    <p className="card-title mb-0">ระดับออกซิเจน</p>
-                    <small className="card-text text-center">{`${caseData.bloodOxygen} %`}</small>
+                  <div className="col-auto p-0">
+                    <div className="card rounded-4 p-2">
+                      <small className="card-title">ออกซิเจนในเลือด</small>
+                      <p className="card-text text-center fw-bold">{`${bloodOxygen} %`}</p>
+                    </div>
                   </div>
-                  <div className="col-auto border rounded-4">
-                    <p className="card-title mb-0">ระดับความดันช่วงบน</p>
-                    <small className="card-text text-center">{`${caseData.systolicBloodPressure} mm Hg`}</small>
+                  <div className="col-auto p-0">
+                    <div className="card rounded-4 p-2">
+                      <small className="card-title">ความดันช่วงบน</small>
+                      <p className="card-text text-center fw-bold">{`${systolicBloodPressure} mm/Hg`}</p>
+                    </div>
                   </div>
-                  <div className="col-auto border rounded-4">
-                    <p className="card-title mb-0">ระดับความดันช่วงล่าง</p>
-                    <small className="card-text text-center">{`${caseData.diastolicBloodPressure} mm Hg`}</small>
-                  </div>
-                </div>
-              </li>
-              {/* <li className="list-group-item">
-                <div className="row justify-content-center">
-                  <div className="col-6 ">
-                    <p className=" d-inline-block">{`ความสูง : ${caseData.height} cm.`}</p>
-                  </div>
-                  <div className="col-6">
-                    <p className=" d-inline-block">{`น้ำหนัก : ${caseData.weight} kg.`}</p>
-                  </div>
-                </div>
-              </li>
-              <li className="list-group-item">
-                <div className="row justify-content-center">
-                  <div className="col-6">
-                    <p className=" d-inline-block">{`อุณหภูมิ : ${caseData.temperature} C`}</p>
-                  </div>
-                  <div className="col-6">
-                    <p className=" d-inline-block">{`ระดับออกซิเจน : ${caseData.bloodOxygen} %`}</p>
+                  <div className="col-auto p-0">
+                    <div className="card rounded-4 p-2">
+                      <small className="card-title">ความดันช่วงล่าง</small>
+                      <p className="card-text text-center fw-bold">{`${diastolicBloodPressure} mm/Hg`}</p>
+                    </div>
                   </div>
                 </div>
               </li>
-              <li className="list-group-item text-center">
-                <p className="d-inline-block">{`ความดันโลหิตบน : ${caseData.systolicBloodPressure} mm.Hg.`}</p>
-              </li>
-              <li className="list-group-item text-center">
-                <p className=" d-inline-block">{`ความดันโลหิตล่าง : ${caseData.diastolicBloodPressure} mm.Hg.`}</p>
-              </li> */}
-              {/* <CaseDetailEdit
-                caseData={caseData}
-                setCaseData={setCaseData}
-                caseId={caseId}
-              /> */}
             </ul>
           </div>
         </div>

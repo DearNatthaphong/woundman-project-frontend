@@ -6,33 +6,40 @@ function Appointment({
 }) {
   return (
     <div className="col-12 col-md-6">
-      <div className="card" width="18rem">
-        <h5 className="card-header">
-          วันที่นัด : <span>{dateService.formattedDate(appointmentDate)}</span>
-        </h5>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">
-            <h5>
-              สาเหตุที่นัด : <span>{reason}</span>
-            </h5>
-          </li>
-          <li className="list-group-item">
-            <h5>
-              สถานะ : <span>{status}</span>
-            </h5>
-          </li>
-          <li className="list-group-item">
-            <div className="row">
-              <div className="col-auto">
-                <p className="card-text">
-                  <small className="text-body-secondary">
-                    {dateService.timeSince(createdAt)}
-                  </small>
-                </p>
-              </div>
+      <div className="card max-w-362">
+        <div className="card-body py-1">
+          <div className="row">
+            <div className="col-auto px-0">
+              <span className="m-0">สาเหตุ :</span>
             </div>
-          </li>
-        </ul>
+            <div className="col-auto ps-1 pe-0">
+              <p className="fw-bold m-0">{reason}</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-auto px-0">
+              <span className="m-0">วันนัด :</span>
+            </div>
+            <div className="col-auto ps-1 pe-0">
+              <p className="fw-bold m-0">
+                {dateService.formattedDate(appointmentDate)}
+              </p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-auto px-0">
+              <span className="m-0">สถานะ :</span>
+            </div>
+            <div className="col-auto ps-1 pe-0">
+              <p className="fw-bold m-0">{status}</p>
+            </div>
+          </div>
+        </div>
+        <div className="card-footer">
+          <small className="text-body-secondary">
+            {dateService.timeSince(createdAt)}
+          </small>
+        </div>
       </div>
     </div>
   );

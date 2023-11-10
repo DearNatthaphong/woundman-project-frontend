@@ -2,7 +2,7 @@ import React from 'react';
 
 function CaseDetailHeader() {
   return (
-    <div className="row align-items-center my-3 mx-1">
+    <div className="row align-items-center">
       <div className="col-auto">
         <h4 className="fw-bold my-auto">ข้อมูลการรักษา</h4>
       </div>

@@ -4,6 +4,7 @@ import * as appointmentService from '../../api/appointmentApi';
 
 function AppointmentContainer() {
   const [appointments, setAppointments] = useState([]);
+
   useEffect(() => {
     const fetchAppointments = async () => {
       try {

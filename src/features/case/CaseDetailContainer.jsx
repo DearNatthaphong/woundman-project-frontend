@@ -43,30 +43,24 @@ function CaseDetailContainer() {
 
   return (
     <div className="container-fluid">
-      <div className="row justify-content-center">
-        <div className="col-12 col-sm-6 p-1">
-          <CaseDetailHeader />
+      <div className="row ">
+        <div className="col-12 col-sm-6">
+          <h4 className="fw-bold mb-3 text-center">ข้อมูลการรักษา</h4>
+          {/* <CaseDetailHeader /> */}
           <div className="card mb-3">
-            <div className="card-body">
-              {/* <ul className="list-group list-group-flush p-0">
-                <li className="list-group-item p-0"> */}
+            <div className="card-body pb-0">
               <PatientDetail caseData={caseData} updateCase={updateCase} />
-              {/* </li>
-                <li className="list-group-item"> */}
-              <CaseDetail
-                caseData={caseData}
-                setCaseData={setCaseData}
-                caseId={caseId}
-              />
-              {/* </li>
-              </ul> */}
             </div>
           </div>
-          <div className="card mb-3">
-            <AppointmentContainer caseId={caseId} />
-          </div>
+          <CaseDetail
+            caseData={caseData}
+            setCaseData={setCaseData}
+            caseId={caseId}
+          />
+          <AppointmentContainer caseId={caseId} />
+          {/* </div> */}
         </div>
-        <div className="col-12 col-sm-6 p-1">
+        <div className="col-12 col-sm-6">
           <TreatmentContainer caseId={caseId} />
           {/* <div className="card  border border-3 p-0">
             <AppointmentContainer caseId={caseId} />

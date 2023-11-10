@@ -21,11 +21,7 @@ function ReceiptContainer() {
 
     fetchReceipts();
   }, []);
-  return (
-    <div>
-      <ReceiptList receipts={receipts} />
-    </div>
-  );
+  return <ReceiptList receipts={receipts} />;
 }
 
 export default ReceiptContainer;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AppointmentFilter({ status, onChange, handleFilter }) {
+function AppointmentFilter({ status, handleStatus, handleFilter }) {
   return (
     <div className="input-group ">
       <select
@@ -8,7 +8,7 @@ function AppointmentFilter({ status, onChange, handleFilter }) {
         id="inputGroupSelect04"
         aria-label="Example select with button addon"
         value={status}
-        onChange={onChange}
+        onChange={(e) => handleStatus(e.target.value)}
       >
         <option value="">เลือกทุกประเกทการนัดหมาย</option>
         <option value="รอดำเนินการ">รอดำเนินการ</option>

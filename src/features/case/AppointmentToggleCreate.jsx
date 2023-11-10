@@ -14,9 +14,9 @@ function AppointmentToggleCreate({ appointments, createAppointment, caseId }) {
   return (
     <div className="row align-items-center">
       <div className="col-auto">
-        <h5 className="fw-bold my-auto">การนัดหมาย</h5>
+        <h5 className="fw-bold my-auto">ใบนัดหมาย</h5>
       </div>
-      {appointments.length === 0 && (
+      {!appointments.length && (
         <div className="col">
           <button
             onClick={() => setIsOpen(true)}
@@ -24,7 +24,7 @@ function AppointmentToggleCreate({ appointments, createAppointment, caseId }) {
             className="btn btn-outline-primary rounded-pill btn-sm w-100"
           >
             <i className="fa-solid fa-plus fa-lg" />
-            {` สร้างการนัดหมาย`}
+            {` สร้างใบนัด`}
           </button>
           <Modal
             title="สร้างการนัดหมาย"

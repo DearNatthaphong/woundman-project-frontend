@@ -55,42 +55,58 @@ function AppointmentContainer({ caseId }) {
   };
 
   return (
-    <div className="card-body">
-      <AppointmentToggleCreate
-        appointments={appointments}
-        createAppointment={createAppointment}
-        caseId={caseId}
-      />
+    <>
+      <div className="card">
+        <div className="card-body p-2">
+          <AppointmentToggleCreate
+            appointments={appointments}
+            createAppointment={createAppointment}
+            caseId={caseId}
+          />
+        </div>
+      </div>
       <AppointmentList
         caseId={caseId}
         appointments={appointments}
         updateAppointment={updateAppointment}
         deleteAppointment={deleteAppointment}
       />
-      {/* <Appointment
-        caseId={caseId}
-        appointment={appointment}
-        updateAppointment={updateAppointment}
-        deleteAppointment={deleteAppointment}
-      /> */}
-
-      {/* <ul className="list-group"> */}
-      {/* {appointment !== null ? ( */}
-      {/* <Appointment
-          appointment={appointment}
-          caseId={caseId}
-          updateAppointment={updateAppointment}
-          deleteAppointment={deleteAppointment}
-        /> */}
-      {/* ) : (
-          <AppointmentCreate
-            caseId={caseId}
-            createAppointment={createAppointment}
-          />
-        )} */}
-      {/* </ul> */}
-    </div>
+    </>
   );
 }
 
 export default AppointmentContainer;
+{
+  /* <Appointment
+  caseId={caseId}
+  appointment={appointment}
+  updateAppointment={updateAppointment}
+  deleteAppointment={deleteAppointment}
+/> */
+}
+
+{
+  /* <ul className="list-group"> */
+}
+{
+  /* {appointment !== null ? ( */
+}
+{
+  /* <Appointment
+    appointment={appointment}
+    caseId={caseId}
+    updateAppointment={updateAppointment}
+    deleteAppointment={deleteAppointment}
+  /> */
+}
+{
+  /* ) : (
+    <AppointmentCreate
+      caseId={caseId}
+      createAppointment={createAppointment}
+    />
+  )} */
+}
+{
+  /* </ul> */
+}

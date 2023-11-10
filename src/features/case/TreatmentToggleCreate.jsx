@@ -11,8 +11,8 @@ function TreatmentToggleCreate({ caseId, createTreatment }) {
   };
 
   return (
-    <div className="card mb-3">
-      <div className="card-body">
+    <div className="card mt-3 mb-2">
+      <div className="card-body p-2">
         <div className="row align-items-center">
           <div className="col-auto">
             <h4 className="fw-bold my-auto">การรักษา</h4>

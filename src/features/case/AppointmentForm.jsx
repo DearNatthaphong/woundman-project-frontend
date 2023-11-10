@@ -35,10 +35,10 @@ function AppointmentForm({ onSubmit, caseId, isEdit, appointment }) {
       if (isEdit) {
         const appointmentId = appointment.id;
         await onSubmit(caseId, appointmentId, input);
-        toast.success('แก้ไขการรักษาสำเร็จ');
+        toast.success('แก้ไขใบนัดหมายสำเร็จ');
       } else {
         await onSubmit(caseId, input);
-        toast.success('สร้างการรักษาสำเร็จ');
+        toast.success('สร้างใบนัดหมายสำเร็จ');
         setInput({ reason: '', appointmentDate: '', status: 'รอดำเนินการ' });
       }
     } catch (err) {

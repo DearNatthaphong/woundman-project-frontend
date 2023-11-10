@@ -38,10 +38,10 @@ function AppointmentContainer() {
 
       if (res.data.appointments.length) {
         setAppointments(res.data.appointments);
-        setSearchTerm('');
+        // setSearchTerm('');
       } else {
         setAppointments([]);
-        setSearchTerm('');
+        // setSearchTerm('');
       }
     } catch (err) {
       console.log(err);
@@ -87,14 +87,14 @@ function AppointmentContainer() {
           <AppointmentSearch
             handleSearch={handleSearch}
             searchTerm={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            handleSearchTerm={(newSearchTerm) => setSearchTerm(newSearchTerm)}
           />
         </div>
         <div className="col-12 col-sm-6">
           <AppointmentFilter
             handleFilter={handleFilter}
             status={status}
-            onChange={(e) => setStatus(e.target.value)}
+            handleStatus={(newStatus) => setStatus(newStatus)}
           />
         </div>
       </div>

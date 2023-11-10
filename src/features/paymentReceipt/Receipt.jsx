@@ -41,7 +41,6 @@ function Receipt({ receipt, caseId, deleteReceipt }) {
               <th className="text-end pe-3" scope="col">
                 <div>ราคา</div>
                 <div>{`(บาท)`}</div>
-                {/* {`ราคา(บาท)`} */}
               </th>
             </tr>
           </thead>
@@ -49,7 +48,7 @@ function Receipt({ receipt, caseId, deleteReceipt }) {
             {Payments?.map((item, index) => (
               // <Payment key={item.id} index={index} Payment={item} />
               <PaymentItem
-                key={index}
+                key={item.id}
                 index={index}
                 payment={item}
                 caseId={caseId}
@@ -66,7 +65,6 @@ function Receipt({ receipt, caseId, deleteReceipt }) {
               <td className="text-end pe-3">
                 {numeral(totalPrice).format('0,0.00')}
               </td>
-              {/* <td>{totalPrice}</td> */}
             </tr>
           </thead>
         </table>

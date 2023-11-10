@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-function AppointmentSearch({ searchTerm, onChange, handleSearch }) {
+function AppointmentSearch({ searchTerm, handleSearchTerm, handleSearch }) {
   const inputEl = useRef();
 
   useEffect(() => {
@@ -12,12 +12,12 @@ function AppointmentSearch({ searchTerm, onChange, handleSearch }) {
       if (e.key === 'Enter') {
         await handleSearch({ searchTerm: inputEl.current.value });
         inputEl.current.value = '';
-        onChange({ target: { value: '' } });
+        // onChange({ target: { value: '' } });
         return;
       }
       if (e.key === 'Escape') {
         inputEl.current.value = '';
-        onChange({ target: { value: '' } });
+        // onChange({ target: { value: '' } });
       }
     } catch (err) {
       console.log(err);
@@ -26,17 +26,17 @@ function AppointmentSearch({ searchTerm, onChange, handleSearch }) {
   return (
     <div className="input-group">
       <input
+        ref={inputEl}
         type="text"
         className="form-control"
         placeholder="ค้นหาชื่อหรือนามสกุลคนไข้"
         aria-label="ค้นหาชื่อหรือนามสกุลคนไข้"
         aria-describedby="basic-addon2"
         value={searchTerm}
-        onChange={onChange}
+        onChange={(e) => handleSearchTerm(e.target.value)}
         onKeyDown={handleKeyUpEnter}
       />
       <button
-        ref={inputEl}
         className="btn btn-outline-secondary"
         onClick={handleSearch}
         type="button"

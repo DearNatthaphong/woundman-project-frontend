@@ -13,7 +13,10 @@ function PatientInfo({
     idLine
   }
 }) {
-  const formattedMobile = mobile?.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+  const firstPart = mobile?.slice(0, 3);
+  const secondPart = mobile?.slice(3, 6);
+  const thirdPart = mobile?.slice(6);
+  const formattedMobile = `${firstPart}-${secondPart}-${thirdPart}`;
   return (
     <>
       <ListItem

@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import PatientSearch from './PatientSearch';
 import PatientList from './PatientList';
-// import { useLoading } from '../../contexts/LoadingContext';
+import { useLoading } from '../../contexts/LoadingContext';
 import * as patientService from '../../api/newPatientApi';
 
 function PatientContainer() {
   const [patients, setPatients] = useState([]);
-  // const { startLoading, stopLoading } = useLoading();
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const { startLoading, stopLoading } = useLoading();
 
   useEffect(() => {
     const fetchPatients = async () => {
       try {
         // startLoading();
-        await getPatients();
+        const res = await patientService.getPatients();
+        setPatients(res.data.patients);
       } catch (err) {
         console.log(err);
       } finally {
@@ -27,16 +27,20 @@ function PatientContainer() {
 
   const handleSearch = async () => {
     try {
+      startLoading();
       const res = await patientService.getPatientsBySearchTerm(searchTerm);
-      setSearchResults(res.data.patients);
+      // console.log('res.data', res.data);
+
+      if (res.data.patients.length) {
+        setPatients(res.data.patients);
+      } else {
+        setPatients([]);
+      }
     } catch (err) {
       console.log(err);
+    } finally {
+      stopLoading();
     }
-  };
-
-  const getPatients = async () => {
-    const res = await patientService.getPatients();
-    setPatients(res.data.patients);
   };
 
   return (
@@ -45,16 +49,25 @@ function PatientContainer() {
         <div className="col-12 col-md-6">
           <PatientSearch
             searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
+            handleSearchTerm={(newSearchTerm) => setSearchTerm(newSearchTerm)}
             handleSearch={handleSearch}
           />
         </div>
       </div>
-      <div className="row mt-2 row-cols-1 row-cols-sm-2 row-cols-lg-3 g-2">
-        <PatientList
-          patients={searchResults.length > 0 ? searchResults : patients}
-        />
-      </div>
+      {patients.length ? (
+        <div className="row mt-2 row-cols-1 row-cols-sm-2 row-cols-lg-3 g-2">
+          <PatientList patients={patients} />
+        </div>
+      ) : (
+        <div className="card mt-3">
+          <div className="card-body">
+            <p className="m-0">
+              <i className="fa-solid fa-magnifying-glass pe-3" />
+              ไม่พบข้อมูล
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
