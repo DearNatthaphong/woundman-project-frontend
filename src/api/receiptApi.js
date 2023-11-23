@@ -1,7 +1,7 @@
 import axios from '../config/axios';
 
-export const createReceipt = (caseId, totalPrice, method) =>
-  axios.post(`/receipts/cases/${caseId}`, { totalPrice, method });
+export const createReceipt = (caseId, input) =>
+  axios.post(`/receipts/cases/${caseId}`, input);
 
 export const getReceiptByCaseId = (caseId) =>
   axios.get(`/receipts/cases/${caseId}`);

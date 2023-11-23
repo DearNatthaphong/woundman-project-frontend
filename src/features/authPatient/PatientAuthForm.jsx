@@ -19,7 +19,11 @@ function PatientAuthForm() {
         >
           ลงทะเบียน
         </button>
-        <Modal title="ลงทะเบียน" open={isOpen} onClose={() => setIsOpen(false)}>
+        <Modal
+          title="ลงทะเบียนคนไข้"
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+        >
           <PatientRegisterForm onSuccess={() => setIsOpen(false)} />
         </Modal>
       </div>

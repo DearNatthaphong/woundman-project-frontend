@@ -37,17 +37,33 @@
 
 import validator from 'validator';
 
+// export const validateFields = (input, userType) => {
+//   const errors = [];
+
+//   // if (userType === 'patient') {
+//   //   const patientErrors = validatePatientFields(input);
+//   //   errors.push(...patientErrors);
+//   // }
+//   if (userType === 'staff') {
+//     const staffErrors = validateStaffFields(input);
+//     errors.push(...staffErrors);
+//   }
+
+//   return errors;
+// };
+
 // isEmpty, isIdCard, isMobile, isPassword
-export const validatePatientFields = (input) => {
+// export const validatePatientFields = (input) => {
+export const validatePatientRegister = (input) => {
   const errors = [];
 
-  // if (!input.titleName) {
-  //   errors.push('ต้องใส่คำนำหน้าชื่อ');
-  // }
-  if (!input.firstName) {
+  if (!input.titleName) {
+    errors.push('ต้องใส่คำนำหน้าชื่อ');
+  }
+  if (!input.firstName.trim()) {
     errors.push('ต้องใส่ชื่อจริง');
   }
-  if (!input.lastName) {
+  if (!input.lastName.trim()) {
     errors.push('ต้องใส่นามสกุลจริง');
   }
 
@@ -79,9 +95,10 @@ export const validatePatientFields = (input) => {
 
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{6,}$/;
 
-  const validatePassword = (password) => passwordRegex.test(password);
+  // const validatePassword = (password) => passwordRegex.test(password);
 
-  const isPassword = validatePassword(input.password);
+  // const isPassword = validatePassword(input.password);
+  const isPassword = passwordRegex.test(input.password);
 
   if (input.password && !isPassword) {
     errors.push('รหัสผ่านไม่ถูกต้อง');
@@ -98,17 +115,24 @@ export const validatePatientFields = (input) => {
   return errors;
 };
 
-export const validateStaffFields = (input) => {
+// export const validateStaffFields = (input) => {
+export const validateStaffRegister = (input) => {
   const errors = [];
 
   // if (!input.titleName) {
   //   errors.push('ต้องใส่คำนำหน้าชื่อ');
   // }
-  if (!input.firstName) {
+  if (!input.titleName) {
+    errors.push('ต้องใส่คำนำหน้าชื่อ');
+  }
+  if (!input.firstName.trim()) {
     errors.push('ต้องใส่ชื่อจริง');
   }
-  if (!input.lastName) {
+  if (!input.lastName.trim()) {
     errors.push('ต้องใส่นามสกุลจริง');
+  }
+  if (!input.role) {
+    errors.push('ต้องใส่หน้าที่');
   }
 
   if (!input.emailOrMobile) {
@@ -127,9 +151,10 @@ export const validateStaffFields = (input) => {
 
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{6,}$/;
 
-  const validatePassword = (password) => passwordRegex.test(password);
+  // const validatePassword = (password) => passwordRegex.test(password);
 
-  const isPassword = validatePassword(input.password);
+  // const isPassword = validatePassword(input.password);
+  const isPassword = passwordRegex.test(input.password);
 
   if (input.password && !isPassword) {
     errors.push('รหัสผ่านไม่ถูกต้อง');
@@ -141,21 +166,6 @@ export const validateStaffFields = (input) => {
 
   if (!input.awareness) {
     errors.push('ต้องรับรู้ พรบ ข้อมูลส่วนบุคคล');
-  }
-
-  return errors;
-};
-
-export const validateFields = (input, userType) => {
-  const errors = [];
-
-  if (userType === 'patient') {
-    const patientErrors = validatePatientFields(input);
-    errors.push(...patientErrors);
-  }
-  if (userType === 'staff') {
-    const staffErrors = validateStaffFields(input);
-    errors.push(...staffErrors);
   }
 
   return errors;

@@ -3,11 +3,13 @@ import PatientSearch from './PatientSearch';
 import PatientList from './PatientList';
 import { useLoading } from '../../contexts/LoadingContext';
 import * as patientService from '../../api/newPatientApi';
+import Spinner from '../../components/ui/Spinner';
 
 function PatientContainer() {
   const [patients, setPatients] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const { startLoading, stopLoading } = useLoading();
+  const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
     const fetchPatients = async () => {
@@ -19,6 +21,7 @@ function PatientContainer() {
         console.log(err);
       } finally {
         // stopLoading();
+        setInitialLoading(false);
       }
     };
 
@@ -42,6 +45,8 @@ function PatientContainer() {
       stopLoading();
     }
   };
+
+  if (initialLoading) return <Spinner />;
 
   return (
     <div className="container-fluid mt-2">

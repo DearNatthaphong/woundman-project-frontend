@@ -1,7 +1,7 @@
 import React from 'react';
 import * as dateService from '../../utils/dateFormat';
 
-function Appointment({
+function PatientAppointment({
   appointment: { reason, appointmentDate, status, createdAt }
 }) {
   return (
@@ -45,4 +45,4 @@ function Appointment({
   );
 }
 
-export default Appointment;
+export default PatientAppointment;

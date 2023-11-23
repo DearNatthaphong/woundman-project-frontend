@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import AddPhotoButton from './AddPhotoButton';
 import { useLoading } from '../../contexts/LoadingContext';
 
-function TreatmentForm({ onSubmit, caseId, isEdit, treatment }) {
+function TreatmentForm({ onClose, onSubmit, caseId, isEdit, treatment }) {
   const { startLoading, stopLoading } = useLoading();
 
   let initialState = {
@@ -28,44 +28,47 @@ function TreatmentForm({ onSubmit, caseId, isEdit, treatment }) {
   };
 
   const handleSubmitForm = async (e) => {
+    e.preventDefault();
+
+    if (
+      !input.position ||
+      !input.position.trim() ||
+      !input.diagnosis ||
+      !input.diagnosis.trim() ||
+      !input.treatment ||
+      !input.treatment.trim() ||
+      !input.image
+    ) {
+      return toast.error('ข้อมูลไม่ครบ');
+    }
+
+    const formData = new FormData();
+
+    if (input.position && input.position.trim()) {
+      formData.append('position', input.position);
+    }
+    if (input.diagnosis && input.diagnosis.trim()) {
+      formData.append('diagnosis', input.diagnosis);
+    }
+    if (input.treatment && input.treatment.trim()) {
+      formData.append('treatment', input.treatment);
+    }
+    if (file) {
+      formData.append('image', file);
+    }
+
+    const treatmentId = treatment?.id;
+
     try {
-      e.preventDefault();
       startLoading();
-
-      const formData = new FormData();
-
-      if (
-        !input.position ||
-        !input.position.trim() ||
-        !input.diagnosis ||
-        !input.diagnosis.trim() ||
-        !input.treatment ||
-        !input.treatment.trim() ||
-        !input.image
-      ) {
-        return toast.error('ข้อมูลไม่ครบ');
-      }
-      if (input.position && input.position.trim()) {
-        formData.append('position', input.position);
-      }
-      if (input.diagnosis && input.diagnosis.trim()) {
-        formData.append('diagnosis', input.diagnosis);
-      }
-      if (input.treatment && input.treatment.trim()) {
-        formData.append('treatment', input.treatment);
-      }
-      if (file) {
-        formData.append('image', file);
-      }
-
       if (isEdit) {
-        const treatmentId = treatment.id;
         await onSubmit(caseId, treatmentId, formData);
         toast.success('แก้ไขข้อมูลสำเร็จ');
       } else {
         await onSubmit(caseId, formData);
         toast.success('สร้างการตรวจรักษาสำเร็จ');
         setInput({ position: '', diagnosis: '', treatment: '', image: null });
+        onClose();
       }
     } catch (err) {
       console.log(err);
@@ -129,30 +132,32 @@ function TreatmentForm({ onSubmit, caseId, isEdit, treatment }) {
         />
       </div>
       <div className="col text-start">
-        <label htmlFor="exampleFormControlTextarea1" className="form-label">
-          ตำแหน่งของบาดแผล
-        </label>
-        <textarea
-          className="form-control"
-          id="exampleFormControlTextarea1"
-          rows="2"
-          name="position"
-          value={input.position}
-          onChange={handleChangeInput}
-        ></textarea>
+        <div className="form-floating">
+          <input
+            className="form-control"
+            id="positionInput"
+            name="position"
+            value={input.position}
+            onChange={handleChangeInput}
+          />
+          <label htmlFor="positionInput" className="form-label">
+            ตำแหน่งของบาดแผล
+          </label>
+        </div>
       </div>
       <div className="col text-start">
-        <label htmlFor="exampleFormControlTextarea2" className="form-label">
-          คำวินิจฉัยแพทย์
-        </label>
-        <textarea
-          className="form-control"
-          id="exampleFormControlTextarea2"
-          rows="3"
-          name="diagnosis"
-          value={input.diagnosis}
-          onChange={handleChangeInput}
-        ></textarea>
+        <div className="form-floating">
+          <input
+            className="form-control"
+            id="diagnosisInput"
+            name="diagnosis"
+            value={input.diagnosis}
+            onChange={handleChangeInput}
+          />
+          <label htmlFor="diagnosisInput" className="form-label">
+            คำวินิจฉัยแพทย์
+          </label>
+        </div>
       </div>
       <div className="col text-start">
         <label htmlFor="exampleFormControlTextarea3" className="form-label">

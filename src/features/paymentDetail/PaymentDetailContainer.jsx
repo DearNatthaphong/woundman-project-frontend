@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 // import PaymentDetailHeader from './PaymentDetailHeader';
 import PaymentDetailBody from './PaymentDetailBody';
-import PaymentDetailFooter from './PaymentDetailFooter';
+// import PaymentDetailFooter from './PaymentDetailFooter';
 import { useParams } from 'react-router-dom';
 import * as paymentService from '../../api/paymentApi';
 import * as receiptService from '../../api/receiptApi';
 import * as caseService from '../../api/caseApi';
+import Spinner from '../../components/ui/Spinner';
 
 function PaymentDetailContainer() {
   const { id: caseId } = useParams();
@@ -17,108 +18,158 @@ function PaymentDetailContainer() {
   const [paymentsSupply, setPaymentsSupply] = useState([]);
   const [paymentsMedicine, setPaymentsMedicine] = useState([]);
   const [receipts, setReceipts] = useState([]);
+  const [initialLoading, setInitialLoading] = useState(true);
 
+  // useEffect(() => {
+  //   const fetchCase = async (caseId) => {
+  //     try {
+  //       // startLoading();
+  //       const res = await caseService.getCaseById(caseId);
+  //       // console.log('res.data', res.data);
+  //       setCaseData(res.data.caseData);
+  //     } catch (err) {
+  //       console.log(err);
+  //     } finally {
+  //       // stopLoading();
+  //     }
+  //   };
+
+  //   const fetchItemsService = async () => {
+  //     try {
+  //       // startLoading();
+  //       const res = await paymentService.getPaymentItemsByTypeService();
+  //       setItemsService(res.data.paymentItems);
+  //     } catch (err) {
+  //       console.log(err);
+  //     } finally {
+  //       // stopLoading();
+  //     }
+  //   };
+  //   const fetchItemsSupply = async () => {
+  //     try {
+  //       // startLoading();
+  //       const res = await paymentService.getPaymentItemsByTypeSupply();
+  //       setItemsSupply(res.data.paymentItems);
+  //     } catch (err) {
+  //       console.log(err);
+  //     } finally {
+  //       // stopLoading();
+  //     }
+  //   };
+  //   const fetchItemsMedicine = async () => {
+  //     try {
+  //       // startLoading();
+  //       const res = await paymentService.getPaymentItemsByTypeMedicine();
+
+  //       setItemsMedicine(res.data.paymentItems);
+  //     } catch (err) {
+  //       console.log(err);
+  //     } finally {
+  //       // stopLoading();
+  //     }
+  //   };
+
+  //   const fetchPaymentsService = async (caseId) => {
+  //     try {
+  //       // startLoading();
+  //       const res = await paymentService.getPaymentsServiceCaseId(caseId);
+  //       // console.log('res.data:', res.data);
+  //       setPaymentsService(res.data.paymentsByType);
+  //     } catch (err) {
+  //       console.log(err);
+  //     } finally {
+  //       // stopLoading();
+  //     }
+  //   };
+
+  //   const fetchPaymentsSupply = async (caseId) => {
+  //     try {
+  //       // startLoading();
+  //       const res = await paymentService.getPaymentsSupplyCaseId(caseId);
+  //       // console.log('API Response for fetchPaymentsSupply:', res);
+  //       setPaymentsSupply(res.data.paymentsByType);
+  //     } catch (err) {
+  //       console.log(err);
+  //     } finally {
+  //       // stopLoading();
+  //     }
+  //   };
+  //   const fetchPaymentsMedicine = async (caseId) => {
+  //     try {
+  //       // startLoading();
+  //       const res = await paymentService.getPaymentsMedicineCaseId(caseId);
+  //       // console.log('API Response for fetchPaymentsService:', res);
+  //       setPaymentsMedicine(res.data.paymentsByType);
+  //     } catch (err) {
+  //       console.log(err);
+  //     } finally {
+  //       // stopLoading();
+  //     }
+  //   };
+
+  //   const fetchReceipt = async (caseId) => {
+  //     const res = await receiptService.getReceiptByCaseId(caseId);
+  //     // console.log('res.data', res.data);
+  //     setReceipts(res.data.receipts);
+  //   };
+
+  //   fetchCase(caseId);
+  //   fetchItemsService();
+  //   fetchItemsSupply();
+  //   fetchItemsMedicine();
+  //   if (paymentsService.length) {
+  //     fetchPaymentsService(caseId);
+  //   }
+  //   if (paymentsSupply.length) {
+  //     fetchPaymentsSupply(caseId);
+  //   }
+  //   if (paymentsMedicine.length) {
+  //     fetchPaymentsMedicine(caseId);
+  //   }
+  //   fetchReceipt(caseId);
+  // }, [
+  //   caseId,
+  //   paymentsService.length,
+  //   paymentsSupply.length,
+  //   paymentsMedicine.length
+  // ]);
   useEffect(() => {
-    const fetchCase = async (caseId) => {
+    const fetchAllData = async (caseId) => {
       try {
         // startLoading();
-        const res = await caseService.getCaseById(caseId);
-        // console.log('res.data', res.data);
-        setCaseData(res.data.caseData);
+        const caseDataRes = await caseService.getCaseById(caseId);
+        setCaseData(caseDataRes.data.caseData);
+        const itemServiceRes =
+          await paymentService.getPaymentItemsByTypeService();
+        setItemsService(itemServiceRes.data.paymentItems);
+        const itemSupplyRes =
+          await paymentService.getPaymentItemsByTypeSupply();
+        setItemsSupply(itemSupplyRes.data.paymentItems);
+        const itemMedicineRes =
+          await paymentService.getPaymentItemsByTypeMedicine();
+        setItemsMedicine(itemMedicineRes.data.paymentItems);
+        const paymentServiceRes = await paymentService.getPaymentsServiceCaseId(
+          caseId
+        );
+        setPaymentsService(paymentServiceRes.data.paymentsByType);
+        const paymentSupplyRes = await paymentService.getPaymentsSupplyCaseId(
+          caseId
+        );
+        setPaymentsSupply(paymentSupplyRes.data.paymentsByType);
+        const paymentMedicineRes =
+          await paymentService.getPaymentsMedicineCaseId(caseId);
+        setPaymentsMedicine(paymentMedicineRes.data.paymentsByType);
+        const receiptRes = await receiptService.getReceiptByCaseId(caseId);
+        setReceipts(receiptRes.data.receipts);
       } catch (err) {
         console.log(err);
       } finally {
         // stopLoading();
+        setInitialLoading(false);
       }
     };
 
-    const fetchItemsService = async () => {
-      try {
-        // startLoading();
-        const res = await paymentService.getPaymentItemsByTypeService();
-        setItemsService(res.data.paymentItems);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        // stopLoading();
-      }
-    };
-    const fetchItemsSupply = async () => {
-      try {
-        // startLoading();
-        const res = await paymentService.getPaymentItemsByTypeSupply();
-        setItemsSupply(res.data.paymentItems);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        // stopLoading();
-      }
-    };
-    const fetchItemsMedicine = async () => {
-      try {
-        // startLoading();
-        const res = await paymentService.getPaymentItemsByTypeMedicine();
-
-        setItemsMedicine(res.data.paymentItems);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        // stopLoading();
-      }
-    };
-
-    const fetchPaymentsService = async (caseId) => {
-      try {
-        // startLoading();
-        const res = await paymentService.getPaymentsServiceCaseId(caseId);
-        // console.log('res.data:', res.data);
-        setPaymentsService(res.data.paymentsByType);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        // stopLoading();
-      }
-    };
-
-    const fetchPaymentsSupply = async (caseId) => {
-      try {
-        // startLoading();
-        const res = await paymentService.getPaymentsSupplyCaseId(caseId);
-        // console.log('API Response for fetchPaymentsSupply:', res);
-        setPaymentsSupply(res.data.paymentsByType);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        // stopLoading();
-      }
-    };
-    const fetchPaymentsMedicine = async (caseId) => {
-      try {
-        // startLoading();
-        const res = await paymentService.getPaymentsMedicineCaseId(caseId);
-        // console.log('API Response for fetchPaymentsService:', res);
-        setPaymentsMedicine(res.data.paymentsByType);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        // stopLoading();
-      }
-    };
-
-    const fetchReceipt = async (caseId) => {
-      const res = await receiptService.getReceiptByCaseId(caseId);
-      console.log('res.data', res.data);
-      setReceipts(res.data.receipts);
-    };
-
-    fetchCase(caseId);
-    fetchItemsService();
-    fetchItemsSupply();
-    fetchItemsMedicine();
-    fetchPaymentsService(caseId);
-    fetchPaymentsSupply(caseId);
-    fetchPaymentsMedicine(caseId);
-    fetchReceipt(caseId);
+    fetchAllData(caseId);
   }, [caseId]);
 
   const createPaymentService = async (caseId, title, amount) => {
@@ -235,13 +286,9 @@ function PaymentDetailContainer() {
   // console.log('totalPrice : ', totalPrice);
   // console.log('formattedTotalPrice : ', formattedTotalPrice);
 
-  const createReceipt = async (caseId, totalPrice, method) => {
+  const createReceipt = async (caseId, input) => {
     try {
-      const res = await receiptService.createReceipt(
-        caseId,
-        totalPrice,
-        method
-      );
+      const res = await receiptService.createReceipt(caseId, input);
       // console.log('res.data', red.data);
       setReceipts([res.data.newReceipt, ...receipts]);
     } catch (err) {
@@ -259,7 +306,8 @@ function PaymentDetailContainer() {
     }
   };
 
-  console.log('receipts', receipts);
+  // console.log('receipts', receipts);
+  if (initialLoading) return <Spinner />;
 
   return (
     <div className="container-fluid">
@@ -292,7 +340,7 @@ function PaymentDetailContainer() {
             // formattedTotalPrice={formattedTotalPrice}
             totalPrice={totalPrice}
           />
-          <PaymentDetailFooter />
+          {/* <PaymentDetailFooter /> */}
           {/* </div> */}
         </div>
       </div>

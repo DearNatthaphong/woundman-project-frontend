@@ -1,8 +1,9 @@
 import React from 'react';
-import * as dateService from '../../utils/dateFormat';
+// import * as dateService from '../../utils/dateFormat';
+import CreatedBy from '../../components/ui/CreatedBy';
 
 function TreatmentContent({
-  treatment: { image, position, diagnosis, treatment, createdAt }
+  treatment: { image, position, diagnosis, treatment, createdAt, Staff }
 }) {
   return (
     <>
@@ -26,9 +27,15 @@ function TreatmentContent({
           <p className="card-text fw-bold">{treatment}</p>
         </li>
         <li className="list-group-item">
-          <small className="text-body-secondary">
+          <CreatedBy
+            titleName={Staff?.titleName}
+            firstName={Staff?.firstName}
+            lastName={Staff?.lastName}
+            role={Staff?.role}
+          />
+          {/* <small className="text-body-secondary">
             {dateService.timeSince(createdAt)}
-          </small>
+          </small> */}
         </li>
       </ul>
     </>

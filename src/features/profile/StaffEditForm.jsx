@@ -4,11 +4,15 @@ import validator from 'validator';
 import { toast } from 'react-toastify';
 import AddPhotoButton from '../case/AddPhotoButton';
 import Avatar from '../../components/ui/Avatar';
+import * as validateService from '../../validations/userEditValidate';
+import { useLoading } from '../../contexts/LoadingContext';
 
 function StaffEditForm({ onSubmit }) {
   const {
     staff: { titleName, firstName, lastName, role, mobile, email, profileImage }
   } = useAuth();
+
+  const { startLoading, stopLoading } = useLoading();
 
   const [input, setInput] = useState({
     titleName,
@@ -29,73 +33,57 @@ function StaffEditForm({ onSubmit }) {
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const validationErrors = validateService.validateStaffEdit(input);
+
+    if (validationErrors.length > 1) {
+      const errorMessage =
+        validationErrors.slice(0, -1).join(', ') +
+        ' และ ' +
+        validationErrors[validationErrors.length - 1];
+      return toast.error(errorMessage);
+    }
+    if (validationErrors.length === 1) {
+      const errorMessage = validationErrors[0];
+      return toast.error(errorMessage);
+    }
+
+    const formData = new FormData();
+
+    if (input.titleName) {
+      formData.append('titleName', input.titleName);
+    }
+    if (input.firstName && input.firstName.trim()) {
+      formData.append('firstName', input.firstName);
+    }
+    if (input.lastName && input.lastName.trim()) {
+      formData.append('lastName', input.lastName);
+    }
+    if (input.role) {
+      formData.append('role', input.role);
+    }
+    const isMobile = validator.isMobilePhone(input.mobile + '', 'th-TH');
+    if (input.mobile && isMobile) {
+      formData.append('mobile', input.mobile);
+    }
+    const isEmail = validator.isEmail(input.email + '');
+    if (input.email && isEmail) {
+      formData.append('email', input.email);
+    }
+    if (file) {
+      formData.append('profileImage', file);
+    }
+
     try {
-      e.preventDefault();
-      const formData = new FormData();
-
-      const validationErrors = (input) => {
-        const errors = [];
-        if (!input.titleName) {
-          errors.push('ต้องใส่คำนำหน้าชื่อ');
-        }
-        if (!input.firstName || !input.firstName.trim()) {
-          errors.push('ต้องใส่ชื่อจริง');
-        }
-        if (!input.lastName || !input.lastName.trim()) {
-          errors.push('ต้องใส่นามสกุลจริง');
-        }
-        if (!input.role) {
-          errors.push('ต้องใส่หน้าที่');
-        }
-        if (!input.email && !input.mobile) {
-          errors.push('ต้องใส่อีเมลหรือเบอร์มือถือ');
-        }
-
-        const isEmail = validator.isEmail(input.email + '');
-        if (input.email && !isEmail) {
-          errors.push('อีเมลไม่ถูกต้อง');
-        }
-
-        const isMobile = validator.isMobilePhone(input.mobile + '', 'th-TH');
-        if (input.mobile && !isMobile) {
-          errors.push('เบอร์มือถือไม่ถูกต้อง');
-        }
-        return errors;
-      };
-      const errors = validationErrors(input);
-      if (errors.length) {
-        const errorMessage = errors.join('; ');
-        return toast.error(errorMessage);
-      }
-
-      if (input.titleName) {
-        formData.append('titleName', input.titleName);
-      }
-      if (input.firstName && input.firstName.trim()) {
-        formData.append('firstName', input.firstName);
-      }
-      if (input.lastName && input.lastName.trim()) {
-        formData.append('lastName', input.lastName);
-      }
-      if (input.role) {
-        formData.append('role', input.role);
-      }
-      const isMobile = validator.isMobilePhone(input.mobile + '', 'th-TH');
-      if (input.mobile && isMobile) {
-        formData.append('mobile', input.mobile);
-      }
-      const isEmail = validator.isEmail(input.email + '');
-      if (input.email && isEmail) {
-        formData.append('email', input.email);
-      }
-      if (file) {
-        formData.append('profileImage', file);
-      }
+      startLoading();
       await onSubmit(formData);
       toast.success('แก้ไขข้อมูลส่วนตัวสำเร็จ');
     } catch (err) {
       console.log(err);
       toast.error(err.response?.data.message);
+    } finally {
+      stopLoading();
     }
   };
 

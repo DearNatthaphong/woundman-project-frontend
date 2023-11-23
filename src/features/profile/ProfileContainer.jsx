@@ -7,12 +7,14 @@ import { useLocation, useParams } from 'react-router-dom';
 import * as patientService from '../../api/newPatientApi';
 // import { useLoading } from '../../contexts/LoadingContext';
 import CaseContainer from '../profileCase/CaseContainer';
+import Spinner from '../../components/ui/Spinner';
 
 function ProfileContainer() {
   const { id: selectedPatientId } = useParams();
-  const [selectedPatient, setSelectedPatient] = useState({});
+  const [selectedPatient, setSelectedPatient] = useState(null);
   const [cases, setCases] = useState([]);
   const { staff, patient } = useAuth();
+  const [initialLoading, setInitialLoading] = useState(true);
 
   const location = useLocation();
 
@@ -23,37 +25,26 @@ function ProfileContainer() {
     location.pathname === `/staff/patients/${selectedPatientId}`;
 
   useEffect(() => {
-    const fetchPatientById = async (patientId) => {
+    const fetchAllData = async (patientId) => {
       try {
         if (isSelectedPatientProfile) {
           // startLoading();
-          const res = await patientService.getPatientById(patientId);
+          const patientRes = await patientService.getPatientById(patientId);
           // console.log('res.data', res.data);
-          setSelectedPatient(res.data.patient);
-        }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        // stopLoading();
-      }
-    };
-    const fetchCases = async (patientId) => {
-      try {
-        if (isSelectedPatientProfile) {
-          // startLoading();
-          const res = await patientService.getCasesByPatientId(patientId);
+          setSelectedPatient(patientRes.data.patient);
+          const caseRes = await patientService.getCasesByPatientId(patientId);
           // console.log('res.data.cases', res.data.cases);
-          setCases(res.data.cases);
+          setCases(caseRes.data.cases);
         }
       } catch (err) {
         console.log(err);
       } finally {
         // stopLoading();
+        setInitialLoading(false);
       }
     };
 
-    fetchPatientById(selectedPatientId);
-    fetchCases(selectedPatientId);
+    fetchAllData(selectedPatientId);
   }, [selectedPatientId, isSelectedPatientProfile]);
 
   const updatePatient = async (patientId, input) => {
@@ -89,12 +80,12 @@ function ProfileContainer() {
     }, 100);
   };
 
+  if (initialLoading) return <Spinner />;
+
   return (
     <div className="container-fluid mt-2">
       <div className="row justify-content-center">
         <div className="col-12 col-sm-5">
-          {/* <div className="card mb-3 mx-auto">
-            <div className="card-body"> */}
           <ProfileHeader
             isStaffProfile={isStaffProfile}
             isSelectedPatientProfile={isSelectedPatientProfile}
@@ -116,12 +107,10 @@ function ProfileContainer() {
               isSelectedPatientProfile={isSelectedPatientProfile}
               staff={staff}
               patient={patient}
-              selectedPatient={selectedPatient}
               updatePatient={updatePatient}
+              selectedPatient={selectedPatient}
               selectedPatientId={selectedPatientId}
             />
-            {/* </div>
-            </div> */}
           </div>
         </div>
         {isSelectedPatientProfile && (

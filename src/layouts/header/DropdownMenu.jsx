@@ -50,7 +50,7 @@ function DropdownMenu({ open, onClose }) {
       <li>
         <button
           className="dropdown-item p-2 d-flex align-items-center gap-3 hover-bg-neutral-100 hover-rounded-lg"
-          onClick={patient ? patientLogout : staffLogout}
+          onClick={patient ? patientLogout : staff ? staffLogout : undefined}
         >
           <i className="fas fa-sign-out-alt rounded-circle p-2 text-black text-5 bg-gray-300" />
           <small className="text-black fw-bold">ออกจากระบบ</small>

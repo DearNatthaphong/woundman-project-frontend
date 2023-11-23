@@ -1,7 +1,8 @@
 import React from 'react';
+import AppointmentContainer from '../features/appointment/AppointmentContainer';
 
 function AppointmentPage() {
-  return <h1>This is Appointment page</h1>;
+  return <AppointmentContainer />;
 }
 
 export default AppointmentPage;

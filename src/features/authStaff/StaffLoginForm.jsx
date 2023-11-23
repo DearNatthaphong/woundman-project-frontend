@@ -18,7 +18,7 @@ function StaffLoginForm() {
   const handleSubmitForm = async (e) => {
     e.preventDefault(); // หยุด default action
 
-    // ไม่ validate
+    // ไม่ validate ให้ valid จาก backend
 
     try {
       startLoading();
@@ -26,12 +26,15 @@ function StaffLoginForm() {
       await staffLogin(input);
       toast.success('เข้าสู่ระบบสำเร็จ');
     } catch (err) {
-      toast.error('เข้าสู่ระบบไม่สำเร็จ');
-      toast.error(err.response.data.message);
+      toast.error(
+        'เข้าสู่ระบบไม่สำเร็จ เนื่องจาก ' + err.response.data.message
+      );
+      // toast.error(err.response.data.message);
     } finally {
       stopLoading();
     }
   };
+
   return (
     <form onSubmit={handleSubmitForm}>
       <div className="row gy-3 mb-3 align-items-center ">

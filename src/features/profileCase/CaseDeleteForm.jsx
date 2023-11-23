@@ -4,15 +4,16 @@ import { useLoading } from '../../contexts/LoadingContext';
 
 function CaseDeleteForm({ onSubmit, selectedPatientId, caseData, onClose }) {
   const { startLoading, stopLoading } = useLoading();
-  const caseId = caseData.id;
-  const patientId = selectedPatientId;
 
   const handleSubmitForm = async (e) => {
+    e.preventDefault();
+
+    const caseId = caseData?.id;
+    const patientId = selectedPatientId;
+
     try {
-      e.preventDefault();
       startLoading();
       await onSubmit(patientId, caseId);
-      //   setIsDeleted(true);
       toast.success('ลบข้อมูลการตรวจรักษาสำเร็จ');
       //   onClose();
     } catch (err) {

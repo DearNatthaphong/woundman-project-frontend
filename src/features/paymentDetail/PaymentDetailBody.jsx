@@ -4,7 +4,7 @@ import SupplyContainer from '../paymentSupply/SupplyContainer';
 import ServiceContainer from '../paymentService/ServiceContainer';
 import MedicineContainer from '../paymentMedicine.jsx/MedicineContainer';
 import ReceiptCreateContainer from '../paymentReceipt/ReceiptCreateContainer';
-import ReceiptDisplayContainer from '../paymentReceipt/ReceiptDisplayContainer';
+// import ReceiptDisplayContainer from '../paymentReceipt/ReceiptDisplayContainer';
 import ReceiptList from '../paymentReceipt/ReceiptList';
 
 function PaymentDetailBody({
@@ -31,7 +31,7 @@ function PaymentDetailBody({
   // formattedTotalPrice,
   totalPrice
 }) {
-  console.log('receipts', receipts);
+  // console.log('receipts', receipts);
   return (
     <>
       {/* <ul className="list-group list-group-flush"> */}
@@ -49,7 +49,7 @@ function PaymentDetailBody({
       ))} */}
       {/* ))
       ) : ( */}
-      {receipts.length ? (
+      {receipts?.length ? (
         <ReceiptList
           receipts={receipts}
           caseId={caseId}

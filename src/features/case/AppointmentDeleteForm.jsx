@@ -8,8 +8,9 @@ function AppointmentDeleteForm({ caseId, onClose, onSubmit, appointment }) {
   const appointmentId = appointment.id;
 
   const handleSubmitForm = async (e) => {
+    e.preventDefault();
+
     try {
-      e.preventDefault();
       startLoading();
       await onSubmit(caseId, appointmentId);
       toast.success('ลบข้อมูลการรักษาสำเร็จ');

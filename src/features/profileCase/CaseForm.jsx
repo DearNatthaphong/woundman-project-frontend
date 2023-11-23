@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import * as validate from '../../validations/caseValidate';
+import * as validateService from '../../validations/caseValidate';
 import { toast } from 'react-toastify';
 import { useLoading } from '../../contexts/LoadingContext';
 
@@ -33,23 +33,33 @@ function CaseForm({ onSubmit, selectedPatientId, isEdit, caseData }) {
   };
 
   const handleSubmitForm = async (e) => {
+    e.preventDefault();
+
+    const validationErrors = validateService.caseVlidationErrors(input);
+
+    if (validationErrors.length > 1) {
+      const errorMessage =
+        validationErrors.slice(0, -1).join(', ') +
+        ' และ ' +
+        validationErrors[validationErrors.length - 1];
+      return toast.error(errorMessage);
+    }
+    if (validationErrors.length === 1) {
+      const errorMessage = validationErrors[0];
+      return toast.error(errorMessage);
+    }
+
+    const patientId = selectedPatientId;
+
+    const caseId = caseData?.id;
+
     try {
-      e.preventDefault();
       startLoading();
-      const errors = validate.caseVlidationErrors(input);
-      if (errors.length) {
-        const errorMessage = errors.join('; ');
-        return toast.error(errorMessage);
-      }
-
-      const patientId = selectedPatientId;
-
       if (isEdit) {
-        const caseId = caseData.id;
         await onSubmit(patientId, caseId, input);
         toast.success('แก้ไขข้อมูลสำเร็จ');
       } else {
-        onSubmit(patientId, input);
+        await onSubmit(patientId, input);
         toast.success('สร้างการตรวจรักษาสำเร็จ');
         clearInputFields();
       }
@@ -65,45 +75,41 @@ function CaseForm({ onSubmit, selectedPatientId, isEdit, caseData }) {
       <div className="row g-2">
         <div className="col-12">
           <div className="form-floating">
-            <textarea
+            <input
               className="form-control"
               id="textarea1"
               // rows="2"
-              style={{ height: '60px' }}
+              // style={{ height: '60px' }}
               name="chiefComplain"
               value={input.chiefComplain}
               onChange={handleChangeInput}
-            ></textarea>
+            />
             <label htmlFor="textarea1">อาการเจ็บป่วยที่มาพบแพทย์</label>
           </div>
         </div>
         <div className="col-12">
-          <div className="form-floating">
-            <textarea
-              className="form-control"
-              id="textarea2"
-              // rows="3"
-              style={{ height: '80px' }}
-              name="presentIllness"
-              value={input.presentIllness}
-              onChange={handleChangeInput}
-            ></textarea>
-            <label htmlFor="textarea2">ประวัติการเจ็บป่วยในปัจจุบัน</label>
-          </div>
+          <label htmlFor="textarea2">ประวัติการเจ็บป่วยในปัจจุบัน</label>
+          <textarea
+            className="form-control"
+            id="textarea2"
+            rows="3"
+            // style={{ height: '80px' }}
+            name="presentIllness"
+            value={input.presentIllness}
+            onChange={handleChangeInput}
+          ></textarea>
         </div>
         <div className="col-12">
-          <div className="form-floating">
-            <textarea
-              className="form-control"
-              id="textarea3"
-              // rows="3"
-              style={{ height: '80px' }}
-              name="pastHistory"
-              value={input.pastHistory}
-              onChange={handleChangeInput}
-            ></textarea>
-            <label htmlFor="textarea3">ประวัติย้อนหลัง</label>
-          </div>
+          <label htmlFor="textarea3">ประวัติย้อนหลัง</label>
+          <textarea
+            className="form-control"
+            id="textarea3"
+            rows="3"
+            // style={{ height: '80px' }}
+            name="pastHistory"
+            value={input.pastHistory}
+            onChange={handleChangeInput}
+          ></textarea>
         </div>
       </div>
       <div className="row gx-3 mt-3 align-items-center">
@@ -118,7 +124,7 @@ function CaseForm({ onSubmit, selectedPatientId, isEdit, caseData }) {
             type="text"
             id="height"
             // style={{ height: '100px' }}
-            placeholder="000.00"
+            placeholder="000.0"
             name="height"
             value={input.height}
             onChange={handleChangeInput}
@@ -140,7 +146,7 @@ function CaseForm({ onSubmit, selectedPatientId, isEdit, caseData }) {
           <input
             type="text"
             className="form-control p-1 text-end"
-            placeholder="00.00"
+            placeholder="000.0"
             id="weight"
             name="weight"
             value={input.weight}
@@ -149,7 +155,7 @@ function CaseForm({ onSubmit, selectedPatientId, isEdit, caseData }) {
         </div>
         <div className="col-2">
           <span id="weight" className="form-text">
-            cm.
+            kg.
           </span>
         </div>
       </div>
@@ -163,7 +169,7 @@ function CaseForm({ onSubmit, selectedPatientId, isEdit, caseData }) {
           <input
             type="text"
             className="form-control p-1 text-end"
-            placeholder="00.00"
+            placeholder="00.0"
             id="temperature"
             name="temperature"
             value={input.temperature}
@@ -172,7 +178,7 @@ function CaseForm({ onSubmit, selectedPatientId, isEdit, caseData }) {
         </div>
         <div className="col-2">
           <span id="temperature" className="form-text">
-            cm.
+            °C
           </span>
         </div>
       </div>
@@ -186,7 +192,7 @@ function CaseForm({ onSubmit, selectedPatientId, isEdit, caseData }) {
           <input
             type="text"
             className="form-control p-1 text-end"
-            placeholder="00"
+            placeholder="000"
             id="bloodOxygen"
             name="bloodOxygen"
             value={input.bloodOxygen}
@@ -261,8 +267,7 @@ function CaseForm({ onSubmit, selectedPatientId, isEdit, caseData }) {
 
 export default CaseForm;
 
-{
-  /* <div className="col-3">
+/* <div className="col-3">
           <label htmlFor="weight">น้ำหนัก</label>
           <input
             type="text"
@@ -333,4 +338,3 @@ export default CaseForm;
           <p className="pt-2 mb-2">mm Hg.</p>
         </div>
       </div> */
-}

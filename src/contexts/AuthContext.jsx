@@ -16,22 +16,15 @@ function AuthContextProvider({ children }) {
   const [staff, setStaff] = useState(null);
   const [initialLoading, setInitialLoading] = useState(true);
 
-  const location = useLocation();
-  const currentPath = location.pathname;
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    // console.log('useEffect in AuthContext fetchMe');
     const fetchMe = async () => {
       try {
         if (getAccessToken()) {
-          if (currentPath.startsWith('/patient')) {
-            await getMe();
-          }
-          if (currentPath.startsWith('/staff')) {
-            // console.log(
-            //   'getAccessToken in useEffect FetchMe : ',
-            //   getAccessToken()
-            // );
+          if (pathname.startsWith('/patient')) {
+            await getPatientMe();
+          } else {
             await getStaffMe();
           }
         }
@@ -42,15 +35,15 @@ function AuthContextProvider({ children }) {
       }
     };
     fetchMe();
-  }, [currentPath]);
+  }, [pathname]);
 
   const updateStaff = async (input) => {
     const res = await staffService.updateStaff(input);
     setStaff(res.data.staff);
   };
 
-  const getMe = async () => {
-    const res = await authService.getMe();
+  const getPatientMe = async () => {
+    const res = await authService.getPatientMe();
     setPatient(res.data.patient);
   };
 
@@ -62,7 +55,7 @@ function AuthContextProvider({ children }) {
   const patientLogin = async (input) => {
     const res = await authService.patientLogin(input);
     addAccessToken(res.data.token);
-    await getMe();
+    await getPatientMe();
     // setPatient(true);
   };
 
@@ -77,7 +70,7 @@ function AuthContextProvider({ children }) {
     // axios.post('/auth/register')
     const res = await authService.patientRegister(input);
     addAccessToken(res.data.token); // เพราะเป็น res ที่ส่งมาจาก api, token อาจจะหมดอายุ แต่เรา login อยู่
-    setTimeout(() => getMe(), 1); // setTimeout เพราะ modal ออกจาก dom
+    setTimeout(() => getPatientMe(), 1); // setTimeout เพราะ modal ออกจาก dom ไม่ใช้ await เพราะมี fn เดียว
 
     // setTimeout(() => setPatient(true), 0); // ให้ onSuccess ทำงานก่อน
     // setPatient(true); // setPatient({id, idCard, profileImage})
@@ -87,7 +80,8 @@ function AuthContextProvider({ children }) {
   const staffRegister = async (input) => {
     const res = await authService.staffRegister(input);
     addAccessToken(res.data.token);
-    setTimeout(() => getStaffMe(), 1); // setTimeout เพราะ modal ออกจาก dom
+    getStaffMe();
+    // setTimeout(() => getStaffMe(), 1); // setTimeout เพราะ modal ออกจาก dom
     // setTimeout(() => setStaff(true), 0);
   };
 
@@ -98,9 +92,8 @@ function AuthContextProvider({ children }) {
   };
 
   const staffLogout = () => {
-    setStaff(null);
     setPatient(null);
-    // setPatients([]);
+    setStaff(null);
     removeAccessToken();
   };
 

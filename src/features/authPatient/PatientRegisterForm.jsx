@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { validateFields } from '../../validations/userValidate';
+// import { validateFields } from '../../validations/userRegisterValidate';
+import * as validateService from '../../validations/userRegisterValidate';
 import { useAuth } from '../../contexts/AuthContext';
 import { useLoading } from '../../contexts/LoadingContext';
 
@@ -10,7 +11,7 @@ function PatientRegisterForm({ onSuccess }) {
   const { startLoading, stopLoading } = useLoading();
 
   const [input, setInput] = useState({
-    titleName: 'นาย',
+    titleName: '',
     firstName: '',
     lastName: '',
     idCard: '',
@@ -33,15 +34,21 @@ function PatientRegisterForm({ onSuccess }) {
   const handleSubmitForm = async (e) => {
     e.preventDefault(); // หยุด default action
 
-    const validationErrors = validateFields(input, 'patient');
+    // const validationErrors = validateFields(input, 'patient');
+    const validationErrors = validateService.validatePatientRegister(input);
 
-    if (validationErrors.length) {
-      // validationErrors.forEach((error) => {
-      //   toast.error(error);
-      // });
-      const errorMessage = validationErrors.join('; ');
+    if (validationErrors.length > 1) {
+      const errorMessage =
+        validationErrors.slice(0, -1).join(', ') +
+        ' และ ' +
+        validationErrors[validationErrors.length - 1];
       return toast.error(errorMessage);
     }
+    if (validationErrors.length === 1) {
+      const errorMessage = validationErrors[0];
+      return toast.error(errorMessage);
+    }
+
     try {
       startLoading();
       // สร้าง state ในการ login
@@ -59,100 +66,136 @@ function PatientRegisterForm({ onSuccess }) {
   return (
     <form className="row g-2" onSubmit={handleSubmitForm}>
       <div className="col-12">
-        <select
-          className="form-select"
-          name="titleName"
-          value={input.titleName}
-          onChange={handleChangeInput}
-          // setInput({ ...input, titleName: e.target.value })
-        >
-          <option value="นาย">นาย</option>
-          <option value="น.ส.">น.ส.</option>
-          <option value="นาง">นาง</option>
-          <option value="ด.ช.">ด.ช.</option>
-          <option value="ด.ญ.">ด.ญ.</option>
-        </select>
+        <div className="form-floating">
+          <select
+            className="form-select"
+            name="titleName"
+            value={input.titleName}
+            onChange={handleChangeInput}
+            id="titleNameSelect"
+            // setInput({ ...input, titleName: e.target.value })
+          >
+            <option value="">เลือกคำนำหน้าชื่อ</option>
+            <option value="นาย">นาย</option>
+            <option value="น.ส.">น.ส.</option>
+            <option value="นาง">นาง</option>
+            <option value="ด.ช.">ด.ช.</option>
+            <option value="ด.ญ.">ด.ญ.</option>
+          </select>
+          <label htmlFor="titleNameSelect">คำนำหน้าชื่อ</label>
+        </div>
       </div>
       <div className="col-6">
-        <input
-          type="text"
-          className="form-control"
-          name="firstName"
-          placeholder="ชื่อ"
-          value={input.firstName}
-          onChange={handleChangeInput}
-        />
+        <div className="form-floating">
+          <input
+            type="text"
+            className="form-control"
+            name="firstName"
+            placeholder="ชื่อ"
+            value={input.firstName}
+            onChange={handleChangeInput}
+            id="firstNameInput"
+          />
+          <label htmlFor="firstNameInput">ชื่อจริง</label>
+        </div>
       </div>
       <div className="col-6">
-        <input
-          type="text"
-          className="form-control"
-          name="lastName"
-          placeholder="นามสกุล"
-          value={input.lastName}
-          onChange={handleChangeInput}
-        />
-      </div>
-
-      <div className="col-12">
-        <input
-          type="text"
-          className="form-control"
-          name="idCard"
-          placeholder="เลขบัตรประชาชน 13 หลัก"
-          value={input.idCard}
-          onChange={handleChangeInput}
-        />
+        <div className="form-floating">
+          <input
+            type="text"
+            className="form-control"
+            name="lastName"
+            placeholder="นามสกุล"
+            value={input.lastName}
+            onChange={handleChangeInput}
+            id="lastNameInput"
+          />
+          <label htmlFor="lastNameInput">นามสกุลจริง</label>
+        </div>
       </div>
       <div className="col-12">
-        <input
-          type="date"
-          className="form-control"
-          name="dateOfBirth"
-          placeholder="วันเกิด"
-          value={input.dateOfBirth}
-          onChange={handleChangeInput}
-        />
+        <div className="form-floating">
+          <input
+            type="text"
+            className="form-control"
+            name="idCard"
+            placeholder="เลขบัตรประชาชน 13 หลัก"
+            value={input.idCard}
+            onChange={handleChangeInput}
+            id="idCardInput"
+          />
+          <label htmlFor="idCardInput">เลขบัตรประชาชน 13 หลัก</label>
+        </div>
       </div>
       <div className="col-12">
-        <input
-          type="text"
-          className="form-control"
-          name="mobile"
-          placeholder="เบอร์โทรศัพท์มือถือ 10 หลัก"
-          value={input.mobile}
-          onChange={handleChangeInput}
-        />
+        <div className="form-floating">
+          <input
+            type="date"
+            className="form-control"
+            name="dateOfBirth"
+            placeholder="วันเกิด"
+            value={input.dateOfBirth}
+            onChange={handleChangeInput}
+            id="dateofBirthInput"
+          />
+          <label htmlFor="dateofBirthInput">วันเดือนปีเกิด</label>
+        </div>
       </div>
       <div className="col-12">
-        <input
-          type="text"
-          className="form-control"
-          name="idLine"
-          placeholder="ID Line"
-          value={input.idLine}
-          onChange={handleChangeInput}
-        />
+        <div className="form-floating">
+          <input
+            type="text"
+            className="form-control"
+            name="mobile"
+            placeholder="เบอร์โทรศัพท์มือถือ 10 หลัก"
+            value={input.mobile}
+            onChange={handleChangeInput}
+            id="mobileInput"
+          />
+          <label htmlFor="mobileInput">เบอร์โทรศัพท์มือถือ 10 หลัก</label>
+        </div>
       </div>
       <div className="col-12">
-        <input
-          type="password"
-          className="form-control"
-          name="password"
-          placeholder="กำหนดรหัสผ่านใหม่"
-          value={input.password}
-          onChange={handleChangeInput}
-        />
+        <div className="form-floating">
+          <input
+            type="text"
+            className="form-control"
+            name="idLine"
+            placeholder="ID Line"
+            value={input.idLine}
+            onChange={handleChangeInput}
+            id="idLineInput"
+          />
+          <label htmlFor="idLineInput">ID LINE</label>
+        </div>
       </div>
       <div className="col-12">
-        <input
-          type="password"
-          className="form-control"
-          name="confirmPassword"
-          placeholder="ยืนยันรหัสผ่าน"
-          value={input.confirmPassword}
-          onChange={handleChangeInput}
-        />
+        <div className="form-floating">
+          <input
+            type="password"
+            className="form-control"
+            name="password"
+            placeholder="กำหนดรหัสผ่านใหม่"
+            value={input.password}
+            onChange={handleChangeInput}
+            id="passwordInput"
+          />
+          <label htmlFor="passwordInput">กำหนดรหัสผ่านใหม่</label>
+        </div>
+      </div>
+      <div className="col-12">
+        <div className="form-floating">
+          <input
+            type="password"
+            className="form-control"
+            name="confirmPassword"
+            placeholder="ยืนยันรหัสผ่าน"
+            value={input.confirmPassword}
+            onChange={handleChangeInput}
+            id="confirmPasswordInput"
+          />
+          <label htmlFor="confirmPasswordInput">ยืนยันรหัสผ่าน</label>
+        </div>
       </div>
       <div className="col-12">
         <p className="text-muted text-start">

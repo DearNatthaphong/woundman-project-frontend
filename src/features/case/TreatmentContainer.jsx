@@ -5,10 +5,12 @@ import TreatmentList from './TreatmentList';
 // import { useLoading } from '../../contexts/LoadingContext';
 import * as caseService from '../../api/caseApi';
 import TreatmentToggleCreate from './TreatmentToggleCreate';
+import Spinner from '../../components/ui/Spinner';
 
 function TreatmentContainer({ caseId }) {
   const [treatments, setTreatments] = useState([]);
   // const { startLoading, stopLoading } = useLoading();
+  const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
     const fetchTreatment = async () => {
@@ -20,6 +22,7 @@ function TreatmentContainer({ caseId }) {
         console.log(err);
       } finally {
         // stopLoading();
+        setInitialLoading(false);
       }
     };
 
@@ -52,6 +55,8 @@ function TreatmentContainer({ caseId }) {
       setTreatments(newTreatments);
     }, 100);
   };
+
+  if (initialLoading) return <Spinner />;
 
   return (
     <>

@@ -39,19 +39,22 @@ function PaymentForm({ items, onSubmit, caseId, isEdit, payment }) {
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const isNumber = validator.isNumeric(input.amount.toString());
+
+    if (!input.amount || !isNumber || !input.title || !input.title.trim()) {
+      return toast.error('ข้อมูลไม่ครบหรือข้อมูลไม่ถูกต้อง');
+    }
+
+    const title = input.title;
+    const amount = input.amount;
+    const paymentId = payment?.id;
+
     try {
-      e.preventDefault();
       startLoading();
-      const isNumber = validator.isNumeric(input.amount.toString());
 
-      if (!input.amount || !isNumber || !input.title || !input.title.trim()) {
-        return toast.error('ข้อมูลไม่ครบหรือข้อมูลไม่ถูกต้อง');
-      }
-
-      const title = input.title;
-      const amount = input.amount;
       if (isEdit) {
-        const paymentId = payment.id;
         await onSubmit(caseId, paymentId, title, amount);
         toast.success('แก้ไขการจ่ายสำเร็จ');
       } else {
@@ -69,21 +72,25 @@ function PaymentForm({ items, onSubmit, caseId, isEdit, payment }) {
 
   return (
     <div className="card p-2">
-      <div className="row g-2">
+      <div className="row g-2 align-items-center">
         <div className="col-12 col-sm-6">
-          <select
-            className="form-select form-select-md"
-            name="title"
-            value={input.title}
-            onChange={handleChangeInput}
-          >
-            <option value="">เลือกรายการ</option>
-            {items?.map((item) => (
-              <ServiceOption key={item.id} item={item} />
-            ))}
-          </select>
+          <div className="form-floating">
+            <select
+              className="form-select form-select-md"
+              name="title"
+              value={input.title}
+              onChange={handleChangeInput}
+            >
+              <option value="">เลือกรายการ</option>
+              {items?.map((item) => (
+                <ServiceOption key={item.id} item={item} />
+              ))}
+            </select>
+            <label htmlFor="titleSelect">รายการ</label>
+          </div>
         </div>
         <div className="col-5 col-sm-3 text-start text-center-sm align-self-center">
+          {/* <label htmlFor="amountInput">จำนวน</label> */}
           <div className="input-group max-w-140">
             <button
               className="btn btn-outline-secondary btn-sm"
@@ -98,6 +105,7 @@ function PaymentForm({ items, onSubmit, caseId, isEdit, payment }) {
               name="amount"
               value={input.amount}
               onChange={handleChangeInput}
+              id="amountInput"
             />
             <button
               className="btn btn-outline-secondary btn-sm"

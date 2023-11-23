@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import * as caseService from '../../api/caseApi';
 // import AppointmentCreate from './AppointmentCreate';
-import Appointment from './Appointment';
+// import Appointment from './Appointment';
 import AppointmentToggleCreate from './AppointmentToggleCreate';
 import AppointmentList from './AppointmentList';
+import Spinner from '../../components/ui/Spinner';
 
 function AppointmentContainer({ caseId }) {
   const [appointments, setAppointments] = useState([]);
   // const { startLoading, stopLoading } = useLoading();
+  const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
     const fetchAppointment = async () => {
@@ -19,6 +21,7 @@ function AppointmentContainer({ caseId }) {
         console.log(err);
       } finally {
         // stopLoading();
+        setInitialLoading(false);
       }
     };
 
@@ -54,6 +57,8 @@ function AppointmentContainer({ caseId }) {
     }, 100);
   };
 
+  if (initialLoading) return <Spinner />;
+
   return (
     <>
       <div className="card">
@@ -76,37 +81,26 @@ function AppointmentContainer({ caseId }) {
 }
 
 export default AppointmentContainer;
-{
-  /* <Appointment
+
+/* <Appointment
   caseId={caseId}
   appointment={appointment}
   updateAppointment={updateAppointment}
   deleteAppointment={deleteAppointment}
 /> */
-}
 
-{
-  /* <ul className="list-group"> */
-}
-{
-  /* {appointment !== null ? ( */
-}
-{
-  /* <Appointment
+/* <ul className="list-group"> */
+/* {appointment !== null ? ( */
+/* <Appointment
     appointment={appointment}
     caseId={caseId}
     updateAppointment={updateAppointment}
     deleteAppointment={deleteAppointment}
   /> */
-}
-{
-  /* ) : (
+/* ) : (
     <AppointmentCreate
       caseId={caseId}
       createAppointment={createAppointment}
     />
   )} */
-}
-{
-  /* </ul> */
-}
+/* </ul> */

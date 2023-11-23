@@ -124,22 +124,24 @@ $zindex-toast: 1090;
   background-color: var(--bs-backdrop-bg);
 }
 
-.modal-dialog {
-  z-index: $zindex-modal + 1 !important;
-}
+// .modal-dialog {
+//   z-index: $zindex-modal + 1 !important;
+// }
 
 .modal-dialog {
-  z-index: $zindex-modal + 2 !important; // Increase the z-index of the modal dialog to make sure it's above other elements
+  z-index: $zindex-modal + 2 !important;
+  // Increase the z-index of the modal dialog to make sure it's above other elements
 }
 
 .dropdown-menu .dropdown-item .d-block {
-  z-index: $zindex-dropdown; /* Set the z-index to the variable for dropdown menu */
+  z-index: $zindex-dropdown;
+  /* Set the z-index to the variable for dropdown menu */
 }
 
 // You can use the other z-index variables similarly in your styles
 
-.row {
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
+// .row {
+//   &::-webkit-scrollbar {
+//     display: none;
+//   }
+// }

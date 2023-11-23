@@ -8,11 +8,13 @@ function TreatmentDeleteForm({ caseId, treatment, onClose, onSubmit }) {
   const treatmentId = treatment.id;
 
   const handleSubmitForm = async (e) => {
+    e.preventDefault();
+
     try {
-      e.preventDefault();
       startLoading();
       await onSubmit(caseId, treatmentId);
       toast.success('ลบข้อมูลการรักษาสำเร็จ');
+      onClose();
     } catch (err) {
       console.log(err);
       toast.error('ลบข้อมูลการตรวจรักษาไม่สำเร็จ');

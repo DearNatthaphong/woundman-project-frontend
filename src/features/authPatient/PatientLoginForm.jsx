@@ -18,7 +18,7 @@ function PatientLoginForm() {
   const handleSubmitForm = async (e) => {
     e.preventDefault(); // หยุด default action
 
-    // ไม่ validate
+    // ไม่ validate ให้ valid จาก backend
 
     try {
       startLoading();
@@ -26,8 +26,10 @@ function PatientLoginForm() {
       await patientLogin(input);
       toast.success('เข้าสู่ระบบสำเร็จ');
     } catch (err) {
-      toast.error('เข้าสู่ระบบไม่สำเร็จ');
-      toast.error(err.response.data.message);
+      toast.error(
+        'เข้าสู่ระบบไม่สำเร็จ  เนื่องจาก ' + err.response.data.message
+      );
+      // toast.error(err.response.data.message);
     } finally {
       stopLoading();
     }

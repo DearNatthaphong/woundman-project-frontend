@@ -5,6 +5,7 @@ import StaffRegisterForm from './StaffRegisterForm';
 
 function StaffAuthForm() {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <main className="form-signin bg-white border shadow p-3 rounded-4  max-w-362">
       <StaffLoginForm />
@@ -19,7 +20,11 @@ function StaffAuthForm() {
         >
           ลงทะเบียน
         </button>
-        <Modal title="Test" open={isOpen} onClose={() => setIsOpen(false)}>
+        <Modal
+          title="ลงทะเบียนพนักงาน"
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+        >
           <StaffRegisterForm onSuccess={() => setIsOpen(false)} />
         </Modal>
       </div>

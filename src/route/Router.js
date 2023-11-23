@@ -7,45 +7,37 @@ import PaymentPage from '../pages/PaymentPage';
 import AuthLayout from '../layouts/auth/AuthLayout';
 import ProfilePage from '../pages/ProfilePage';
 import PatientPage from '../pages/PatientPage';
-import PatientDetailPage from '../pages/PatientDetailPage';
 import CasePage from '../pages/CasePage';
 import CaseDetailPage from '../pages/CaseDetailPage';
 import TreatmentPage from '../pages/TreatmentPage';
-import TreatmentDetailPage from '../pages/TreatmentDetailPage';
-import AppointmentPatientPage from '../pages/AppointmentPatientPage';
-import AppointmentStaffPage from '../pages/AppointmentStaffPage';
+import AppointmentPage from '../pages/AppointmentPage';
 import PaymentDetailPage from '../pages/PaymentDetailPage';
-import ReceiptStaffPage from '../pages/ReceiptStaffPage';
-import ReceiptPatientPage from '../pages/ReceiptPatientPage';
+import ReceiptPage from '../pages/ReceiptPage';
 
 function Router() {
   const { patient, staff } = useAuth();
+
   return (
     <Routes>
       {patient ? (
         <Route path="/patient" element={<AuthLayout />}>
-          <Route path="/patient" element={<AppointmentPatientPage />} />
+          <Route path="/patient" element={<AppointmentPage />} />
           <Route path="/patient/profile" element={<ProfilePage />} />
           <Route path="/patient/treatments" element={<TreatmentPage />} />
-          <Route
-            path="/patient/treatments/:id"
-            element={<TreatmentDetailPage />}
-          />
-          <Route path="/patient/receipts" element={<ReceiptPatientPage />} />
-          <Route path="*" element={<Navigate to="/patient/home" />} />
+          <Route path="/patient/receipts" element={<ReceiptPage />} />
+          <Route path="*" element={<Navigate to="/patient" />} />
         </Route>
       ) : (
         <>
           <Route path="/patient" element={<PatientLoginPage />} />
-          <Route path="*" element={<Navigate to="/patient" />} />
+          <Route path="/patient/*" element={<Navigate to="/patient" />} />
         </>
       )}
       {staff ? (
         <Route path="/staff" element={<AuthLayout />}>
-          <Route path="/staff" element={<AppointmentStaffPage />} />
+          <Route path="/staff" element={<AppointmentPage />} />
           <Route path="/staff/profile" element={<ProfilePage />} />
           <Route path="/staff/patients" element={<PatientPage />} />
-          {/* <Route path="/staff/patients/:id" element={<PatientDetailPage />} /> */}
           <Route path="/staff/patients/:id" element={<ProfilePage />} />
           <Route path="/staff/cases" element={<CasePage />} />
           <Route path="/staff/cases/:id" element={<CaseDetailPage />} />
@@ -54,15 +46,16 @@ function Router() {
             path="/staff/payments/cases/:id"
             element={<PaymentDetailPage />}
           />
-          <Route path="/staff/receipts" element={<ReceiptStaffPage />} />
-          <Route path="*" element={<Navigate to="/staff/home" />} />
+          <Route path="/staff/receipts" element={<ReceiptPage />} />
+          <Route path="*" element={<Navigate to="/staff" />} />
         </Route>
       ) : (
         <>
           <Route path="/staff" element={<StaffLoginPage />} />
-          <Route path="*" element={<Navigate to="/staff" />} />
+          <Route path="/staff/*" element={<Navigate to="/staff" />} />
         </>
       )}
+      <Route path="*" element={<Navigate to="/patient" />} />
     </Routes>
   );
 }

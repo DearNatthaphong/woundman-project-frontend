@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import * as dateService from '../../utils/dateFormat';
 import Modal from '../../components/ui/Modal';
+import CreatedBy from '../../components/ui/CreatedBy';
 
 function Treatment({
-  treatment: { id, position, diagnosis, treatment, createdAt, image }
+  treatment: { position, diagnosis, treatment, createdAt, image, Staff }
 }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="col d-flex justify-content-center">
       <div className="card" style={{ width: '350px' }}>
-        <div className="card-body py-2">
+        <div className="card-body py-2 mx-2">
           <div className="row">
             <div className="col-auto px-0">
               <span className="m-0">ตำแหน่งแผล :</span>
@@ -36,6 +37,17 @@ function Treatment({
             </div>
           </div>
         </div>
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item py-1">
+            <CreatedBy
+              titleName={Staff?.titleName}
+              firstName={Staff?.firstName}
+              lastName={Staff?.lastName}
+              role={Staff?.role}
+            />
+          </li>
+        </ul>
+
         <div className="card-footer">
           <div className="row align-items-center">
             <div className="col-auto">{dateService.timeSince(createdAt)}</div>
@@ -52,7 +64,7 @@ function Treatment({
                 open={isOpen}
                 onClose={() => setIsOpen(false)}
               >
-                <img src={image} class="img-fluid" alt="treatment" />
+                <img src={image} className="img-fluid" alt="treatment" />
               </Modal>
             </div>
           </div>

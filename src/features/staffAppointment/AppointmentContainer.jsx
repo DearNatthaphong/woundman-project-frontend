@@ -4,29 +4,36 @@ import AppointmentFilter from './AppointmentFilter';
 import AppointmentList from './AppointmentList';
 import * as appointmentService from '../../api/appointmentApi';
 import { useLoading } from '../../contexts/LoadingContext';
+import Spinner from '../../components/ui/Spinner';
+import { useAuth } from '../../contexts/AuthContext';
 
 function AppointmentContainer() {
   const [appointments, setAppointments] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [status, setStatus] = useState('');
   const { startLoading, stopLoading } = useLoading();
+  const [initialLoading, setInitialLoading] = useState(true);
+  const { staff } = useAuth();
 
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
         // startLoading();
-        const res = await appointmentService.getAppointments();
+        if (staff) {
+          const res = await appointmentService.getAppointments();
+          setAppointments(res.data.appointments);
+        }
         // console.log('res.data : ', res.data);
-        setAppointments(res.data.appointments);
       } catch (err) {
         console.log(err);
       } finally {
         // stopLoading();
+        setInitialLoading(false);
       }
     };
 
     fetchAppointments();
-  }, []);
+  }, [staff]);
 
   const handleSearch = async () => {
     try {
@@ -79,36 +86,43 @@ function AppointmentContainer() {
   //     console.log(err);
   //   }
   // };
+  if (initialLoading) return <Spinner />;
 
   return (
     <div className="container-fluid">
-      <div className="row g-2 mt-1 justify-content-center">
-        <div className="col-12 col-sm-6">
-          <AppointmentSearch
-            handleSearch={handleSearch}
-            searchTerm={searchTerm}
-            handleSearchTerm={(newSearchTerm) => setSearchTerm(newSearchTerm)}
-          />
-        </div>
-        <div className="col-12 col-sm-6">
-          <AppointmentFilter
-            handleFilter={handleFilter}
-            status={status}
-            handleStatus={(newStatus) => setStatus(newStatus)}
-          />
-        </div>
-      </div>
-      {appointments.length > 0 ? (
-        <AppointmentList appointments={appointments} />
-      ) : (
-        <div className="card mt-3">
-          <div className="card-body">
-            <p className="m-0">
-              <i className="fa-solid fa-magnifying-glass pe-3" />
-              ไม่พบข้อมูล
-            </p>
+      {staff && (
+        <>
+          <div className="row g-2 mt-1 justify-content-center">
+            <div className="col-12 col-sm-6">
+              <AppointmentSearch
+                handleSearch={handleSearch}
+                searchTerm={searchTerm}
+                handleSearchTerm={(newSearchTerm) =>
+                  setSearchTerm(newSearchTerm)
+                }
+              />
+            </div>
+            <div className="col-12 col-sm-6">
+              <AppointmentFilter
+                handleFilter={handleFilter}
+                status={status}
+                handleStatus={(newStatus) => setStatus(newStatus)}
+              />
+            </div>
           </div>
-        </div>
+          {appointments.length ? (
+            <AppointmentList appointments={appointments} />
+          ) : (
+            <div className="card mt-3">
+              <div className="card-body">
+                <p className="m-0">
+                  <i className="fa-solid fa-magnifying-glass pe-3" />
+                  ไม่พบข้อมูล
+                </p>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

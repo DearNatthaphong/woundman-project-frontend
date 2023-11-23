@@ -5,10 +5,14 @@ import TreatmentForm from './TreatmentForm';
 function TreatmentToggleCreate({ caseId, createTreatment }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const onSubmit = async (caseId, input) => {
-    await createTreatment(caseId, input);
-    setIsOpen(false);
-  };
+  // const onSubmit = async (caseId, input) => {
+  //   await createTreatment(caseId, input);
+  //   setIsOpen(false);
+  // };
+
+  // const onSuccess = () => {
+  //   setIsOpen(false);
+  // };
 
   return (
     <div className="card mt-3 mb-2">
@@ -31,7 +35,11 @@ function TreatmentToggleCreate({ caseId, createTreatment }) {
               open={isOpen}
               onClose={() => setIsOpen(false)}
             >
-              <TreatmentForm caseId={caseId} onSubmit={onSubmit} />
+              <TreatmentForm
+                caseId={caseId}
+                onSubmit={createTreatment}
+                onClose={() => setIsOpen(false)}
+              />
               {/* <TreatmentCreateForm onSubmit={saveTreatment} caseId={caseId} /> */}
             </Modal>
           </div>

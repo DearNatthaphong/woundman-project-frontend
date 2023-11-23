@@ -6,12 +6,16 @@ import { ToastContainer } from 'react-toastify';
 function App() {
   const { loading } = useLoading();
 
+  // if (loading) {
+  //   return <Spinner/>
+  // }
+
   return (
     <div className="App">
       {loading && <Spinner />}
       <Router />
       <ToastContainer
-        autoClose={20000}
+        autoClose={6000}
         theme="colored"
         position="bottom-center"
       />

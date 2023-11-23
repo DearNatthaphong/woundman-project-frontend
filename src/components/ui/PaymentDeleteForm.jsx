@@ -5,11 +5,12 @@ import { useLoading } from '../../contexts/LoadingContext';
 function PaymentDeleteForm({ caseId, onClose, onSubmit, payment }) {
   const { startLoading, stopLoading } = useLoading();
 
-  const paymentId = payment.id;
-
   const handleSubmitForm = async (e) => {
+    e.preventDefault();
+
+    const paymentId = payment?.id;
+
     try {
-      e.preventDefault();
       startLoading();
       await onSubmit(caseId, paymentId);
       toast.success('ลบข้อมูลการจ่ายเงินสำเร็จ');

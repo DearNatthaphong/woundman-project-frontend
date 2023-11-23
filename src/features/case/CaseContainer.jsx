@@ -3,12 +3,14 @@ import CaseSearch from './CaseSearch';
 import CaseList from './CaseList';
 import * as caseService from '../../api/caseApi';
 import CaseFilter from './CaseFilter';
+import Spinner from '../../components/ui/Spinner';
 
 function CaseContainer() {
   const [casesData, setCasesData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showCasesWithoutTreatment, setShowCasesWithoutTreatment] =
     useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
     const fetchCases = async () => {
@@ -26,6 +28,7 @@ function CaseContainer() {
         console.log(err);
       } finally {
         // stopLoading();
+        setInitialLoading(false);
       }
     };
 
@@ -45,9 +48,8 @@ function CaseContainer() {
     }
   };
 
-  useEffect(() => {
-    console.log('casesData', casesData);
-  }, []);
+  if (initialLoading) return <Spinner />;
+
   return (
     <div className="container-fluid mt-2">
       <div className="row justify-content-center">

@@ -55,9 +55,11 @@ function AppointmentHeader({
             >
               <li>
                 <button
-                  onClick={(e) => {
+                  onClick={() => {
                     // e.stopPropagation();
                     // setIsOpenDropdown(false);
+                    // setTimeout(() => setIsOpenDropdown(false), 0);
+                    // setTimeout(()=> setIsOpenEditModal(true), 0 ) ;
                     setIsOpenEditModal(true);
                   }}
                   className="dropdown-item"

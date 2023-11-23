@@ -5,9 +5,12 @@ import validator from 'validator';
 import AddPhotoButton from '../case/AddPhotoButton';
 import Avatar from '../../components/ui/Avatar';
 import { useLoading } from '../../contexts/LoadingContext';
+import * as validateService from '../../validations/userEditValidate';
 
 function PatientEditForm({ onSubmit, selectedPatient, selectedPatientId }) {
   const { startLoading, stopLoading } = useLoading();
+
+  // console.log('selectedPatient :', selectedPatient);
 
   let initialState = {
     titleName: '',
@@ -20,7 +23,10 @@ function PatientEditForm({ onSubmit, selectedPatient, selectedPatientId }) {
     profileImage: null
   };
 
-  const [input, setInput] = useState({ ...initialState, ...selectedPatient });
+  const [input, setInput] = useState({
+    ...initialState,
+    ...(selectedPatient || {})
+  });
 
   const [file, setFile] = useState(null);
 
@@ -31,77 +37,54 @@ function PatientEditForm({ onSubmit, selectedPatient, selectedPatientId }) {
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const validationErrors = validateService.validatePatientEdit(input);
+    if (validationErrors.length > 1) {
+      const errorMessage =
+        validationErrors.slice(0, -1).join(', ') +
+        ' และ ' +
+        validationErrors[validationErrors.length - 1];
+      return toast.error(errorMessage);
+    }
+    if (validationErrors.length === 1) {
+      const errorMessage = validationErrors[0];
+      return toast.error(errorMessage);
+    }
+
+    const formData = new FormData();
+
+    if (input.titleName) {
+      formData.append('titleName', input.titleName);
+    }
+    if (input.firstName && input.firstName.trim()) {
+      formData.append('firstName', input.firstName);
+    }
+    if (input.lastName && input.lastName.trim()) {
+      formData.append('lastName', input.lastName);
+    }
+    if (input.idCard) {
+      formData.append('idCard', input.idCard);
+    }
+    if (input.dateOfBirth) {
+      formData.append('dateOfBirth', input.dateOfBirth);
+    }
+    const isMobile = validator.isMobilePhone(input.mobile + '', 'th-TH');
+    if (input.mobile && isMobile) {
+      formData.append('mobile', input.mobile);
+    }
+    if (input.idLine) {
+      formData.append('idLine', input.idLine);
+    }
+
+    if (file) {
+      formData.append('profileImage', file);
+    }
+
+    const patientId = selectedPatientId;
+
     try {
-      e.preventDefault();
       startLoading();
-      const formData = new FormData();
-
-      const validationErrors = (input) => {
-        const errors = [];
-        if (!input.titleName) {
-          errors.push('ต้องใส่คำนำหน้าชื่อ');
-        }
-        if (!input.firstName || !input.firstName.trim()) {
-          errors.push('ต้องใส่ชื่อจริง');
-        }
-        if (!input.lastName || !input.lastName.trim()) {
-          errors.push('ต้องใส่นามสกุลจริง');
-        }
-        if (!input.idCard) {
-          errors.push('ต้องใส่เลขบัตรประชาชน 13 หลัก');
-        }
-        const isIdCard = validator.isIdentityCard(input.idCard + '', 'TH');
-
-        if (input.idCard && !isIdCard) {
-          errors.push('เลขบัตรประชาชนไม่ถูกต้อง');
-        }
-        if (!input.dateOfBirth) {
-          errors.push('ต้องใส่วันเดือนปีเกิด');
-        }
-
-        if (!input.mobile) {
-          errors.push('ต้องใส่เบอร์มือถือ 10 หลัก');
-        }
-        const isMobile = validator.isMobilePhone(input.mobile + '', 'th-TH');
-
-        if (input.mobile && !isMobile) {
-          errors.push('เบอร์มือถือไม่ถูกต้อง');
-        }
-        return errors;
-      };
-      const errors = validationErrors(input);
-      if (errors.length) {
-        const errorMessage = errors.join('; ');
-        return toast.error(errorMessage);
-      }
-
-      if (input.titleName) {
-        formData.append('titleName', input.titleName);
-      }
-      if (input.firstName && input.firstName.trim()) {
-        formData.append('firstName', input.firstName);
-      }
-      if (input.lastName && input.lastName.trim()) {
-        formData.append('lastName', input.lastName);
-      }
-      if (input.idCard) {
-        formData.append('idCard', input.idCard);
-      }
-      if (input.dateOfBirth) {
-        formData.append('dateOfBirth', input.dateOfBirth);
-      }
-      const isMobile = validator.isMobilePhone(input.mobile + '', 'th-TH');
-      if (input.mobile && isMobile) {
-        formData.append('mobile', input.mobile);
-      }
-      if (input.idLine) {
-        formData.append('idLine', input.idLine);
-      }
-
-      if (file) {
-        formData.append('profileImage', file);
-      }
-      const patientId = selectedPatientId;
       await onSubmit(patientId, formData);
       toast.success('แก้ไขข้อมูลส่วนตัวสำเร็จ');
     } catch (err) {

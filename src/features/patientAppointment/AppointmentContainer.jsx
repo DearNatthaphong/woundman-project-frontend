@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AppointmentList from './AppointmentList';
+import PatientAppointmentList from './PatientAppointmentList';
 import * as appointmentService from '../../api/appointmentApi';
 
 function AppointmentContainer() {
@@ -21,7 +21,7 @@ function AppointmentContainer() {
 
     fetchAppointments();
   }, []);
-  return <AppointmentList appointments={appointments} />;
+  return <PatientAppointmentList appointments={appointments} />;
 }
 
 export default AppointmentContainer;

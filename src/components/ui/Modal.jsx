@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Modal as BsModal } from 'bootstrap';
 
 function Modal({ children, open, onClose, title }) {
-  const modalEl = useRef();
+  const modalEl = useRef(); // {current:  <div className="modal fade" tabIndex="-1"></div}
 
   const [modal, setModal] = useState(null);
 

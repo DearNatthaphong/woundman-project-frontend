@@ -5,7 +5,7 @@ export const patientRegister = (input) =>
   axios.post('/auth/patient/register', input);
 export const patientLogin = ({ idCard, password }) =>
   axios.post('/auth/patient/login', { idCard, password });
-export const getMe = () => axios.get('/auth/patient/me');
+export const getPatientMe = () => axios.get('/auth/patient/me');
 // axios.get('/auth/me');
 // axios.get('/auth/me', {
 //   headers: { Authorization: `Bearer ` + getAccessToken() }

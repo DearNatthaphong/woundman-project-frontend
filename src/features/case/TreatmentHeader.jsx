@@ -23,11 +23,11 @@ function TreatmentHeader({
     setIsOpenEditModal(false);
   };
 
-  const onDelete = async (caseId, treatmentId) => {
-    await deleteTreatment(caseId, treatmentId);
-    setIsOpenDropdown(false);
-    setIsOpenDeleteModal(false);
-  };
+  // const onDelete = async (caseId, treatmentId) => {
+  //   await deleteTreatment(caseId, treatmentId);
+  //   setIsOpenDropdown(false);
+  //   setIsOpenDeleteModal(false);
+  // };
 
   return (
     <div className="card-header">
@@ -100,7 +100,7 @@ function TreatmentHeader({
                   <TreatmentDeleteForm
                     treatment={treatment}
                     caseId={caseId}
-                    onSubmit={onDelete}
+                    onSubmit={deleteTreatment}
                     onClose={() => {
                       setIsOpenDeleteModal(false);
                       setIsOpenDropdown(false);

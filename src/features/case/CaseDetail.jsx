@@ -1,4 +1,5 @@
 import React from 'react';
+import CreatedBy from '../../components/ui/CreatedBy';
 // import CaseDetailEdit from './CaseDetailEdit';
 
 function CaseDetail({ caseData, setCaseData, caseId }) {
@@ -11,7 +12,8 @@ function CaseDetail({ caseData, setCaseData, caseId }) {
     temperature,
     bloodOxygen,
     systolicBloodPressure,
-    diastolicBloodPressure
+    diastolicBloodPressure,
+    Staff
   } = caseData;
   return (
     <div className="accordion accordion-flush p-0 mb-3 border" id="case">
@@ -71,7 +73,7 @@ function CaseDetail({ caseData, setCaseData, caseId }) {
                   <div className="col-auto p-0">
                     <div className="card rounded-4 p-2">
                       <p className="card-title">อุณหภูมิ</p>
-                      <p className="card-text text-center fw-bold">{`${temperature} C`}</p>
+                      <p className="card-text text-center fw-bold">{`${temperature} °C`}</p>
                     </div>
                   </div>
                   <div className="col-auto p-0">
@@ -93,6 +95,14 @@ function CaseDetail({ caseData, setCaseData, caseId }) {
                     </div>
                   </div>
                 </div>
+              </li>
+              <li className="list-group-item">
+                <CreatedBy
+                  titleName={Staff?.titleName}
+                  firstName={Staff?.firstName}
+                  lastName={Staff?.lastName}
+                  role={Staff?.role}
+                />
               </li>
             </ul>
           </div>

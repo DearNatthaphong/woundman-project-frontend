@@ -1,18 +1,20 @@
 import React from 'react';
-import Avatar from './Avatar';
+// import Avatar from './Avatar';
 import { Link } from 'react-router-dom';
 import * as dateService from '../../utils/dateFormat';
 import PatientCard from './PatientCard';
 
 function CaseCard({ isReceiptPage, isCasePage, isPaymentPage, caseData }) {
-  const { id, chiefComplain, createdAt, Patient } = caseData;
+  const { id, chiefComplain, createdAt, Patient } = caseData || {};
 
   return (
     <div className="col">
       <div className="card max-w-362">
         <PatientCard patient={Patient} />
         <div className="card mx-3 mb-2 px-2 ">
-          <p className="card-title my-auto">{`อาการ : ${chiefComplain}`}</p>
+          <p className="card-title my-auto">
+            อาการ :<span className="fw-bold ms-2">{chiefComplain}</span>
+          </p>
         </div>
         <div className="card-footer">
           <div className="row align-items-center">

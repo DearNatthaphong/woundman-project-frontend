@@ -1,32 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import CaseDetailHeader from './CaseDetailHeader';
+// import CaseDetailHeader from './CaseDetailHeader';
 import PatientDetail from './PatientDetail';
 import AppointmentContainer from './AppointmentContainer';
 import TreatmentContainer from './TreatmentContainer';
 import CaseDetail from './CaseDetail';
 import * as caseService from '../../api/caseApi';
 import { useParams } from 'react-router-dom';
+import Spinner from '../../components/ui/Spinner';
 
 function CaseDetailContainer() {
   const { id: caseId } = useParams();
   const [caseData, setCaseData] = useState([]);
-
-  const getCaseByID = async (caseId) => {
-    const res = await caseService.getCaseById(caseId);
-    // console.log('res.data : ', res.data);
-    // console.log('caseId : ', caseId);
-    setCaseData(res.data.caseData);
-  };
+  const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
     const fetchCaseById = async (caseId) => {
       try {
         // startLoading();
-        getCaseByID(caseId);
+        const caseDataRes = await caseService.getCaseById(caseId);
+        setCaseData(caseDataRes.data.caseData);
       } catch (err) {
         console.log(err);
       } finally {
         // stopLoading();
+        setInitialLoading(false);
       }
     };
 
@@ -40,6 +37,8 @@ function CaseDetailContainer() {
     );
     setCaseData(newCases);
   };
+
+  if (initialLoading) return <Spinner />;
 
   return (
     <div className="container-fluid">
